@@ -103,7 +103,14 @@ Vex.Flow.Glyph = (function() {
 
   /* Static methods used to implement loading / unloading of glyphs */
   Glyph.loadMetrics = function(font, code, cache) {
-    var glyph = font.glyphs[code];
+    var glyph;
+    if (code[0] === "v"){
+      glyph = font.glyphs[code];
+    } else {
+      var gonvilleData = Vex.Flow.SMuFLGonvilleMap[code];
+      glyph = font.glyphs[gonvilleData.code];
+    }
+
     if (!glyph) throw new Vex.RuntimeError("BadGlyph", "Glyph " + code +
         " does not exist in font.");
 

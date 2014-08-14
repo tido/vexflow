@@ -17,12 +17,12 @@ Vex.Flow.TimeSignature = (function() {
 
   TimeSignature.glyphs = {
     "C": {
-      code: "v41",
+      code: "timeSigCommon",
       point: 40,
       line: 2
     },
     "C|": {
-      code: "vb6",
+      code: "timeSigCutCommon",
       point: 40,
       line: 2
     }
@@ -94,7 +94,7 @@ Vex.Flow.TimeSignature = (function() {
     },
 
     makeTimeSignatureGlyph: function(topNums, botNums) {
-      var glyph = new Vex.Flow.Glyph("v0", this.point);
+      var glyph = new Vex.Flow.Glyph("timeSig0", this.point);
       glyph["topGlyphs"] = [];
       glyph["botGlyphs"] = [];
 
@@ -102,7 +102,7 @@ Vex.Flow.TimeSignature = (function() {
       var i, num;
       for (i = 0; i < topNums.length; ++i) {
         num = topNums[i];
-        var topGlyph = new Vex.Flow.Glyph("v" + num, this.point);
+        var topGlyph = new Vex.Flow.Glyph("timeSig" + num, this.point);
 
         glyph.topGlyphs.push(topGlyph);
         topWidth += topGlyph.getMetrics().width;
@@ -111,7 +111,7 @@ Vex.Flow.TimeSignature = (function() {
       var botWidth = 0;
       for (i = 0; i < botNums.length; ++i) {
         num = botNums[i];
-        var botGlyph = new Vex.Flow.Glyph("v" + num, this.point);
+        var botGlyph = new Vex.Flow.Glyph("timeSig" + num, this.point);
 
         glyph.botGlyphs.push(botGlyph);
         botWidth += botGlyph.getMetrics().width;

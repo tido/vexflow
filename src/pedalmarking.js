@@ -17,16 +17,8 @@ Vex.Flow.PedalMarking = (function() {
 
   // Glyph data
   PedalMarking.GLYPHS = {
-    "pedal_depress": {
-      code: "v36",
-      x_shift:-10,
-      y_shift:0
-    },
-    "pedal_release": {
-      code: "v5d",
-      x_shift:-2,
-      y_shift:3
-    },
+    "pedal_depress": "keyboardPedalPed",
+    "pedal_release": "keyboardPedalUp"
   };
 
   PedalMarking.Styles = {
@@ -250,7 +242,8 @@ Vex.Flow.PedalMarking = (function() {
   // at the coordinates `x` and `y. Takes into account the glyph data
   // coordinate shifts.
   function drawPedalGlyph(name, context, x, y, point) {
-    var glyph_data = PedalMarking.GLYPHS[name];
+    var smuflName = PedalMarking.GLYPHS[name];
+    var glyph_data = Vex.Flow.SMuFLGonvilleMap[smuflName];
     var glyph = new Vex.Flow.Glyph(glyph_data.code, point);
     glyph.render(context, x + glyph_data.x_shift, y + glyph_data.y_shift);
   }

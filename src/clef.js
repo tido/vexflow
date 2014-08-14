@@ -19,47 +19,47 @@ Vex.Flow.Clef = (function() {
   // and a default stave line number.
   Clef.types = {
     "treble": {
-      code: "v83",
+      code: "gClef",
       line: 3
     },
     "bass": {
-      code: "v79",
+      code: "fClef",
       line: 1
     },
     "alto": {
-      code: "vad",
+      code: "cClef",
       line: 2
     },
     "tenor": {
-      code: "vad",
+      code: "cClef",
       line: 1
     },
     "percussion": {
-      code: "v59",
+      code: "unpitchedPercussionClef1",
       line: 2
     },
     "soprano": {
-      code: "vad",
+      code: "cClef",
       line: 4
     },
     "mezzo-soprano": {
-      code: "vad",
+      code: "cClef",
       line: 3
     },
     "baritone-c": {
-      code: "vad",
+      code: "cClef",
       line: 0
     },
     "baritone-f": {
-      code: "v79",
+      code: "fClef",
       line: 2
     },
     "subbass": {
-      code: "v79",
+      code: "fClef",
       line: 0
     },
     "french": {
-      code: "v83",
+      code: "gClef",
       line: 4
     },
   };
@@ -73,7 +73,7 @@ Vex.Flow.Clef = (function() {
   // Annotations attach to clefs -- such as "8" for octave up or down.
   Clef.annotations = {
     "8va": {
-      code: "v8",
+      code: "timeSig8",
       sizes: {
         "default": {
           point: 20,
@@ -96,7 +96,7 @@ Vex.Flow.Clef = (function() {
       }
     },
     "8vb": {
-      code: "v8",
+      code: "timeSig8",
       sizes: {
         "default": {
           point: 20,

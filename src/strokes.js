@@ -128,20 +128,20 @@ Vex.Flow.Stroke = (function() {
       var arrow, arrow_shift_x, arrow_y, text_shift_x, text_y;
       switch (this.type) {
         case Stroke.Type.BRUSH_DOWN:
-          arrow = "vc3";
+          arrow = "arrowheadBlackUp";
           arrow_shift_x = -3;
           arrow_y = topY - (line_space / 2) + 10;
           botY += (line_space / 2);
           break;
         case Stroke.Type.BRUSH_UP:
-          arrow = "v11";
+          arrow = "arrowheadBlackDown";
           arrow_shift_x = 0.5;
           arrow_y = botY + (line_space / 2);
           topY -= (line_space / 2);
           break;
         case Stroke.Type.ROLL_DOWN:
         case Stroke.Type.RASQUEDO_DOWN:
-          arrow = "vc3";
+          arrow = "arrowheadBlackUp";
           arrow_shift_x = -3;
           text_shift_x = this.x_shift + arrow_shift_x - 2;
           if (this.note instanceof Vex.Flow.StaveNote) {
@@ -162,7 +162,7 @@ Vex.Flow.Stroke = (function() {
           break;
         case Stroke.Type.ROLL_UP:
         case Stroke.Type.RASQUEDO_UP:
-          arrow = "v52";
+          arrow = "wiggleArpeggiatoUpArrow";
           arrow_shift_x = -4;
           text_shift_x = this.x_shift + arrow_shift_x - 1;
           if (this.note instanceof Vex.Flow.StaveNote) {
@@ -191,13 +191,13 @@ Vex.Flow.Stroke = (function() {
           for (i = topY; i <= botY; i += line_space) {
             Vex.Flow.renderGlyph(this.context, x + this.x_shift - 4,
                                  i,
-                                 this.render_options.font_scale, "va3");
+                                 this.render_options.font_scale, "wiggleArpeggiatoDown");
           }
         } else {
           for (i = topY; i <= botY; i+= 10) {
             Vex.Flow.renderGlyph(this.context, x + this.x_shift - 4,
                                  i,
-                                 this.render_options.font_scale, "va3");
+                                 this.render_options.font_scale, "wiggleArpeggiatoDown");
           }
           if (this.type == Vex.Flow.Stroke.Type.RASQUEDO_DOWN)
             text_y = i + 0.25 * line_space;

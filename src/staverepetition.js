@@ -91,7 +91,7 @@ Vex.Flow.Repetition = (function() {
 
       var y = stave.getYForTopText(stave.options.num_lines) + this.y_shift;
       Vex.Flow.renderGlyph(stave.context, this.x + x + this.x_shift,
-                           y + 25, 40, "v4d", true);
+                           y + 25, 40, "coda", true);
       return this;
     },
 
@@ -100,7 +100,7 @@ Vex.Flow.Repetition = (function() {
           "Can't draw stave without canvas context.");
       var y = stave.getYForTopText(stave.options.num_lines) + this.y_shift;
       Vex.Flow.renderGlyph(stave.context, this.x + x + this.x_shift,
-                           y + 25, 30, "v8c", true);
+                           y + 25, 30, "segno", true);
       return this;
     },
 
@@ -125,7 +125,7 @@ Vex.Flow.Repetition = (function() {
       }
       var y = stave.getYForTopText(stave.options.num_lines) + this.y_shift;
       if (draw_coda) {
-        Vex.Flow.renderGlyph(ctx, symbol_x, y, 40, "v4d", true);
+        Vex.Flow.renderGlyph(ctx, symbol_x, y, 40, "coda", true);
       }
 
       ctx.fillText(text, text_x, y + 5);

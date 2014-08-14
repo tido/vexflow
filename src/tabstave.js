@@ -52,7 +52,7 @@ Vex.Flow.TabStave = (function() {
           break;
       }
 
-      var tabGlyph = new Vex.Flow.Glyph("v2f", glyphScale);
+      var tabGlyph = new Vex.Flow.Glyph("6stringTabClef", glyphScale);
       tabGlyph.y_shift = glyphOffset;
       this.addGlyph(tabGlyph);
       return this;

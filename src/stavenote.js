@@ -312,7 +312,7 @@ Vex.Flow.StaveNote = (function() {
       var glyph = this.getGlyph();
 
       var y_extend = 0;
-      if (glyph.code_head == "v95" || glyph.code_head == "v3e") {
+      if (glyph.code_head == "noteheadXHalf" || glyph.code_head == "noteheadXBlack") {
          y_extend = -4;
       }
 

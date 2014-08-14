@@ -1,22 +1,26 @@
 //Using SMuFL naming
 
-var SMuFLToGonvilleMap = {
+Vex.Flow.SMuFLGonvilleMap = {
+  // STAFF BRACKETS AND DIVIDERS
+  "bracketTop": {
+    code: "v1b",
+  },
+  "bracketBottom": {
+    code: "v10"
+  },
+
   // CLEFS
   "gClef": {
-    code: "v83",
-    line: 3
+    code: "v83"
   },
   "fClef": {
-    code: "v79",
-    line: 1
+    code: "v79"
   },
   "cClef": {
-    code: "vad",
-    line: 2
+    code: "vad"
   },
   "unpitchedPercussionClef1": {
-    code: "v59",
-    line: 2
+    code: "v59"
   },
   "6stringTabClef": {
     code: "v2f"
@@ -315,7 +319,7 @@ var SMuFLToGonvilleMap = {
     shift_right: 0,
     shift_down: 0
   },
-  "accidentlaDoubleFlat": {
+  "accidentalDoubleFlat": {
     code: "v26",
     width: 14,
     gracenote_width: 8,
@@ -408,7 +412,7 @@ var SMuFLToGonvilleMap = {
     between_lines: true
   },
   "articMarcatoAbove": {   // Marcato
-    code: "v5a",
+    code: "va",
     width: 8,
     shift_right: 0,
     shift_up: -4,
@@ -433,7 +437,7 @@ var SMuFLToGonvilleMap = {
   },
 
   // STRING TECHNIQUES
-  "stringsDownBow": {   // Bow up - up stroke
+  "stringsUpBow": {   // Bow up - up stroke
     code: "v75",
     width: 8,
     shift_right: 0,
@@ -569,7 +573,7 @@ var SMuFLToGonvilleMap = {
     code: "v52"
   },
   "wiggleArpeggiatoUpArrow":{
-    code: "v52"
+    code: "vc3"
   },
 
   //ARROWS AND ARROWHEADS

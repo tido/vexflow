@@ -103,6 +103,7 @@ Vex.Flow.Test.Accidental.basic = function(options, contextBuilder) {
     ok(accidentals.length > 0, "Note " + i + " has accidentals");
 
     for (var j = 0; j < accidentals.length; ++j) {
+      debugger;
       ok(accidentals[j].width > 0, "Accidental " + j + " has set width");
     }
   }

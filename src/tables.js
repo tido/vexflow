@@ -152,7 +152,7 @@ Vex.Flow.keyProperties.note_values = {
     index: 6,
     accidental: "",
     octave: 4,
-    code: "v3e",
+    code: "noteheadXBlack",
     shift_right: 5.5
   }
 };
@@ -215,7 +215,7 @@ Vex.Flow.tabToGlyph = function(fret) {
   var shift_y = 0;
 
   if (fret.toString().toUpperCase() == "X") {
-    glyph = "v7f";
+    glyph = "noteheadXOrnate";
     width = 7;
     shift_y = -4.5;
   } else {
@@ -235,296 +235,65 @@ Vex.Flow.textWidth = function(text) {
 };
 
 Vex.Flow.articulationCodes = function(artic) {
-  return Vex.Flow.articulationCodes.articulations[artic];
+  var smuflName = Vex.Flow.articulationCodes.articulations[artic];
+  return Vex.Flow.SMuFLGonvilleMap[smuflName];
 };
 
 Vex.Flow.articulationCodes.articulations = {
-  "a.": {   // Staccato
-    code: "v23",
-    width: 4,
-    shift_right: -2,
-    shift_up: 8,
-    shift_down: 0,
-    between_lines: true
-  },
-  "av": {   // Staccatissimo
-    code: "v28",
-    width: 4,
-    shift_right: 0,
-    shift_up: 11,
-    shift_down: 5,
-    between_lines: true
-  },
-  "a>": {   // Accent
-    code: "v42",
-    width: 10,
-    shift_right: 5,
-    shift_up: 8,
-    shift_down: 1,
-    between_lines: true
-  },
-  "a-": {   // Tenuto
-    code: "v25",
-    width: 9,
-    shift_right: -4,
-    shift_up: 17,
-    shift_down: 10,
-    between_lines: true
-  },
-  "a^": {   // Marcato
-    code: "va",
-    width: 8,
-    shift_right: 0,
-    shift_up: -4,
-    shift_down: -2,
-    between_lines: false
-  },
-  "a+": {   // Left hand pizzicato
-    code: "v8b",
-    width: 9,
-    shift_right: -4,
-    shift_up: 12,
-    shift_down: 12,
-    between_lines: false
-  },
-  "ao": {   // Snap pizzicato
-    code: "v94",
-    width: 8,
-    shift_right: 0,
-    shift_up: -4,
-    shift_down: 6,
-    between_lines: false
-  },
-  "ah": {   // Natural harmonic or open note
-    code: "vb9",
-    width: 7,
-    shift_right: 0,
-    shift_up: -4,
-    shift_down: 4,
-    between_lines: false
-  },
-  "a@a": {   // Fermata above staff
-    code: "v43",
-    width: 25,
-    shift_right: 0,
-    shift_up: 8,
-    shift_down: 10,
-    between_lines: false
-  },
-  "a@u": {   // Fermata below staff
-    code: "v5b",
-    width: 25,
-    shift_right: 0,
-    shift_up: 0,
-    shift_down: -4,
-    between_lines: false
-  },
-  "a|": {   // Bow up - up stroke
-    code: "v75",
-    width: 8,
-    shift_right: 0,
-    shift_up: 8,
-    shift_down: 10,
-    between_lines: false
-  },
-  "am": {   // Bow down - down stroke
-    code: "v97",
-    width: 13,
-    shift_right: 0,
-    shift_up: 10,
-    shift_down: 12,
-    between_lines: false
-  },
-  "a,": {   // Choked
-    code: "vb3",
-    width: 6,
-    shift_right: 8,
-    shift_up: -4,
-    shift_down: 4,
-    between_lines: false
-  }
+  "a.": "articStaccatoAbove", // Staccato
+  "av": "articStaccatissimoAbove", // Staccatissimo
+  "a>": "articAccentAbove", // Accent
+  "a-": "articTenutoAbove", // Tenuto
+  "a^": "articMarcatoAbove", // Marcato
+  "a+": "pluckedLeftHandPizzicato", // Left hand pizzicato
+  "ao": "pluckedSnapPizzicatoAbove", // Snap pizzicato
+  "ah": "stringsHarmonic", // Natural harmonic or open note
+  "a@a": "fermataAbove" ,  // Fermata above staff
+  "a@u": "fermataBelow",   // Fermata below staff
+  "a|": "stringsUpBow", // Bow up - up stroke
+  "am": "stringsDownBow", // Bow down - down stroke
+  "a,": "breathMarkComma" // Choked
 };
 
 Vex.Flow.accidentalCodes = function(acc) {
-  return Vex.Flow.accidentalCodes.accidentals[acc];
+  var smufl = Vex.Flow.accidentalCodes.accidentals[acc];
+  return Vex.Flow.SMuFLGonvilleMap[smufl];
 };
 
 Vex.Flow.accidentalCodes.accidentals = {
-  "#": {
-    code: "v18",
-    width: 10,
-    gracenote_width: 4.5,
-    shift_right: 0,
-    shift_down: 0
-  },
-  "##": {
-    code: "v7f",
-    width: 13,
-    gracenote_width: 6,
-    shift_right: -1,
-    shift_down: 0
-  },
-  "b": {
-    code: "v44",
-    width: 8,
-    gracenote_width: 4.5,
-    shift_right: 0,
-    shift_down: 0
-  },
-  "bb": {
-    code: "v26",
-    width: 14,
-    gracenote_width: 8,
-    shift_right: -3,
-    shift_down: 0
-  },
-  "n": {
-    code: "v4e",
-    width: 8,
-    gracenote_width: 4.5,
-    shift_right: 0,
-    shift_down: 0
-  },
-  "{": {   // Left paren for cautionary accidentals
-    code: "v9c",
-    width: 5,
-    shift_right: 2,
-    shift_down: 0
-  },
-  "}": {   // Right paren for cautionary accidentals
-    code: "v84",
-    width: 5,
-    shift_right: 0,
-    shift_down: 0
-  },
-  "db": {
-    code: "v9e",
-    width: 16,
-    shift_right: 0,
-    shift_down: 0
-  },
-  "d": {
-    code: "vab",
-    width: 10,
-    shift_right: 0,
-    shift_down: 0
-  },
-  "bbs": {
-    code: "v90",
-    width: 13,
-    shift_right: 0,
-    shift_down: 0
-  },
-  "++": {
-    code: "v51",
-    width: 13,
-    shift_right: 0,
-    shift_down: 0
-  },
-  "+": {
-    code: "v78",
-    width: 8,
-    shift_right: 0,
-    shift_down: 0
-  }
+  "#": "accidentalSharp",
+  "##": "accidentalDoubleSharp",
+  "b": "accidentalFlat",
+  "bb": "accidentalDoubleFlat",
+  "n": "accidentalNatural",
+  "{": "accidentalParensLeft",
+  "}": "accidentalParensRight",
+  "db": "accidentalThreeQuarterTonesFlatZimmermann",
+  "d": "accidentalQuarterToneFlatStein",
+  "bbs": "bbs",
+  "++": "accidentalThreeQuarterTonesSharpStein",
+  "+": "accidentalQuarterToneSharpStein"
 };
 
 Vex.Flow.ornamentCodes = function(acc) {
-  return Vex.Flow.ornamentCodes.ornaments[acc];
+  var smufl =  Vex.Flow.ornamentCodes.ornaments[acc];
+  return Vex.Flow.SMuFLGonvilleMap[smufl];
 };
 
 Vex.Flow.ornamentCodes.ornaments = {
-  "mordent": {
-    code: "v1e",
-    shift_right: 1,
-    shift_up: 0,
-    shift_down: 5,
-    width: 14,
-  },
-  "mordent_inverted": {
-    code: "v45",
-    shift_right: 1,
-    shift_up: 0,
-    shift_down: 5,
-    width: 14,
-  },
-  "turn": {
-    code: "v72",
-    shift_right: 1,
-    shift_up: 0,
-    shift_down: 5,
-    width: 20,
-  },
-  "turn_inverted": {
-    code: "v33",
-    shift_right: 1,
-    shift_up: 0,
-    shift_down: 6,
-    width: 20,
-  },
-  "tr": {
-    code: "v1f",
-    shift_right: 0,
-    shift_up: 5,
-    shift_down: 15,
-    width: 10,
-  },
-  "upprall": {
-    code: "v60",
-    shift_right: 1,
-    shift_up: -3,
-    shift_down: 6,
-    width: 20,
-  },
-  "downprall": {
-    code: "vb4",
-    shift_right: 1,
-    shift_up: -3,
-    shift_down: 6,
-    width: 20,
-  },
-  "prallup": {
-    code: "v6d",
-    shift_right: 1,
-    shift_up: -3,
-    shift_down: 6,
-    width: 20,
-  },
-  "pralldown": {
-    code: "v2c",
-    shift_right: 1,
-    shift_up: -3,
-    shift_down: 6,
-    width: 20,
-  },
-  "upmordent": {
-    code: "v29",
-    shift_right: 1,
-    shift_up: -3,
-    shift_down: 6,
-    width: 20,
-  },
-  "downmordent": {
-    code: "v68",
-    shift_right: 1,
-    shift_up: -3,
-    shift_down: 6,
-    width: 20,
-  },
-  "lineprall": {
-    code: "v20",
-    shift_right: 1,
-    shift_up: -3,
-    shift_down: 6,
-    width: 20,
-  },
-  "prallprall": {
-    code: "v86",
-    shift_right: 1,
-    shift_up: -3,
-    shift_down: 6,
-    width: 20,
-  }
+  "mordent": "ornamentMordent",
+  "mordent_inverted": "ornamentMordentInverted",
+  "turn": "ornamentTurn",
+  "turn_inverted": "ornamentTurnSlash",
+  "tr": "ornamentTrill",
+  "upprall": "ornamentPrecompSlideTrillDAnglebert",
+  "downprall": "ornamentPrecompMordentUpperPrefix",
+  "prallup": "ornamentPrecompTrillSuffixDandrieu",
+  "pralldown": "ornamentPrecompTrillLowerSuffx",
+  "upmordent": "ornamentPrecompPortDeVoixMordent",
+  "downmordent": "ornamentPrecompInvertedMordentUpperPrefix",
+  "lineprall": "ornamentPrecompAppoggTrill",
+  "prallprall": "ornamentTremblement"
 };
 
 Vex.Flow.keySignature = function(spec) {
@@ -797,17 +566,17 @@ Vex.Flow.durationToGlyph.duration_codes = {
     },
     type: {
       "n": { // Breve note
-        code_head: "v53"
+        code_head: "noteheadDoubleWhole"
       },
       "h": { // Breve note harmonic
-        code_head: "v59"
+        code_head: "noteheadDiamondDoubleWhole"
       },
       "m": { // Breve note muted -
-        code_head: "vf",
+        code_head: "noteheadXDoubleWhole",
         stem_offset: 0
       },
       "r": { // Breve rest
-        code_head: "v31",
+        code_head: "restDoubleWhole",
         head_width: 24,
         rest: true,
         position: "B/5",
@@ -838,17 +607,17 @@ Vex.Flow.durationToGlyph.duration_codes = {
     },
     type: {
       "n": { // Whole note
-        code_head: "v1d"
+        code_head: "noteheadWhole"
       },
       "h": { // Whole note harmonic
-        code_head: "v46"
+        code_head: "noteheadDiamondWhole"
       },
       "m": { // Whole note muted
-        code_head: "v92",
+        code_head: "noteheadXWhole",
         stem_offset: -3
       },
       "r": { // Whole rest
-        code_head: "v5c",
+        code_head: "restWhole",
         head_width: 12,
         rest: true,
         position: "D/5",
@@ -879,17 +648,17 @@ Vex.Flow.durationToGlyph.duration_codes = {
     },
     type: {
       "n": { // Half note
-        code_head: "v81"
+        code_head: "noteheadHalf"
       },
       "h": { // Half note harmonic
-        code_head: "v2d"
+        code_head: "noteheadDiamondHalf"
       },
       "m": { // Half note muted
-        code_head: "v95",
+        code_head: "noteheadXHalf",
         stem_offset: -3
       },
       "r": { // Half rest
-        code_head: "vc",
+        code_head: "restHalf",
         head_width: 12,
         stem: false,
         rest: true,
@@ -921,17 +690,17 @@ Vex.Flow.durationToGlyph.duration_codes = {
     },
     type: {
       "n": { // Quarter note
-        code_head: "vb"
+        code_head: "noteheadBlack"
       },
       "h": { // Quarter harmonic
-        code_head: "v22"
+        code_head: "noteheadDiamondBlack"
       },
       "m": { // Quarter muted
-        code_head: "v3e",
+        code_head: "noteheadXBlack",
         stem_offset: -3
       },
       "r": { // Quarter rest
-        code_head: "v7c",
+        code_head: "restQuarter",
         head_width: 8,
         stem: false,
         rest: true,
@@ -954,8 +723,8 @@ Vex.Flow.durationToGlyph.duration_codes = {
       stem_offset: 0,
       flag: true,
       beam_count: 1,
-      code_flag_upstem: "v54",
-      code_flag_downstem: "v9a",
+      code_flag_upstem: "flag8thUp",
+      code_flag_downstem: "flag8thDown",
       stem_up_extension: 0,
       stem_down_extension: 0,
       gracenote_stem_up_extension: -14,
@@ -968,16 +737,16 @@ Vex.Flow.durationToGlyph.duration_codes = {
     },
     type: {
       "n": { // Eighth note
-        code_head: "vb"
+        code_head: "noteheadBlack"
       },
       "h": { // Eighth note harmonic
-        code_head: "v22"
+        code_head: "noteheadDiamondBlack"
       },
       "m": { // Eighth note muted
-        code_head: "v3e"
+        code_head: "noteheadXBlack"
       },
       "r": { // Eighth rest
-        code_head: "va5",
+        code_head: "rest8th",
         stem: false,
         flag: false,
         rest: true,
@@ -1000,8 +769,8 @@ Vex.Flow.durationToGlyph.duration_codes = {
       stem: true,
       stem_offset: 0,
       flag: true,
-      code_flag_upstem: "v3f",
-      code_flag_downstem: "v8f",
+      code_flag_upstem: "flag16thUp",
+      code_flag_downstem: "flag16thDown",
       stem_up_extension: 4,
       stem_down_extension: 0,
       gracenote_stem_up_extension: -14,
@@ -1014,16 +783,16 @@ Vex.Flow.durationToGlyph.duration_codes = {
     },
     type: {
       "n": { // Sixteenth note
-        code_head: "vb"
+        code_head: "noteheadBlack"
       },
       "h": { // Sixteenth note harmonic
-        code_head: "v22"
+        code_head: "noteheadDiamondBlack"
       },
       "m": { // Sixteenth note muted
-        code_head: "v3e"
+        code_head: "noteheadXBlack"
       },
       "r": { // Sixteenth rest
-        code_head: "v3c",
+        code_head: "rest16th",
         head_width: 13,
         stem: false,
         flag: false,
@@ -1047,8 +816,8 @@ Vex.Flow.durationToGlyph.duration_codes = {
       stem: true,
       stem_offset: 0,
       flag: true,
-      code_flag_upstem: "v47",
-      code_flag_downstem: "v2a",
+      code_flag_upstem: "flag32ndUp",
+      code_flag_downstem: "flag32ndDown",
       stem_up_extension: 13,
       stem_down_extension: 9,
       gracenote_stem_up_extension: -12,
@@ -1061,16 +830,16 @@ Vex.Flow.durationToGlyph.duration_codes = {
     },
     type: {
       "n": { // Thirty-second note
-        code_head: "vb"
+        code_head: "noteheadBlack"
       },
       "h": { // Thirty-second harmonic
-        code_head: "v22"
+        code_head: "noteheadDiamondBlack"
       },
       "m": { // Thirty-second muted
-        code_head: "v3e"
+        code_head: "noteheadXBlack"
       },
       "r": { // Thirty-second rest
-        code_head: "v55",
+        code_head: "rest32nd",
         head_width: 16,
         stem: false,
         flag: false,
@@ -1094,8 +863,8 @@ Vex.Flow.durationToGlyph.duration_codes = {
       stem: true,
       stem_offset: 0,
       flag: true,
-      code_flag_upstem: "va9",
-      code_flag_downstem: "v58",
+      code_flag_upstem: "flag64thUp",
+      code_flag_downstem: "flag64thDown",
       stem_up_extension: 17,
       stem_down_extension: 13,
       gracenote_stem_up_extension: -10,
@@ -1108,16 +877,16 @@ Vex.Flow.durationToGlyph.duration_codes = {
     },
     type: {
       "n": { // Sixty-fourth note
-        code_head: "vb"
+        code_head: "noteheadBlack"
       },
       "h": { // Sixty-fourth harmonic
-        code_head: "v22"
+        code_head: "noteheadDiamondBlack"
       },
       "m": { // Sixty-fourth muted
-        code_head: "v3e"
+        code_head: "noteheadXBlack"
       },
       "r": { // Sixty-fourth rest
-        code_head: "v38",
+        code_head: "rest64th",
         head_width: 18,
         stem: false,
         flag: false,
@@ -1141,8 +910,8 @@ Vex.Flow.durationToGlyph.duration_codes = {
           stem: true,
           stem_offset:0,
           flag: true,
-          code_flag_upstem: "v9b",
-          code_flag_downstem: "v30",
+          code_flag_upstem: "flag128thUp",
+          code_flag_downstem: "flag128thDown",
           stem_up_extension: 26,
           stem_down_extension: 22,
           gracenote_stem_up_extension: -8,
@@ -1155,16 +924,16 @@ Vex.Flow.durationToGlyph.duration_codes = {
       },
       type: {
           "n": {  // Hundred-twenty-eight note
-              code_head: "vb"
+              code_head: "noteheadBlack"
           },
           "h": { // Hundred-twenty-eight harmonic
-              code_head: "v22"
+              code_head: "noteheadDiamondBlack"
           },
           "m": { // Hundred-twenty-eight muted
-              code_head: "v3e"
+              code_head: "noteheadXBlack"
           },
           "r": {  // Hundred-twenty-eight rest
-              code_head: "vaa",
+              code_head: "rest128th",
               head_width: 20,
               stem: false,
               flag: false,
