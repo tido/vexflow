@@ -20,7 +20,7 @@ Vex.Flow.Tremolo = (function() {
       this.note = null;
       this.index = null;
       this.position = Modifier.Position.CENTER;
-      this.code = "v74";
+      this.code = "graceNoteSlashStemUp";
       this.shift_right = -2;
       this.y_spacing = 4;
 

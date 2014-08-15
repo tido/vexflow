@@ -114,14 +114,14 @@ Vex.Flow.Tuplet = (function() {
       this.num_glyphs = [];
       var n = this.num_notes;
       while (n >= 1) {
-        this.num_glyphs.push(new Vex.Flow.Glyph("v" + (n % 10), this.point));
+        this.num_glyphs.push(new Vex.Flow.Glyph("timeSig" + (n % 10), this.point));
         n = parseInt(n / 10, 10);
       }
 
       this.denom_glyphs = [];
       n = this.beats_occupied;
       while (n >= 1) {
-        this.denom_glyphs.push(new Vex.Flow.Glyph("v" + (n % 10), this.point));
+        this.denom_glyphs.push(new Vex.Flow.Glyph("timeSig" + (n % 10), this.point));
         n = parseInt(n / 10, 10);
       }
     },

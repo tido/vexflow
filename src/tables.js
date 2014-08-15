@@ -159,22 +159,22 @@ Vex.Flow.keyProperties.note_values = {
 
 Vex.Flow.keyProperties.note_glyph = {
   /* Diamond */
-  'D0':  { code: "v27", shift_right: -0.5 },
-  'D1':  { code: "v2d", shift_right: -0.5 },
-  'D2':  { code: "v22", shift_right: -0.5 },
-  'D3':  { code: "v70", shift_right: -0.5 },
+  'D0':  { code: "noteheadDiamondWhole", shift_right: -0.5 },
+  'D1':  { code: "noteheadDiamondHalf", shift_right: -0.5 },
+  'D2':  { code: "noteheadBlack", shift_right: -0.5 },
+  'D3':  { code: "noteheadBlack", shift_right: -0.5 },
 
   /* Triangle */
-  'T0':  { code: "v49", shift_right: -2 },
-  'T1':  { code: "v93", shift_right: 0.5 },
-  'T2':  { code: "v40", shift_right: 0.5 },
-  'T3':  { code: "v7d", shift_right: 0.5 },
+  'T0':  { code: "noteheadTriangleUpWhole", shift_right: -2 },
+  'T1':  { code: "noteheadTriangleUpHalf", shift_right: 0.5 },
+  'T2':  { code: "noteheadTriangleUpBlack", shift_right: 0.5 },
+  'T3':  { code: "noteheadTriangleUpBlack", shift_right: 0.5 },
 
   /* Cross */
-  'X0':  { code: "v92", shift_right: -2 },
-  'X1':  { code: "v95", shift_right: -0.5 },
-  'X2':  { code: "v7f", shift_right: 0.5 },
-  'X3':  { code: "v3b", shift_right: -2 }
+  'X0':  { code: "noteheadXWhole", shift_right: -2 },
+  'X1':  { code: "noteheadXHalf", shift_right: -0.5 },
+  'X2':  { code: "noteheadXOrnate", shift_right: 0.5 },
+  'X3':  { code: "noteheadCircleX", shift_right: -2 }
 };
 
 Vex.Flow.integerToNote = function(integer) {

@@ -93,6 +93,17 @@ Vex.Flow.SMuFLGonvilleMap = {
     code: "v22",
   },
 
+  //TRIANGLE
+  "noteheadTriangleUpWhole":{
+    code: "v49"
+  },
+  "noteheadTriangleUpHalf":{
+    code: "v93"
+  },
+  "noteheadTriangleUpBlack": {
+    code: "v40"
+  },
+
   // X
   "noteheadXDoubleWhole": {
     code: "v53", // Standard breve, no X double whole in gonville?
@@ -296,6 +307,9 @@ Vex.Flow.SMuFLGonvilleMap = {
     shift_down: 6,
     width: 20,
   },
+  "graceNoteSlashStemUp":{
+    code: "v74"
+  },
 
   // ACCIDENTALS
   "accidentalSharp": {
@@ -493,7 +507,11 @@ Vex.Flow.SMuFLGonvilleMap = {
     point:40,
     x_shift:0,
     y_shift:0,
-    width: 10
+    width: 10,
+    shift_right: 8,
+    shift_up: -4,
+    shift_down: 4,
+    between_lines: false
   },
   "breathMarkTick": {
     code: "v6f",
