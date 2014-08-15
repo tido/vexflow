@@ -20,6 +20,7 @@ Vex.Flow.Stem = (function() {
   // Theme
   Stem.WIDTH = Vex.Flow.STEM_WIDTH;
   Stem.HEIGHT = Vex.Flow.STEM_HEIGHT;
+  Stem.HEIGHT_GRACENOTE = Vex.Flow.STEM_HEIGHT_GRACENOTE;
 
   // ## Prototype Methods
   Stem.prototype = {
@@ -39,6 +40,9 @@ Vex.Flow.Stem = (function() {
 
       // Direction of the stem
       this.stem_direction = options.stem_direction || 0;
+
+      // Is a gracenote stem?
+      this.gracenote = options.gracenote || false;
 
       // Flag to override all draw calls
       this.hide = false;
@@ -71,8 +75,9 @@ Vex.Flow.Stem = (function() {
 
     // Gets the entire height for the stem
     getHeight: function() {
+      var height = this.gracenote ? Stem.HEIGHT_GRACENOTE : Stem.HEIGHT;
       return ((this.y_bottom - this.y_top) * this.stem_direction) +
-             ((Stem.HEIGHT + this.stem_extension) * this.stem_direction);
+             ((height + this.stem_extension) * this.stem_direction);
     },
 
     getBoundingBox: function() {

@@ -312,7 +312,7 @@ Vex.Flow.StaveNote = (function() {
       var glyph = this.getGlyph();
 
       var y_extend = 0;
-      if (glyph.glyphName == "noteheadXHalf" || glyph.glyphName == "noteheadXBlack") {
+      if (glyph.glyph_name == "noteheadXHalf" || glyph.glyph_name == "noteheadXBlack") {
          y_extend = -4;
       }
 
@@ -868,24 +868,24 @@ Vex.Flow.StaveNote = (function() {
 
       if (glyph.flag && render_flag) {
         var note_stem_height = this.stem.getHeight();
-        var flag_x, flag_y, flag_code;
+        var flag_x, flag_y, flag_glyph_name;
 
         if (this.getStemDirection() === Stem.DOWN) {
           // Down stems have flags on the left.
           flag_x = x_begin + 1;
           flag_y = bounds.y_top - note_stem_height + 2;
-          flag_code = glyph.code_flag_downstem;
+          flag_glyph_name = glyph.glyph_name_flag_down;
 
         } else {
           // Up stems have flags on the left.
           flag_x = x_end + 1;
           flag_y = bounds.y_bottom - note_stem_height - 2;
-          flag_code = glyph.code_flag_upstem;
+          flag_glyph_name = glyph.glyph_name_flag_up;
         }
 
         // Draw the Flag
         Vex.Flow.renderGlyph(ctx, flag_x, flag_y,
-            this.render_options.glyph_font_scale, flag_code);
+            this.render_options.glyph_font_scale, flag_glyph_name);
       }
     },
 

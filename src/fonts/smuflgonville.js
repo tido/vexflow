@@ -153,19 +153,23 @@ Vex.Flow.SMuFLGonvilleMap = {
   // Slash
   "noteheadSlashDoubleWhole": { // Doesn't exist in SMuFL
     code: null, //drawn with primitives
-    width: 15
+    width: 15,
+    stem_offset: 0
   },
   "noteheadSlashWhiteWhole": {
     code: null, // Drawn with canvas primitives
-    width: 15
+    width: 15,
+    stem_offset: 0
   },
   "noteheadSlashWhiteHalf": {
     code: null, // Drawn with canvas primitives
-    width: 15
+    width: 15,
+    stem_offset: 0
   },
   "noteheadSlashHorizontalEnds": {
     code: null, // Drawn with canvas primitives
-    width: 15
+    width: 15,
+    stem_offset: 0
   },
 
   // RESTS
@@ -210,61 +214,61 @@ Vex.Flow.SMuFLGonvilleMap = {
   "flag8thUp": {
     code: "v54",
     stem_up_extension: 0,
-    gracenote_stem_up_extension: -14,
+    gracenote_stem_up_extension: 0,
     tabnote_stem_up_extension: 0
   },
   "flag8thDown": {
     code: "v9a",
     stem_down_extension: 0,
-    gracenote_stem_down_extension: -14,
+    gracenote_stem_down_extension: 0,
     tabnote_stem_down_extension: 0
   },
   "flag16thUp": {
     code: "v3f",
     stem_up_extension: 4,
-    gracenote_stem_up_extension: -14,
+    gracenote_stem_up_extension: 0,
     tabnote_stem_up_extension: 0
   },
   "flag16thDown": {
     code: "v8f",
     stem_down_extension: 0,
-    gracenote_stem_down_extension: -14,
+    gracenote_stem_down_extension: 0,
     tabnote_stem_down_extension: 0
   },
   "flag32ndUp": {
     code: "v47",
     stem_up_extension: 13,
-    gracenote_stem_up_extension: -12,
+    gracenote_stem_up_extension: 2,
     tabnote_stem_up_extension: 9
   },
   "flag32ndDown": {
     code: "v2a",
     stem_down_extension: 9,
-    gracenote_stem_down_extension: -12,
+    gracenote_stem_down_extension: 2,
     tabnote_stem_down_extension: 5
   },
   "flag64thUp": {
     code: "va9",
     stem_up_extension: 17,
-    gracenote_stem_up_extension: -10,
+    gracenote_stem_up_extension: 4,
     tabnote_stem_up_extension: 13
   },
   "flag64thDown": {
     code: "v58",
     stem_down_extension: 13,
-    gracenote_stem_down_extension: -10,
+    gracenote_stem_down_extension: 4,
     tabnote_stem_down_extension: 9
   },
   "flag128thUp": {
     code: "v9b",
     stem_up_extension: 26,
-    gracenote_stem_up_extension: -8,
+    gracenote_stem_up_extension: 6,
     tabnote_stem_up_extension: 22
   },
   "flag128thDown": {
     code: "v30",
     stem_down_extension: 22,
-    gracenote_stem_down_extension: -8,
+    gracenote_stem_down_extension: 6,
     tabnote_stem_down_extension: 18
   },
 

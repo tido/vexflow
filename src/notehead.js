@@ -85,7 +85,7 @@ Vex.Flow.NoteHead = (function() {
             "' and type '" + this.note_type + "'");
       }
 
-      this.glyph_code = this.glyph.glyphName;
+      this.glyph_code = this.glyph.glyph_name;
       this.x_shift = head_options.x_shift;
       if (head_options.custom_glyph_code) {
         this.custom_glyph = true;

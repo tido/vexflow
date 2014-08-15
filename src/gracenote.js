@@ -15,6 +15,7 @@ Vex.Flow.GraceNote = (function() {
       this.slash = note_struct.slash;
       this.slur = true;
 
+      this.stem.gracenote = true;
       this.buildNoteHeads();
 
       this.width = 3;

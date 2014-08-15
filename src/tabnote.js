@@ -241,19 +241,19 @@ Vex.Flow.TabNote = (function() {
       if (this.glyph.flag && render_flag) {
         var flag_x = this.getStemX() + 1 ;
         var flag_y = this.getStemY() - (this.stem.getHeight());
-        var flag_code;
+        var flag_glyph_name;
 
         if (this.stem_direction == Stem.DOWN) {
           // Down stems have flags on the left.
-          flag_code = this.glyph.code_flag_downstem;
+          flag_glyph_name = this.glyph.glyph_name_flag_down;
         } else {
           // Up stems have flags on the left.
-          flag_code = this.glyph.code_flag_upstem;
+          flag_glyph_name = this.glyph.glyph_name_flag_up;
         }
 
         // Draw the Flag
         Vex.Flow.renderGlyph(this.context, flag_x, flag_y,
-            this.render_options.glyph_font_scale, flag_code);
+            this.render_options.glyph_font_scale, flag_glyph_name);
       }
     },
 
