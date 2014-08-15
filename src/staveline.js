@@ -184,7 +184,7 @@ Vex.Flow.StaveLine = (function() {
 
 
         // Adjust first `x` coordinates for displacements
-        var notehead_width = first_note.getGlyph().head_width;
+        var notehead_width = first_note.getGlyph().width;
         var first_displaced = first_note.getKeyProps()[first_index].displaced;
         if (first_displaced && first_note.getStemDirection() === 1) {
           start_position.x += notehead_width + render_options.padding_left;

@@ -235,24 +235,65 @@ Vex.Flow.textWidth = function(text) {
 };
 
 Vex.Flow.articulationCodes = function(artic) {
-  var smuflName = Vex.Flow.articulationCodes.articulations[artic];
-  return Vex.Flow.SMuFLGonvilleMap[smuflName];
+  var articulationMeta = Vex.Flow.articulationCodes.articulations[artic];
+  var smuflName = articulationMeta.glyphName;
+  var glyphData = Vex.Flow.SMuFLGonvilleMap[smuflName];
+  return Vex.Merge(articulationMeta, glyphData);
 };
 
 Vex.Flow.articulationCodes.articulations = {
-  "a.": "articStaccatoAbove", // Staccato
-  "av": "articStaccatissimoAbove", // Staccatissimo
-  "a>": "articAccentAbove", // Accent
-  "a-": "articTenutoAbove", // Tenuto
-  "a^": "articMarcatoAbove", // Marcato
-  "a+": "pluckedLeftHandPizzicato", // Left hand pizzicato
-  "ao": "pluckedSnapPizzicatoAbove", // Snap pizzicato
-  "ah": "stringsHarmonic", // Natural harmonic or open note
-  "a@a": "fermataAbove" ,  // Fermata above staff
-  "a@u": "fermataBelow",   // Fermata below staff
-  "a|": "stringsUpBow", // Bow up - up stroke
-  "am": "stringsDownBow", // Bow down - down stroke
-  "a,": "breathMarkComma" // Choked
+  "a.": {
+    glyphName: "articStaccatoAbove",
+    between_lines: true
+  },
+  "av": {
+    glyphName: "articStaccatissimoAbove",
+    between_lines: true
+  },
+  "a>": {
+    glyphName: "articAccentAbove",
+    between_lines: true
+  },
+  "a-": {
+    glyphName: "articTenutoAbove",
+    between_lines: true
+  },
+  "a^": {
+    glyphName: "articMarcatoAbove",
+    between_lines: false
+  },
+  "a+": {
+    glyphName: "pluckedLeftHandPizzicato",
+    between_lines: false
+  },
+  "ao": {
+    glyphName: "pluckedSnapPizzicatoAbove",
+    between_lines: false
+  },
+  "ah": {
+    glyphName: "stringsHarmonic",
+    between_lines: false
+  },
+  "a@a": {
+    glyphName: "fermataAbove",
+    between_lines: false
+  },
+  "a@u": {
+    glyphName: "fermataBelow",
+    between_lines: false
+  },
+  "a|": {
+    glyphName: "stringsUpBow",
+    between_lines: false
+  },
+  "am": {
+    glyphName: "stringsDownBow",
+    between_lines: false
+  },
+  "a,": {
+    glyphName: "breathMarkComma",
+    between_lines: false
+  }
 };
 
 Vex.Flow.accidentalCodes = function(acc) {
@@ -530,8 +571,8 @@ Vex.Flow.durationToGlyph = function(duration, type) {
     duration = alias;
   }
 
-  var code = Vex.Flow.durationToGlyph.duration_codes[duration];
-  if (code === undefined) {
+  var data = Vex.Flow.durationToGlyph.duration_codes[duration];
+  if (data === undefined) {
     return null;
   }
 
@@ -539,18 +580,21 @@ Vex.Flow.durationToGlyph = function(duration, type) {
     type = "n";
   }
 
-  var glyphTypeProperties = code.type[type];
-  if (glyphTypeProperties === undefined) {
+  var durationTypeProperties = data.type[type];
+  if (durationTypeProperties === undefined) {
     return null;
   }
 
-  return Vex.Merge(Vex.Merge({}, code.common), glyphTypeProperties);
+  data = Vex.Merge(Vex.Merge({}, data.common), durationTypeProperties);
+
+  var glyphData = Vex.Flow.SMuFLGonvilleMap[data.glyphName];
+  
+  return Vex.Merge(data, glyphData);
 };
 
 Vex.Flow.durationToGlyph.duration_codes = {
   "1/2": {
     common: {
-      head_width: 22,
       stem: false,
       stem_offset: 0,
       flag: false,
@@ -566,34 +610,30 @@ Vex.Flow.durationToGlyph.duration_codes = {
     },
     type: {
       "n": { // Breve note
-        code_head: "noteheadDoubleWhole"
+        glyphName: "noteheadDoubleWhole"
       },
       "h": { // Breve note harmonic
-        code_head: "noteheadDiamondDoubleWhole"
+        glyphName: "noteheadDiamondDoubleWhole"
       },
       "m": { // Breve note muted -
-        code_head: "noteheadXDoubleWhole",
+        glyphName: "noteheadXDoubleWhole",
         stem_offset: 0
       },
       "r": { // Breve rest
-        code_head: "restDoubleWhole",
-        head_width: 24,
+        glyphName: "restDoubleWhole",
         rest: true,
         position: "B/5",
         dot_shiftY: 0.5
       },
       "s": { // Breve note slash -
-        // Drawn with canvas primitives
-        head_width: 15,
+        glyphName: "noteheadSlashDoubleWhole",
         position: "B/4"
       }
     }
   },
   "1": {
     common: {
-      head_width: 16,
       stem: false,
-      stem_offset: 0,
       flag: false,
       stem_up_extension: -Vex.Flow.STEM_HEIGHT,
       stem_down_extension: -Vex.Flow.STEM_HEIGHT,
@@ -607,32 +647,29 @@ Vex.Flow.durationToGlyph.duration_codes = {
     },
     type: {
       "n": { // Whole note
-        code_head: "noteheadWhole"
+        glyphName: "noteheadWhole"
       },
       "h": { // Whole note harmonic
-        code_head: "noteheadDiamondWhole"
+        glyphName: "noteheadDiamondWhole"
       },
       "m": { // Whole note muted
-        code_head: "noteheadXWhole",
-        stem_offset: -3
+        glyphName: "noteheadXWhole",
       },
       "r": { // Whole rest
-        code_head: "restWhole",
-        head_width: 12,
+        glyphName: "restWhole",
         rest: true,
         position: "D/5",
         dot_shiftY: 0.5
       },
       "s": { // Whole note slash
         // Drawn with canvas primitives
-        head_width: 15,
+        glyphName: "noteheadSlashWhiteWhole",
         position: "B/4"
       }
     }
   },
   "2": {
     common: {
-      head_width: 10,
       stem: true,
       stem_offset: 0,
       flag: false,
@@ -648,18 +685,16 @@ Vex.Flow.durationToGlyph.duration_codes = {
     },
     type: {
       "n": { // Half note
-        code_head: "noteheadHalf"
+        glyphName: "noteheadHalf"
       },
       "h": { // Half note harmonic
-        code_head: "noteheadDiamondHalf"
+        glyphName: "noteheadDiamondHalf"
       },
       "m": { // Half note muted
-        code_head: "noteheadXHalf",
-        stem_offset: -3
+        glyphName: "noteheadXHalf",
       },
       "r": { // Half rest
-        code_head: "restHalf",
-        head_width: 12,
+        glyphName: "restHalf",
         stem: false,
         rest: true,
         position: "B/4",
@@ -667,14 +702,13 @@ Vex.Flow.durationToGlyph.duration_codes = {
       },
       "s": { // Half note slash
         // Drawn with canvas primitives
-        head_width: 15,
+        glyphName: "noteheadSlashWhiteHalf",
         position: "B/4"
       }
     }
   },
   "4": {
     common: {
-      head_width: 10,
       stem: true,
       stem_offset: 0,
       flag: false,
@@ -690,18 +724,16 @@ Vex.Flow.durationToGlyph.duration_codes = {
     },
     type: {
       "n": { // Quarter note
-        code_head: "noteheadBlack"
+        glyphName: "noteheadBlack"
       },
       "h": { // Quarter harmonic
-        code_head: "noteheadDiamondBlack"
+        glyphName: "noteheadDiamondBlack"
       },
       "m": { // Quarter muted
-        code_head: "noteheadXBlack",
-        stem_offset: -3
+        glyphName: "noteheadXBlack",
       },
       "r": { // Quarter rest
-        code_head: "restQuarter",
-        head_width: 8,
+        glyphName: "restQuarter",
         stem: false,
         rest: true,
         position: "B/4",
@@ -710,15 +742,13 @@ Vex.Flow.durationToGlyph.duration_codes = {
         line_below: 1.5
       },
       "s": { // Quarter slash
-         // Drawn with canvas primitives
-         head_width: 15,
-         position: "B/4"
+        glyphName: "noteheadSlashHorizontalEnds",
+        position: "B/4"
       }
     }
   },
   "8": {
     common: {
-      head_width: 10,
       stem: true,
       stem_offset: 0,
       flag: true,
@@ -737,16 +767,16 @@ Vex.Flow.durationToGlyph.duration_codes = {
     },
     type: {
       "n": { // Eighth note
-        code_head: "noteheadBlack"
+        glyphName: "noteheadBlack"
       },
       "h": { // Eighth note harmonic
-        code_head: "noteheadDiamondBlack"
+        glyphName: "noteheadDiamondBlack"
       },
       "m": { // Eighth note muted
-        code_head: "noteheadXBlack"
+        glyphName: "noteheadXBlack"
       },
       "r": { // Eighth rest
-        code_head: "rest8th",
+        glyphName: "rest8th",
         stem: false,
         flag: false,
         rest: true,
@@ -756,8 +786,7 @@ Vex.Flow.durationToGlyph.duration_codes = {
         line_below: 1.0
       },
       "s": { // Eight slash
-        // Drawn with canvas primitives
-        head_width: 15,
+        glyphName: "noteheadSlashHorizontalEnds",
         position: "B/4"
       }
     }
@@ -765,7 +794,6 @@ Vex.Flow.durationToGlyph.duration_codes = {
   "16": {
     common: {
       beam_count: 2,
-      head_width: 10,
       stem: true,
       stem_offset: 0,
       flag: true,
@@ -783,17 +811,16 @@ Vex.Flow.durationToGlyph.duration_codes = {
     },
     type: {
       "n": { // Sixteenth note
-        code_head: "noteheadBlack"
+        glyphName: "noteheadBlack"
       },
       "h": { // Sixteenth note harmonic
-        code_head: "noteheadDiamondBlack"
+        glyphName: "noteheadDiamondBlack"
       },
       "m": { // Sixteenth note muted
-        code_head: "noteheadXBlack"
+        glyphName: "noteheadXBlack"
       },
       "r": { // Sixteenth rest
-        code_head: "rest16th",
-        head_width: 13,
+        glyphName: "rest16th",
         stem: false,
         flag: false,
         rest: true,
@@ -803,8 +830,7 @@ Vex.Flow.durationToGlyph.duration_codes = {
         line_below: 2.0
       },
       "s": { // Sixteenth slash
-        // Drawn with canvas primitives
-        head_width: 15,
+        glyphName: "noteheadSlashHorizontalEnds",
         position: "B/4"
       }
     }
@@ -812,9 +838,7 @@ Vex.Flow.durationToGlyph.duration_codes = {
   "32": {
     common: {
       beam_count: 3,
-      head_width: 10,
       stem: true,
-      stem_offset: 0,
       flag: true,
       code_flag_upstem: "flag32ndUp",
       code_flag_downstem: "flag32ndDown",
@@ -830,17 +854,16 @@ Vex.Flow.durationToGlyph.duration_codes = {
     },
     type: {
       "n": { // Thirty-second note
-        code_head: "noteheadBlack"
+        glyphName: "noteheadBlack"
       },
       "h": { // Thirty-second harmonic
-        code_head: "noteheadDiamondBlack"
+        glyphName: "noteheadDiamondBlack"
       },
       "m": { // Thirty-second muted
-        code_head: "noteheadXBlack"
+        glyphName: "noteheadXBlack"
       },
       "r": { // Thirty-second rest
-        code_head: "rest32nd",
-        head_width: 16,
+        glyphName: "rest32nd",
         stem: false,
         flag: false,
         rest: true,
@@ -850,8 +873,7 @@ Vex.Flow.durationToGlyph.duration_codes = {
         line_below: 2.0
       },
       "s": { // Thirty-second slash
-        // Drawn with canvas primitives
-        head_width: 15,
+        glyphName: "noteheadSlashHorizontalEnds",
         position: "B/4"
       }
     }
@@ -859,9 +881,7 @@ Vex.Flow.durationToGlyph.duration_codes = {
   "64": {
     common: {
       beam_count: 4,
-      head_width: 10,
       stem: true,
-      stem_offset: 0,
       flag: true,
       code_flag_upstem: "flag64thUp",
       code_flag_downstem: "flag64thDown",
@@ -877,17 +897,16 @@ Vex.Flow.durationToGlyph.duration_codes = {
     },
     type: {
       "n": { // Sixty-fourth note
-        code_head: "noteheadBlack"
+        glyphName: "noteheadBlack"
       },
       "h": { // Sixty-fourth harmonic
-        code_head: "noteheadDiamondBlack"
+        glyphName: "noteheadDiamondBlack"
       },
       "m": { // Sixty-fourth muted
-        code_head: "noteheadXBlack"
+        glyphName: "noteheadXBlack"
       },
       "r": { // Sixty-fourth rest
-        code_head: "rest64th",
-        head_width: 18,
+        glyphName: "rest64th",
         stem: false,
         flag: false,
         rest: true,
@@ -897,8 +916,7 @@ Vex.Flow.durationToGlyph.duration_codes = {
         line_below: 3.0
       },
       "s": { // Sixty-fourth slash
-        // Drawn with canvas primitives
-        head_width: 15,
+        glyphName: "noteheadSlashHorizontalEnds",
         position: "B/4"
       }
     }
@@ -906,7 +924,6 @@ Vex.Flow.durationToGlyph.duration_codes = {
   "128": {
       common: {
           beam_count: 5,
-          head_width: 10,
           stem: true,
           stem_offset:0,
           flag: true,
@@ -924,17 +941,16 @@ Vex.Flow.durationToGlyph.duration_codes = {
       },
       type: {
           "n": {  // Hundred-twenty-eight note
-              code_head: "noteheadBlack"
+              glyphName: "noteheadBlack"
           },
           "h": { // Hundred-twenty-eight harmonic
-              code_head: "noteheadDiamondBlack"
+              glyphName: "noteheadDiamondBlack"
           },
           "m": { // Hundred-twenty-eight muted
-              code_head: "noteheadXBlack"
+              glyphName: "noteheadXBlack"
           },
           "r": {  // Hundred-twenty-eight rest
-              code_head: "rest128th",
-              head_width: 20,
+              glyphName: "rest128th",
               stem: false,
               flag: false,
               rest: true,
@@ -944,9 +960,8 @@ Vex.Flow.durationToGlyph.duration_codes = {
               line_below: 3.0
           },
           "s": { // Hundred-twenty-eight rest
-              // Drawn with canvas primitives
-              head_width: 15,
-              position: "B/4"
+            glyphName: "noteheadSlashHorizontalEnds",
+            position: "B/4"
           }
       }
   }

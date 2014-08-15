@@ -157,7 +157,7 @@ Vex.Flow.TabNote = (function() {
     // Get the `x` coordinate to the right of the note
     getTieRightX: function() {
       var tieStartX = this.getAbsoluteX();
-      var note_glyph_width = this.glyph.head_width;
+      var note_glyph_width = this.glyph.width;
       tieStartX += (note_glyph_width / 2);
       tieStartX += ((-this.width / 2) + this.width + 2);
 
@@ -167,7 +167,7 @@ Vex.Flow.TabNote = (function() {
     // Get the `x` coordinate to the left of the note
     getTieLeftX: function() {
       var tieEndX = this.getAbsoluteX();
-      var note_glyph_width = this.glyph.head_width;
+      var note_glyph_width = this.glyph.width;
       tieEndX += (note_glyph_width / 2);
       tieEndX -= ((this.width / 2) + 2);
 
@@ -190,7 +190,7 @@ Vex.Flow.TabNote = (function() {
         x = this.width + 2; // extra_right_px
       } else if (position == Vex.Flow.Modifier.Position.BELOW ||
                  position == Vex.Flow.Modifier.Position.ABOVE) {
-          var note_glyph_width = this.glyph.head_width;
+          var note_glyph_width = this.glyph.width;
           x = note_glyph_width / 2;
       }
 
@@ -318,7 +318,7 @@ Vex.Flow.TabNote = (function() {
         var glyph = this.glyphs[i];
 
         // Center the fret text beneath the notation note head
-        var note_glyph_width = this.glyph.head_width;
+        var note_glyph_width = this.glyph.width;
         var tab_x = x + (note_glyph_width / 2) - (glyph.width / 2);
 
         ctx.clearRect(tab_x - 2, y - 3, glyph.width + 4, 6);

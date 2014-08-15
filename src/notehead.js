@@ -85,7 +85,7 @@ Vex.Flow.NoteHead = (function() {
             "' and type '" + this.note_type + "'");
       }
 
-      this.glyph_code = this.glyph.code_head;
+      this.glyph_code = this.glyph.glyphName;
       this.x_shift = head_options.x_shift;
       if (head_options.custom_glyph_code) {
         this.custom_glyph = true;
@@ -105,7 +105,7 @@ Vex.Flow.NoteHead = (function() {
         this.render_options.glyph_font_scale = head_options.glyph_font_scale;
       }
 
-      this.setWidth(this.glyph.head_width);
+      this.setWidth(this.glyph.width);
     },
 
     // Get the `ModifierContext` category
@@ -190,7 +190,7 @@ Vex.Flow.NoteHead = (function() {
       if (this.preFormatted) return this;
 
       var glyph = this.getGlyph();
-      var width = glyph.head_width + this.extraLeftPx + this.extraRightPx;
+      var width = glyph.width + this.extraLeftPx + this.extraRightPx;
 
       this.setWidth(width);
       this.setPreFormatted(true);
@@ -225,7 +225,7 @@ Vex.Flow.NoteHead = (function() {
         if (this.note_type != 'r') {
           ctx.fillRect(
             head_x - this.render_options.stroke_px, line_y,
-            (this.getGlyph().head_width) +
+            (this.getGlyph().width) +
             (this.render_options.stroke_px * 2), 1);    
         }        
       }

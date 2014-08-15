@@ -312,7 +312,7 @@ Vex.Flow.StaveNote = (function() {
       var glyph = this.getGlyph();
 
       var y_extend = 0;
-      if (glyph.code_head == "noteheadXHalf" || glyph.code_head == "noteheadXBlack") {
+      if (glyph.glyphName == "noteheadXHalf" || glyph.glyphName == "noteheadXBlack") {
          y_extend = -4;
       }
 
@@ -589,7 +589,7 @@ Vex.Flow.StaveNote = (function() {
     // Get the starting `x` coordinate for a `StaveTie`
     getTieRightX: function() {
       var tieStartX = this.getAbsoluteX();
-      tieStartX += this.glyph.head_width + this.x_shift + this.extraRightPx;
+      tieStartX += this.glyph.width + this.x_shift + this.extraRightPx;
       if (this.modifierContext) tieStartX += this.modifierContext.getExtraRightPx();
       return tieStartX;
     },
@@ -629,10 +629,10 @@ Vex.Flow.StaveNote = (function() {
         x = -1 * 2;
       } else if (position == Vex.Flow.Modifier.Position.RIGHT) {
         // extra_right_px
-        x = this.glyph.head_width + this.x_shift + 2;
+        x = this.glyph.width + this.x_shift + 2;
       } else if (position == Vex.Flow.Modifier.Position.BELOW ||
                  position == Vex.Flow.Modifier.Position.ABOVE) {
-        x = this.glyph.head_width / 2;
+        x = this.glyph.width / 2;
       }
 
       return { x: this.getAbsoluteX() + x, y: this.ys[index] };
@@ -726,16 +726,16 @@ Vex.Flow.StaveNote = (function() {
     // formatting
     getVoiceShiftWidth: function() {
       // TODO: may need to accomodate for dot here.
-      return this.glyph.head_width * (this.displaced ? 2 : 1);
+      return this.glyph.width * (this.displaced ? 2 : 1);
     },
 
     // Calculates and sets the extra pixels to the left or right
     // if the note is displaced
     calcExtraPx: function() {
       this.setExtraLeftPx((this.displaced && this.stem_direction == -1) ?
-          this.glyph.head_width : 0);
+          this.glyph.width : 0);
       this.setExtraRightPx((this.displaced && this.stem_direction == 1) ?
-          this.glyph.head_width : 0);
+          this.glyph.width : 0);
     },
 
     // Pre-render formatting
@@ -743,11 +743,11 @@ Vex.Flow.StaveNote = (function() {
       if (this.preFormatted) return;
       if (this.modifierContext) this.modifierContext.preFormat();
 
-      var width = this.glyph.head_width + this.extraLeftPx + this.extraRightPx;
+      var width = this.glyph.width + this.extraLeftPx + this.extraRightPx;
 
       // For upward flagged notes, the width of the flag needs to be added
       if (this.glyph.flag && this.beam === null && this.stem_direction == 1) {
-        width += this.glyph.head_width;
+        width += this.glyph.width;
       }
 
       this.setWidth(width);
@@ -796,7 +796,7 @@ Vex.Flow.StaveNote = (function() {
     // Get the ending `x` coordinate for the noteheads
     getNoteHeadEndX: function(){
       var x_begin = this.getNoteHeadBeginX();
-      return x_begin + this.glyph.head_width - (Vex.Flow.STEM_WIDTH / 2);
+      return x_begin + this.glyph.width - (Vex.Flow.STEM_WIDTH / 2);
     },
 
     // Draw the ledger lines between the stave and the highest/lowest keys
@@ -817,7 +817,7 @@ Vex.Flow.StaveNote = (function() {
           head_x = that.getAbsoluteX() + that.x_shift;
         }
         var x = head_x - that.render_options.stroke_px;
-        var length = ((head_x + that.glyph.head_width) - head_x) +
+        var length = ((head_x + that.glyph.width) - head_x) +
           (that.render_options.stroke_px * 2);
 
         ctx.fillRect(x, y, length, 1);

@@ -125,7 +125,7 @@ Vex.Flow.TextBracket = (function() {
       // Setup initial coordinates for the bracket line
       var start_x = start.x;
       var line_y = super_y;
-      var end_x = stop.x + this.stop.getGlyph().head_width;
+      var end_x = stop.x + this.stop.getGlyph().width;
 
       // Adjust x and y coordinates based on position
       if (this.position === TextBracket.Positions.TOP) {

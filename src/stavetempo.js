@@ -71,8 +71,8 @@ Vex.Flow.StaveTempo = (function() {
         var code = Vex.Flow.durationToGlyph(duration);
 
         x += 3 * scale;
-        Vex.Flow.renderGlyph(ctx, x, y, options.glyph_font_scale, code.code_head);
-        x += code.head_width * scale;
+        Vex.Flow.renderGlyph(ctx, x, y, options.glyph_font_scale, code.glyphName);
+        x += code.width * scale;
 
         // Draw stem and flags
         if (code.stem) {

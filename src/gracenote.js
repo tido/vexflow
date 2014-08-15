@@ -10,7 +10,7 @@ Vex.Flow.GraceNote = (function() {
       this.render_options.glyph_font_scale = 22;
       this.render_options.stem_height = 20;
       this.render_options.stroke_px = 2;
-      this.glyph.head_width = 6;
+      this.glyph.width = 6;
 
       this.slash = note_struct.slash;
       this.slur = true;
