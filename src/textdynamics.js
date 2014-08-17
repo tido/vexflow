@@ -57,7 +57,7 @@ Vex.Flow.TextDynamics = (function(){
       this.sequence.split('').forEach(function(letter) {
         // Get the glyph data for the letter
         var smuflName = TextDynamics.GLYPHS[letter];
-        var glyph_data = Vex.Flow.SMuFLGonvilleMap[smuflName];
+        var glyph_data = Vex.Flow.Gonville.Metrics[smuflName];
         if (!glyph_data) throw new Vex.RERR("Invalid dynamics character: " + letter);
 
         var size =  this.render_options.glyph_font_size;
@@ -87,7 +87,7 @@ Vex.Flow.TextDynamics = (function(){
         var current_letter = this.sequence[index];
         glyph.render(this.context, letter_x, y);
         var smuflName = TextDynamics.GLYPHS[current_letter];
-        var glyph_data = Vex.Flow.SMuFLGonvilleMap[smuflName];
+        var glyph_data = Vex.Flow.Gonville.Metrics[smuflName];
         letter_x += glyph_data.width;
       }, this);
     }

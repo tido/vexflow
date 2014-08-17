@@ -238,7 +238,7 @@ Vex.Flow.textWidth = function(text) {
 Vex.Flow.articulationCodes = function(artic) {
   var articulationMeta = Vex.Flow.articulationCodes.articulations[artic];
   var smuflName = articulationMeta.glyph_name;
-  var glyphData = Vex.Flow.SMuFLGonvilleMap[smuflName];
+  var glyphData = Vex.Flow.Gonville.Metrics[smuflName];
   return Vex.Merge(articulationMeta, glyphData);
 };
 
@@ -299,7 +299,7 @@ Vex.Flow.articulationCodes.articulations = {
 
 Vex.Flow.accidentalCodes = function(acc) {
   var smufl = Vex.Flow.accidentalCodes.accidentals[acc];
-  return Vex.Flow.SMuFLGonvilleMap[smufl];
+  return Vex.Flow.Gonville.Metrics[smufl];
 };
 
 Vex.Flow.accidentalCodes.accidentals = {
@@ -319,7 +319,7 @@ Vex.Flow.accidentalCodes.accidentals = {
 
 Vex.Flow.ornamentCodes = function(acc) {
   var smufl =  Vex.Flow.ornamentCodes.ornaments[acc];
-  return Vex.Flow.SMuFLGonvilleMap[smufl];
+  return Vex.Flow.Gonville.Metrics[smufl];
 };
 
 Vex.Flow.ornamentCodes.ornaments = {
@@ -591,12 +591,12 @@ Vex.Flow.durationToGlyph = function(duration, type) {
   if (data.flag){
     ['glyph_name_flag_up', 'glyph_name_flag_down'].forEach(function(flagName){
       var flagGlyphName = data[flagName];
-      var flagData = Vex.Flow.SMuFLGonvilleMap[flagGlyphName];
+      var flagData = Vex.Flow.Gonville.Metrics[flagGlyphName];
       Vex.Merge(data, flagData);
     });
   }
   
-  var glyphData = Vex.Flow.SMuFLGonvilleMap[data.glyph_name];
+  var glyphData = Vex.Flow.Gonville.Metrics[data.glyph_name];
   
   return Vex.Merge(data, glyphData);
 };

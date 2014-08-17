@@ -107,7 +107,7 @@ Vex.Flow.Glyph = (function() {
     if (code[0] === "v"){
       glyph = font.glyphs[code];
     } else {
-      var gonvilleData = Vex.Flow.SMuFLGonvilleMap[code];
+      var gonvilleData = Vex.Flow.Gonville.Metrics[code];
       glyph = font.glyphs[gonvilleData.code];
     }
 

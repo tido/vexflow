@@ -1,6 +1,8 @@
 //Using SMuFL naming
+//
+Vex.Flow.Gonville = {};
 
-Vex.Flow.SMuFLGonvilleMap = {
+Vex.Flow.Gonville.Metrics = {
   // STAFF BRACKETS AND DIVIDERS
   "bracketTop": {
     code: "v1b",
@@ -111,13 +113,16 @@ Vex.Flow.SMuFLGonvilleMap = {
 
   //TRIANGLE
   "noteheadTriangleUpWhole":{
-    code: "v49"
+    code: "v49",
+    stem_offset: 0
   },
   "noteheadTriangleUpHalf":{
-    code: "v93"
+    code: "v93",
+    stem_offset: 0
   },
   "noteheadTriangleUpBlack": {
-    code: "v40"
+    code: "v40",
+    stem_offset: 0
   },
 
   // X
