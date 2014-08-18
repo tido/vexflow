@@ -141,7 +141,7 @@ Vex.Flow.Stroke = (function() {
           break;
         case Stroke.Type.ROLL_DOWN:
         case Stroke.Type.RASQUEDO_DOWN:
-          arrow = "arrowheadBlackUp";
+          arrow = "wiggleArpeggiatoUpArrow";
           arrow_shift_x = -3;
           text_shift_x = this.x_shift + arrow_shift_x - 2;
           if (this.note instanceof Vex.Flow.StaveNote) {
@@ -162,7 +162,7 @@ Vex.Flow.Stroke = (function() {
           break;
         case Stroke.Type.ROLL_UP:
         case Stroke.Type.RASQUEDO_UP:
-          arrow = "wiggleArpeggiatoUpArrow";
+          arrow = "wiggleArpeggiatoDownArrow";
           arrow_shift_x = -4;
           text_shift_x = this.x_shift + arrow_shift_x - 1;
           if (this.note instanceof Vex.Flow.StaveNote) {
