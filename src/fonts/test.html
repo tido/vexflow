@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>VexFlow Tests</title>
+  <style type="text/css">
+    body {
+      padding: 20px;
+      font-family: Arial, sans-serif;
+      font-size: 12px;
+      color: black;
+      margin: 0px;
+      height: 80%;
+    }
+
+    a {
+      color: #554;
+      text-decoration: none;
+      border-bottom: dotted 2px;
+    }
+
+    a.button {
+      color: green;
+      background: #bfb;
+      text-decoration: none;
+      padding: 5px;
+      margin: 2px;
+      border: 5px solid #aea;
+    }
+
+    div#error {
+      width: 60%;
+      padding: 10px;
+      color: red;
+      background: #faa;
+      border: 15px solid #d99;
+    }
+
+    div.testcanvas {
+      font-family: Arial, sans-serif;
+      font-size: 18px;
+      color: #554;
+    }
+
+    div.testcanvas .vex-tabdiv {
+      background: white;
+    }
+
+    div.testcanvas .name {
+      font-family: Arial, sans-serif;
+      font-size: 18px;
+      color: #447;
+    }
+
+  </style>
+
+  <script src="opentype.js"></script>
+  <script src="../../tests/support/jquery.js"></script>
+  <script src="http//cdnjs.cloudflare.com/ajax/libs/lodash.js/2.4.1/lodash.js"></script>
+
+  <!-- VexFlow Sources -->
+  <script src="../header.js"></script>
+  <script src="../vex.js"></script>
+  <script src="../flow.js"></script>
+  <script src="../fraction.js"></script>
+  <script src="../fonts/vexflow_font.js"></script>
+  <script src="../fonts/gonville_metrics.js"></script>
+  <script src="../glyph.js"></script>
+  <script src="../tables.js"></script>
+  <script src="../stave.js"></script>
+  <script src="../staveconnector.js"></script>
+  <script src="../tabstave.js"></script>
+  <script src="../voice.js"></script>
+  <script src="../voicegroup.js"></script>
+  <script src="../modifier.js"></script>
+  <script src="../modifiercontext.js"></script>
+  <script src="../accidental.js"></script>
+  <script src="../dot.js"></script>
+  <script src="../tickcontext.js"></script>
+  <script src="../tickable.js"></script>
+  <script src="../note.js"></script>
+  <script src="../bend.js"></script>
+  <script src="../stem.js"></script>
+  <script src="../notehead.js"></script>
+  <script src="../stemmablenote.js"></script>
+  <script src="../stavenote.js"></script>
+  <script src="../tabnote.js"></script>
+  <script src="../barnote.js"></script>
+  <script src="../clefnote.js"></script>
+  <script src="../timesignote.js"></script>
+  <script src="../ghostnote.js"></script>
+  <script src="../formatter.js"></script>
+  <script src="../stavetie.js"></script>
+  <script src="../stavehairpin.js"></script>
+  <script src="../tabtie.js"></script>
+  <script src="../tabslide.js"></script>
+  <script src="../beam.js"></script>
+  <script src="../vibrato.js"></script>
+  <script src="../annotation.js"></script>
+  <script src="../tuning.js"></script>
+  <script src="../stavemodifier.js"></script>
+  <script src="../keysignature.js"></script>
+  <script src="../timesignature.js"></script>
+  <script src="../clef.js"></script>
+  <script src="../music.js"></script>
+  <script src="../keymanager.js"></script>
+  <script src="../renderer.js"></script>
+  <script src="../stavebarline.js"></script>
+  <script src="../stavevolta.js"></script>
+  <script src="../staverepetition.js"></script>
+  <script src="../stavesection.js"></script>
+  <script src="../stavetempo.js"></script>
+  <script src="../stavetext.js"></script>
+  <script src="../articulation.js"></script>
+  <script src="../tremolo.js"></script>
+  <script src="../raphaelcontext.js"></script>
+  <script src="../canvascontext.js"></script>
+  <script src="../tuplet.js"></script>
+  <script src="../boundingbox.js"></script>
+  <script src="../textnote.js"></script>
+  <script src="../strokes.js"></script>
+  <script src="../stringnumber.js"></script>
+  <script src="../frethandfinger.js"></script>
+  <script src="../gracenote.js"></script>
+  <script src="../gracenotegroup.js"></script>
+  <script src="../curve.js"></script>
+  <script src="../staveline.js"></script>
+  <script src="../crescendo.js"></script>
+  <script src="../ornament.js"></script>
+  <script src="../pedalmarking.js"></script>
+  <script src="../textbracket.js"></script>
+  <script src="../textdynamics.js"></script>
+  <script>
+
+  $.getJSON('glyphnames.json', function(glyphNames){
+
+    function getCodepointForName(name){
+      var glyphData = glyphNames[name];
+      if (!glyphData) {
+        return false;
+      }
+      var codepoint = glyphData.codepoint;
+      return codepoint;
+    }
+
+    function getNameForCodepoint(codepoint){
+      return _.find(Object.keys(glyphNames), function(name){
+        return glyphNames[name].codepoint === codepoint;
+      });
+    }
+
+    var glyphNameCodepointMap = {};
+    var codepoints = [];
+    var sortedGlyphNames = [];
+    var usedGlyphNames = Object.keys(Vex.Flow.Gonville.Metrics);
+
+    usedGlyphNames.forEach(function(glyphName){
+      var codepoint = getCodepointForName(glyphName);
+      if (!codepoint) return;
+      glyphNameCodepointMap[glyphName] = codepoint;
+      codepoints.push(codepoint);
+      sortedGlyphNames.push(glyphName); 
+    });
+
+
+    var ctx = document.getElementById("draw").getContext('2d');
+
+    opentype.load('Bravura.otf', function (err, font) {
+      if (err) {
+        alert('Font could not be loaded: ' + err);
+      } else {
+
+        var glyphIndices = codepoints.reduce(function(indices, codepoint){
+          var index = font.cffEncoding.charset.indexOf("uni" + codepoint.substr(2));
+          return indices.concat([index]);
+        }, []);
+
+        var glyphs = {};
+
+        glyphIndices.forEach(function(glyphIndex, index){
+          var glyph = font.glyphs[glyphIndex];
+          glyph.font = {
+            unitsPerEm: 1000
+          };
+          glyphs[sortedGlyphNames[index]] = glyph;
+        });
+
+        $("textarea").html(JSON.stringify(glyphs, undefined, 4));
+
+        var x = 20;
+        var y = 100;
+        Object.keys(glyphs).forEach(function(glyphName){
+          console.log(glyphName);
+          var glyph = glyphs[glyphName];
+          if (x > 1600){
+            x = 0;
+            y += 60;
+          }
+          glyph.draw(ctx, x, y, 40);
+          x += 50;
+        });
+      }
+    });
+  });
+  </script>
+</head>
+<body>
+
+<textarea></textarea>
+<br>
+<canvas id="draw" width="1600" height="800"></canvas>
+
+</body>
+</html>
