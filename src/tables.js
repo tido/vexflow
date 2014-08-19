@@ -238,7 +238,7 @@ Vex.Flow.textWidth = function(text) {
 Vex.Flow.articulationCodes = function(artic) {
   var articulationMeta = Vex.Flow.articulationCodes.articulations[artic];
   var smuflName = articulationMeta.glyph_name;
-  var glyphData = Vex.Flow.Gonville.Metrics[smuflName];
+  var glyphData = Vex.Flow.Font.Metrics[smuflName];
   return Vex.Merge(articulationMeta, glyphData);
 };
 
@@ -299,7 +299,9 @@ Vex.Flow.articulationCodes.articulations = {
 
 Vex.Flow.accidentalCodes = function(acc) {
   var smufl = Vex.Flow.accidentalCodes.accidentals[acc];
-  return Vex.Flow.Gonville.Metrics[smufl];
+  var data = Vex.Flow.Font.Metrics[smufl];
+  data.glyph_name = smufl;
+  return data;
 };
 
 Vex.Flow.accidentalCodes.accidentals = {
@@ -312,14 +314,16 @@ Vex.Flow.accidentalCodes.accidentals = {
   "}": "accidentalParensRight",
   "db": "accidentalThreeQuarterTonesFlatZimmermann",
   "d": "accidentalQuarterToneFlatStein",
-  "bbs": "bbs",
+  "bbs": "accidentalThreeQuarterTonesFlatZimmermann",
   "++": "accidentalThreeQuarterTonesSharpStein",
   "+": "accidentalQuarterToneSharpStein"
 };
 
 Vex.Flow.ornamentCodes = function(acc) {
   var smufl =  Vex.Flow.ornamentCodes.ornaments[acc];
-  return Vex.Flow.Gonville.Metrics[smufl];
+  var data = Vex.Flow.Font.Metrics[smufl];
+  data.glyph_name = smufl;
+  return data;
 };
 
 Vex.Flow.ornamentCodes.ornaments = {
@@ -331,7 +335,7 @@ Vex.Flow.ornamentCodes.ornaments = {
   "upprall": "ornamentPrecompSlideTrillDAnglebert",
   "downprall": "ornamentPrecompMordentUpperPrefix",
   "prallup": "ornamentPrecompTrillSuffixDandrieu",
-  "pralldown": "ornamentPrecompTrillLowerSuffx",
+  "pralldown": "ornamentPrecompTrillLowerSuffix",
   "upmordent": "ornamentPrecompPortDeVoixMordent",
   "downmordent": "ornamentPrecompInvertedMordentUpperPrefix",
   "lineprall": "ornamentPrecompAppoggTrill",
@@ -591,12 +595,12 @@ Vex.Flow.durationToGlyph = function(duration, type) {
   if (data.flag){
     ['glyph_name_flag_up', 'glyph_name_flag_down'].forEach(function(flagName){
       var flagGlyphName = data[flagName];
-      var flagData = Vex.Flow.Gonville.Metrics[flagGlyphName];
+      var flagData = Vex.Flow.Font.Metrics[flagGlyphName];
       Vex.Merge(data, flagData);
     });
   }
   
-  var glyphData = Vex.Flow.Gonville.Metrics[data.glyph_name];
+  var glyphData = Vex.Flow.Font.Metrics[data.glyph_name];
   
   return Vex.Merge(data, glyphData);
 };
@@ -629,7 +633,7 @@ Vex.Flow.durationToGlyph.duration_codes = {
         dot_shiftY: 0.5
       },
       "s": { // Breve note slash -
-        glyph_name: "noteheadSlashDoubleWhole",
+        glyph_name: "noteheadSlashWhiteWhole",
         position: "B/4"
       }
     }

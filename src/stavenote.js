@@ -872,14 +872,14 @@ Vex.Flow.StaveNote = (function() {
 
         if (this.getStemDirection() === Stem.DOWN) {
           // Down stems have flags on the left.
-          flag_x = x_begin + 1;
-          flag_y = bounds.y_top - note_stem_height + 2;
+          flag_x = x_begin + (glyph.x_shift || 0);
+          flag_y = bounds.y_top - note_stem_height + (glyph.y_shift || 0);
           flag_glyph_name = glyph.glyph_name_flag_down;
 
         } else {
           // Up stems have flags on the left.
-          flag_x = x_end + 1;
-          flag_y = bounds.y_bottom - note_stem_height - 2;
+          flag_x = x_end + (glyph.x_shift || 0);
+          flag_y = bounds.y_bottom - note_stem_height + (glyph.y_shift || 0);
           flag_glyph_name = glyph.glyph_name_flag_up;
         }
 

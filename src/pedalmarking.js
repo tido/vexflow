@@ -243,8 +243,8 @@ Vex.Flow.PedalMarking = (function() {
   // coordinate shifts.
   function drawPedalGlyph(name, context, x, y, point) {
     var smuflName = PedalMarking.GLYPHS[name];
-    var glyph_data = Vex.Flow.Gonville.Metrics[smuflName];
-    var glyph = new Vex.Flow.Glyph(glyph_data.code, point);
+    var glyph_data = Vex.Flow.Font.Metrics[smuflName];
+    var glyph = new Vex.Flow.Glyph(smuflName, point);
     glyph.render(context, x + glyph_data.x_shift, y + glyph_data.y_shift);
   }
 

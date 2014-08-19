@@ -20,7 +20,7 @@ Vex.Flow.ClefNote = (function() {
     setClef: function(clef, size, annotation) {
       this.clef_obj = new Vex.Flow.Clef(clef, size, annotation);
       this.clef = this.clef_obj.clef;
-      this.glyph = new Vex.Flow.Glyph(this.clef.code, this.clef.point);
+      this.glyph = new Vex.Flow.Glyph(this.clef_obj.getGlyphName(), this.clef.point);
       this.setWidth(this.glyph.getMetrics().width);
       return this;
     },
@@ -67,7 +67,7 @@ Vex.Flow.ClefNote = (function() {
       
       // If the Vex.Flow.Clef has an annotation, such as 8va, draw it.
       if (this.clef_obj.annotation !== undefined) {
-        var attachment = new Vex.Flow.Glyph(this.clef_obj.annotation.code, this.clef_obj.annotation.point);
+        var attachment = new Vex.Flow.Glyph(this.clef_obj.annotation.glyph_name, this.clef_obj.annotation.point);
         if (!attachment.getContext()) {
             attachment.setContext(this.context);
         }

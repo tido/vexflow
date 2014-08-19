@@ -194,22 +194,33 @@ Vex.Flow.Accidental = (function(){
       var acc_y = start.y + this.y_shift;
       L("Rendering: ", this.type, acc_x, acc_y);
 
+      var glyph = new Vex.Flow.Glyph(this.accidental.glyph_name, this.render_options.font_scale); 
       if (!this.cautionary) {
         // Render the accidental alone.
-        Vex.Flow.renderGlyph(this.context, acc_x, acc_y,
-                             this.render_options.font_scale, this.accidental.code);
+        // Vex.Flow.renderGlyph(this.context, acc_x, acc_y,
+        //                      this.render_options.font_scale, this.accidental.code);
+        glyph.render(this.context, acc_x, acc_y);
       } else {
         // Render the accidental in parentheses.
         acc_x += 3;
-        Vex.Flow.renderGlyph(this.context, acc_x, acc_y,
-                             this.render_options.font_scale, this.paren_left.code);
+        var parenLeftGlyph = new Vex.Flow.Glyph(this.paren_left.glyph_name, this.render_options.font_scale);
+        parenLeftGlyph.render(this.context, acc_x, acc_y);
+
+        // Vex.Flow.renderGlyph(this.context, acc_x, acc_y,
+        //                      this.render_options.font_scale, this.paren_left.code);
         acc_x += 2;
-        Vex.Flow.renderGlyph(this.context, acc_x, acc_y,
-                             this.render_options.font_scale, this.accidental.code);
+        // Vex.Flow.renderGlyph(this.context, acc_x, acc_y,
+        //                      this.render_options.font_scale, this.accidental.code);
+
+        glyph.render(this.context, acc_x, acc_y);
+  
         acc_x += this.accidental.width - 2;
         if (this.type == "##" || this.type == "bb") acc_x -= 2;
-        Vex.Flow.renderGlyph(this.context, acc_x, acc_y,
-                             this.render_options.font_scale, this.paren_right.code);
+        // Vex.Flow.renderGlyph(this.context, acc_x, acc_y,
+        //                      this.render_options.font_scale, this.paren_right.code);
+        parenRightGlyph = new Vex.Flow.Glyph(this.paren_right.glyph_name, this.render_options.font_scale);
+        parenRightGlyph.render(this.context, acc_x, acc_y);
+      
       }
     }
   });

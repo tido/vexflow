@@ -137,8 +137,9 @@ Vex.Flow.TimeSignature = (function() {
         var i, g;
         for (i = 0; i < this.topGlyphs.length; ++i) {
           g = this.topGlyphs[i];
-          Vex.Flow.Glyph.renderOutline(this.context, g.metrics.outline,
-              g.scale, start_x + g.x_shift, this.stave.getYForLine(that.topLine) + 1);
+          g.render(this.context, start_x, this.stave.getYForLine(that.topLine) + (Vex.Flow.Font.Metrics[g.code].y_shift || 0));
+          // Vex.Flow.Glyph.renderOutline(this.context, g.metrics.outline,
+              // g.scale, start_x + g.x_shift, this.stave.getYForLine(that.topLine) + 1);
           start_x += g.getMetrics().width;
         }
 
@@ -146,8 +147,10 @@ Vex.Flow.TimeSignature = (function() {
         for (i = 0; i < this.botGlyphs.length; ++i) {
           g = this.botGlyphs[i];
           that.placeGlyphOnLine(g, this.stave, g.line);
-          Vex.Flow.Glyph.renderOutline(this.context, g.metrics.outline,
-              g.scale, start_x + g.x_shift, this.stave.getYForLine(that.bottomLine) + 1);
+          g.render(this.context, start_x, this.stave.getYForLine(that.bottomLine) + (Vex.Flow.Font.Metrics[g.code].y_shift || 0));
+
+          // Vex.Flow.Glyph.renderOutline(this.context, g.metrics.outline,
+              // g.scale, start_x + g.x_shift, this.stave.getYForLine(that.bottomLine) + 1);
           start_x += g.getMetrics().width;
         }
       };

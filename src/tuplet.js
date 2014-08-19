@@ -114,14 +114,14 @@ Vex.Flow.Tuplet = (function() {
       this.num_glyphs = [];
       var n = this.num_notes;
       while (n >= 1) {
-        this.num_glyphs.push(new Vex.Flow.Glyph("timeSig" + (n % 10), this.point));
+        this.num_glyphs.push(new Vex.Flow.Glyph("tuplet" + (n % 10), this.point));
         n = parseInt(n / 10, 10);
       }
 
       this.denom_glyphs = [];
       n = this.beats_occupied;
       while (n >= 1) {
-        this.denom_glyphs.push(new Vex.Flow.Glyph("timeSig" + (n % 10), this.point));
+        this.denom_glyphs.push(new Vex.Flow.Glyph("tuplet" + (n % 10), this.point));
         n = parseInt(n / 10, 10);
       }
     },
@@ -200,10 +200,11 @@ Vex.Flow.Tuplet = (function() {
       }
 
       // draw numerator glyphs
-      var x_offset = 0;
+      var x_offset = -2;
       var size = this.num_glyphs.length;
       for (glyph in this.num_glyphs) {
-        this.num_glyphs[size-glyph-1].render(
+        var numerator_glyph =this.num_glyphs[size-glyph-1];
+        numerator_glyph.render(
             this.context, notation_start_x + x_offset,
             this.y_pos + (this.point/3) - 2);
         x_offset += this.num_glyphs[size-glyph-1].getMetrics().width;

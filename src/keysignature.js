@@ -42,7 +42,7 @@ Vex.Flow.KeySignature = (function() {
     // width will be added to the initial accidental for optimal spacing.
     addAccToStave: function(stave, acc, next) {
       var glyph_data = Vex.Flow.accidentalCodes(acc.type);
-      var glyph = new Vex.Flow.Glyph(glyph_data.code, this.glyphFontScale);
+      var glyph = new Vex.Flow.Glyph(glyph_data.glyph_name, this.glyphFontScale);
 
       // Determine spacing between current accidental and the next accidental
       var extra_width = 0;

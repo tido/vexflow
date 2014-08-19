@@ -90,8 +90,10 @@ Vex.Flow.Repetition = (function() {
           "Can't draw stave without canvas context.");
 
       var y = stave.getYForTopText(stave.options.num_lines) + this.y_shift;
-      Vex.Flow.renderGlyph(stave.context, this.x + x + this.x_shift,
-                           y + 25, 40, "coda", true);
+      var glyph = new Vex.Flow.Glyph("coda", 40);
+      glyph.render(stave.context, this.x + x + this.x_shift, y + 25);
+      // Vex.Flow.renderGlyph(stave.context, this.x + x + this.x_shift,
+      //                      y + 25, 40, "coda", true);
       return this;
     },
 
@@ -99,8 +101,10 @@ Vex.Flow.Repetition = (function() {
       if (!stave.context) throw new Vex.RERR("NoCanvasContext",
           "Can't draw stave without canvas context.");
       var y = stave.getYForTopText(stave.options.num_lines) + this.y_shift;
-      Vex.Flow.renderGlyph(stave.context, this.x + x + this.x_shift,
-                           y + 25, 30, "segno", true);
+      var glyph = new Vex.Flow.Glyph("segno", 30);
+      glyph.render(stave.context, this.x + x + this.x_shift, y + 25);
+      // Vex.Flow.renderGlyph(stave.context, this.x + x + this.x_shift,
+      //                      y + 25, 30, "segno", true);
       return this;
     },
 
@@ -125,7 +129,8 @@ Vex.Flow.Repetition = (function() {
       }
       var y = stave.getYForTopText(stave.options.num_lines) + this.y_shift;
       if (draw_coda) {
-        Vex.Flow.renderGlyph(ctx, symbol_x, y, 40, "coda", true);
+        var glyph = new Vex.Flow.Glyph("coda", 40);
+        glyph.render(ctx, symbol_x, y);
       }
 
       ctx.fillText(text, text_x, y + 5);

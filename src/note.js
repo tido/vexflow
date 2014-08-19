@@ -257,7 +257,9 @@ Vex.Flow.Note = (function() {
     },
 
     // Get and set width of note. Used by the formatter for positioning.
-    setWidth: function(width) { this.width = width; },
+    setWidth: function(width) {
+      this.width = width; 
+    },
     getWidth: function() {
       if (!this.preFormatted) throw new Vex.RERR("UnformattedNote",
           "Can't call GetWidth on an unformatted note.");

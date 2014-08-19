@@ -15,118 +15,65 @@ Vex.Flow.Clef = (function() {
   // To enable logging for this class, set `Vex.Flow.Clef.DEBUG` to `true`.
   function L() { if (Vex.Flow.Clef.DEBUG) Vex.L("Vex.Flow.Clef", arguments); }
 
-  // Every clef name is associated with a glyph code from the font file
+  // Every clef name is associated with a glyph glyph_name from the font file
   // and a default stave line number.
   Clef.types = {
     "treble": {
-      code: "gClef",
+      glyph_name: "gClef",
       line: 3
     },
     "bass": {
-      code: "fClef",
+      glyph_name: "fClef",
       line: 1
     },
     "alto": {
-      code: "cClef",
+      glyph_name: "cClef",
       line: 2
     },
     "tenor": {
-      code: "cClef",
+      glyph_name: "cClef",
       line: 1
     },
     "percussion": {
-      code: "unpitchedPercussionClef1",
+      glyph_name: "unpitchedPercussionClef1",
       line: 2
     },
     "soprano": {
-      code: "cClef",
+      glyph_name: "cClef",
       line: 4
     },
     "mezzo-soprano": {
-      code: "cClef",
+      glyph_name: "cClef",
       line: 3
     },
     "baritone-c": {
-      code: "cClef",
+      glyph_name: "cClef",
       line: 0
     },
     "baritone-f": {
-      code: "fClef",
+      glyph_name: "fClef",
       line: 2
     },
     "subbass": {
-      code: "fClef",
+      glyph_name: "fClef",
       line: 0
     },
     "french": {
-      code: "gClef",
+      glyph_name: "gClef",
       line: 4
     },
   };
-  // Sizes affect the point-size of the clef.
-  Clef.sizes = {
-    "default": 40,
-    "small": 32
-  };
-  
   
   // Annotations attach to clefs -- such as "8" for octave up or down.
   Clef.annotations = {
     "8va": {
-      code: "timeSig8",
-      sizes: {
-        "default": {
-          point: 20,
-          attachments: {
-            "treble": {
-              line: -1.2,
-              x_shift: 11
-            }
-          }
-        },
-        "small": {
-          point: 18,
-          attachments: {
-            "treble": {
-              line: -0.4,
-              x_shift: 8
-            }
-          }         
-        }
-      }
+      glyph_name: "clef8"
     },
     "8vb": {
-      code: "timeSig8",
-      sizes: {
-        "default": {
-          point: 20,
-          attachments: {
-            "treble": {
-              line: 6.3,
-              x_shift: 10
-            },
-            "bass": {
-              line: 4,
-              x_shift: 1
-            }
-          }
-        },
-        "small": {
-          point: 18,
-          attachments: {
-            "treble": {
-              line: 5.8,
-              x_shift: 6
-            },
-            "bass": {
-              line: 3.5,
-              x_shift: 0.5
-            }
-          }         
-        }
-      }
+      glyph_name: "clef8"
     },
   };
+
   // ## Prototype Methods
   Vex.Inherit(Clef, Vex.Flow.StaveModifier, {
     // Create a new clef. The parameter `clef` must be a key from
@@ -141,27 +88,63 @@ Vex.Flow.Clef = (function() {
       } else {
         this.size = size;
       }
-      this.clef.point = Vex.Flow.Clef.sizes[this.size];
+
+      this.clef.point = Vex.Flow.Font.Metrics[this.clef.glyph_name].point;
       
       // If an annotation, such as 8va, is specified, add it to the Clef object.
       if (annotation !== undefined) {
+        this.annotation = annotation;
         var anno_dict = Vex.Flow.Clef.annotations[annotation];
+        
+        var metrics = this.getAnnotationMetrics();
+
         this.annotation = {
-          code: anno_dict.code,
-          point: anno_dict.sizes[this.size].point,
-          line: anno_dict.sizes[this.size].attachments[clef].line,
-          x_shift: anno_dict.sizes[this.size].attachments[clef].x_shift
+          glyph_name: anno_dict.glyph_name,
+          point: metrics.point,
+          line: metrics.line,
+          x_shift: metrics.x_shift
         };
       }
       L("Creating clef:", clef);
     },
 
+    getAnnotationMetrics: function(){
+      var annotationGlyphName = Clef.annotations[this.annotation].glyph_name;
+      var metrics = Vex.Flow.Font.Metrics[annotationGlyphName];
+      var pointType = this.isSmall() ? "small_point" : "default_point";
+      
+      var metricsForClef =  metrics[this.annotation][this.clef.glyph_name][this.getSize()];
+      metricsForClef.point = metrics[pointType];
+
+      return metricsForClef;
+    },
+
+    isSmall: function(){
+      return this.size === "small";
+    },
+
+    getSize: function(){
+      return this.size;
+    },
+
+    getGlyphName: function(){
+      // No change glyph for percussion in SMuFL
+      if (this.clef.glyph_name === "unpitchedPercussionClef1"){
+        return this.clef.glyph_name;
+      }
+      // If the size is small, we must convert the generic glyph name to *ClefChange (ie: gClefChange)
+      return this.isSmall() ? this.clef.glyph_name + "Change" : 
+          this.clef.glyph_name;
+    },
+
     // Add this clef to the start of the given `stave`.
     addModifier: function(stave) {
-      var glyph = new Vex.Flow.Glyph(this.clef.code, this.clef.point);
+      var glyph_name = this.getGlyphName();
+
+      var glyph = new Vex.Flow.Glyph(glyph_name, this.clef.point);
       this.placeGlyphOnLine(glyph, stave, this.clef.line);
       if (this.annotation !== undefined) {
-        var attachment = new Vex.Flow.Glyph(this.annotation.code, this.annotation.point);
+        var attachment = new Vex.Flow.Glyph(this.annotation.glyph_name, this.annotation.point);
         attachment.metrics.x_max = 0;
         attachment.setXShift(this.annotation.x_shift);
         this.placeGlyphOnLine(attachment, stave, this.annotation.line);
@@ -172,11 +155,13 @@ Vex.Flow.Clef = (function() {
 
     // Add this clef to the end of the given `stave`.
     addEndModifier: function(stave) {
-      var glyph = new Vex.Flow.Glyph(this.clef.code, this.clef.point);
+      var glyph_name = this.getGlyphName();
+
+      var glyph = new Vex.Flow.Glyph(glyph_name, this.clef.point);
       this.placeGlyphOnLine(glyph, stave, this.clef.line);
       stave.addEndGlyph(glyph);
       if (this.annotation !== undefined) {
-        var attachment = new Vex.Flow.Glyph(this.annotation.code, this.annotation.point);
+        var attachment = new Vex.Flow.Glyph(this.annotation.glyph_name, this.annotation.point);
         attachment.metrics.x_max = 0;
         attachment.setXShift(this.annotation.x_shift);
         this.placeGlyphOnLine(attachment, stave, this.annotation.line);

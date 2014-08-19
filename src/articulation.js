@@ -172,7 +172,7 @@ Vex.Flow.Articulation = (function() {
 
       L("Rendering articulation: ", this.articulation, glyph_x, glyph_y);
       Vex.Flow.renderGlyph(this.context, glyph_x, glyph_y,
-                           this.render_options.font_scale, this.articulation.code);
+                           this.render_options.font_scale, this.articulation.glyph_name);
     }
   });
 

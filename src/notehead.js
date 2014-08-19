@@ -78,19 +78,21 @@ Vex.Flow.NoteHead = (function() {
 
       // Get glyph code based on duration and note type. This could be
       // regular notes, rests, or other custom codes.
-      this.glyph = Vex.Flow.durationToGlyph(this.duration, this.note_type);
-      if (!this.glyph) {
+      var durationData = Vex.Flow.durationToGlyph(this.duration, this.note_type);
+      if (!durationData) {
         throw new Vex.RuntimeError("BadArguments",
             "No glyph found for duration '" + this.duration +
             "' and type '" + this.note_type + "'");
       }
 
-      this.glyph_code = this.glyph.glyph_name;
       this.x_shift = head_options.x_shift;
       if (head_options.custom_glyph_code) {
         this.custom_glyph = true;
-        this.glyph_code = head_options.custom_glyph_code;
+        this.glyph_name = head_options.custom_glyph_code;
+      } else {
+        this.glyph_name = durationData.glyph_name;
       }
+
 
       this.context = null;
       this.style = head_options.style;
@@ -104,8 +106,9 @@ Vex.Flow.NoteHead = (function() {
       if (head_options.glyph_font_scale) {
         this.render_options.glyph_font_scale = head_options.glyph_font_scale;
       }
-
-      this.setWidth(this.glyph.width);
+      
+      this.glyph = new Vex.Flow.Glyph(this.glyph_name, this.render_options.glyph_font_scale);
+      this.setWidth(Vex.Flow.Font.Metrics[this.glyph_name].width);
     },
 
     // Get the `ModifierContext` category
@@ -190,7 +193,7 @@ Vex.Flow.NoteHead = (function() {
       if (this.preFormatted) return this;
 
       var glyph = this.getGlyph();
-      var width = glyph.width + this.extraLeftPx + this.extraRightPx;
+      var width = Vex.Flow.Font.Metrics[this.glyph_name].width + this.extraLeftPx + this.extraRightPx;
 
       this.setWidth(width);
       this.setPreFormatted(true);
@@ -237,10 +240,10 @@ Vex.Flow.NoteHead = (function() {
         if (this.style) {
           ctx.save();
           this.applyStyle(ctx);
-          Vex.Flow.renderGlyph(ctx, head_x, y, glyph_font_scale, this.glyph_code);
+          this.glyph.render(ctx, head_x, y);
           ctx.restore();
         } else {
-          Vex.Flow.renderGlyph(ctx, head_x, y, glyph_font_scale, this.glyph_code);
+          this.glyph.render(ctx, head_x, y);
         }
       }
     }
