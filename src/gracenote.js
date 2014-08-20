@@ -7,7 +7,7 @@ Vex.Flow.GraceNote = (function() {
     init: function(note_struct) {
       GraceNote.superclass.init.call(this, note_struct);
 
-      this.render_options.glyph_font_scale = 22;
+      this.render_options.glyph_font_scale = 0.6;
       this.render_options.stem_height = 20;
       this.render_options.stroke_px = 2;
       this.glyph.width = 6;

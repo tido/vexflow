@@ -17,13 +17,11 @@ Vex.Flow.TimeSignature = (function() {
 
   TimeSignature.glyphs = {
     "C": {
-      code: "timeSigCommon",
-      point: 40,
+      glyph_name: "timeSigCommon",
       line: 2
     },
     "C|": {
-      code: "timeSigCutCommon",
-      point: 40,
+      glyph_name: "timeSigCutCommon",
       line: 2
     }
   };
@@ -34,7 +32,6 @@ Vex.Flow.TimeSignature = (function() {
        var padding = customPadding || 15;
 
       this.setPadding(padding);
-      this.point = 40;
       this.topLine = 2;
       this.bottomLine = 4;
       this.timeSig = this.parseTimeSpec(timeSpec);
@@ -44,7 +41,7 @@ Vex.Flow.TimeSignature = (function() {
       if (timeSpec == "C" || timeSpec == "C|") {
         var glyphInfo = TimeSignature.glyphs[timeSpec];
         return {num: false, line: glyphInfo.line,
-          glyph: new Vex.Flow.Glyph(glyphInfo.code, glyphInfo.point)};
+          glyph: new Vex.Flow.Glyph(glyphInfo.glyph_name, Vex.Flow.FontLoader.getFontSize(glyphInfo.glyph_name))};
       }
 
       var topNums = [];
@@ -100,9 +97,12 @@ Vex.Flow.TimeSignature = (function() {
 
       var topWidth = 0;
       var i, num;
+      var glyph_name
       for (i = 0; i < topNums.length; ++i) {
         num = topNums[i];
-        var topGlyph = new Vex.Flow.Glyph("timeSig" + num, this.point);
+
+        glyph_name = "timeSig" + num;
+        var topGlyph = new Vex.Flow.Glyph(glyph_name, Vex.Flow.FontLoader.getFontSize(glyph_name));
 
         glyph.topGlyphs.push(topGlyph);
         topWidth += topGlyph.getMetrics().width;
@@ -111,7 +111,9 @@ Vex.Flow.TimeSignature = (function() {
       var botWidth = 0;
       for (i = 0; i < botNums.length; ++i) {
         num = botNums[i];
-        var botGlyph = new Vex.Flow.Glyph("timeSig" + num, this.point);
+        glyph_name = "timeSig" + num;
+
+        var botGlyph = new Vex.Flow.Glyph(glyph_name, Vex.Flow.FontLoader.getFontSize(glyph_name));
 
         glyph.botGlyphs.push(botGlyph);
         botWidth += botGlyph.getMetrics().width;
@@ -138,8 +140,6 @@ Vex.Flow.TimeSignature = (function() {
         for (i = 0; i < this.topGlyphs.length; ++i) {
           g = this.topGlyphs[i];
           g.render(this.context, start_x, this.stave.getYForLine(that.topLine) + (Vex.Flow.Font.Metrics[g.code].y_shift || 0));
-          // Vex.Flow.Glyph.renderOutline(this.context, g.metrics.outline,
-              // g.scale, start_x + g.x_shift, this.stave.getYForLine(that.topLine) + 1);
           start_x += g.getMetrics().width;
         }
 
@@ -148,9 +148,6 @@ Vex.Flow.TimeSignature = (function() {
           g = this.botGlyphs[i];
           that.placeGlyphOnLine(g, this.stave, g.line);
           g.render(this.context, start_x, this.stave.getYForLine(that.bottomLine) + (Vex.Flow.Font.Metrics[g.code].y_shift || 0));
-
-          // Vex.Flow.Glyph.renderOutline(this.context, g.metrics.outline,
-              // g.scale, start_x + g.x_shift, this.stave.getYForLine(that.bottomLine) + 1);
           start_x += g.getMetrics().width;
         }
       };

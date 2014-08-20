@@ -138,7 +138,7 @@ Vex.Flow.Accidental = (function(){
 
       this.render_options = {
         // Font size for glyphs
-        font_scale: 38,
+        font_scale: 1,
 
         // Length of stroke across heads above or below the stave.
         stroke_px: 3
@@ -163,7 +163,7 @@ Vex.Flow.Accidental = (function(){
 
       // Accidentals attached to grace notes are rendered smaller.
       if (this.note.getCategory() === 'gracenotes') {
-        this.render_options.font_scale = 25;
+        this.render_options.font_scale = 0.6;
         this.setWidth(this.accidental.gracenote_width);
       }
     },
@@ -171,7 +171,7 @@ Vex.Flow.Accidental = (function(){
     // If called, draws parenthesis around accidental.
     setAsCautionary: function() {
       this.cautionary = true;
-      this.render_options.font_scale = 28;
+      this.render_options.font_scale = 0.75;
       this.paren_left = Vex.Flow.accidentalCodes("{");
       this.paren_right = Vex.Flow.accidentalCodes("}");
       var width_adjust = (this.type == "##" || this.type == "bb") ? 6 : 4;
@@ -194,26 +194,20 @@ Vex.Flow.Accidental = (function(){
       var acc_y = start.y + this.y_shift;
       L("Rendering: ", this.type, acc_x, acc_y);
 
+      var font_size = Vex.Flow.FontLoader.getFontSize(this.accidental.glyph_name) * this.render_options.font_scale;
       if (!this.cautionary) {
         // Render the accidental alone.
-        Vex.Flow.renderGlyph(this.context, acc_x, acc_y,
-                             this.render_options.font_scale, this.accidental.glyph_name);
+        Vex.Flow.renderGlyph(this.context, acc_x, acc_y, font_size, this.accidental.glyph_name);
       } else {
         // Render the accidental in parentheses.
         acc_x += 3;
-        var parenLeftGlyph = new Vex.Flow.Glyph(this.paren_left.glyph_name, this.render_options.font_scale);
-        parenLeftGlyph.render(this.context, acc_x, acc_y);
-
-        Vex.Flow.renderGlyph(this.context, acc_x, acc_y,
-                             this.render_options.font_scale, this.paren_left.glyph_name);
+        Vex.Flow.renderGlyph(this.context, acc_x, acc_y, font_size, this.paren_left.glyph_name);
         acc_x += 2;
-        Vex.Flow.renderGlyph(this.context, acc_x, acc_y,
-                             this.render_options.font_scale, this.accidental.glyph_name);
+        Vex.Flow.renderGlyph(this.context, acc_x, acc_y, font_size, this.accidental.glyph_name);
   
         acc_x += this.accidental.width - 2;
         if (this.type == "##" || this.type == "bb") acc_x -= 2;
-        Vex.Flow.renderGlyph(this.context, acc_x, acc_y,
-                             this.render_options.font_scale, this.paren_right.glyph_name);
+        Vex.Flow.renderGlyph(this.context, acc_x, acc_y, font_size, this.paren_right.glyph_name);
       
       }
     }

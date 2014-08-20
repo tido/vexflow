@@ -99,15 +99,16 @@ Vex.Flow.NoteHead = (function() {
       this.slashed = head_options.slashed;
 
       Vex.Merge(this.render_options, {
-        glyph_font_scale: 35, // font size for note heads
+        glyph_font_scale: 1, // font proportion for note heads
         stroke_px: 3         // number of stroke px to the left and right of head
       });
 
       if (head_options.glyph_font_scale) {
         this.render_options.glyph_font_scale = head_options.glyph_font_scale;
       }
+      var glyph_size = this.render_options.glyph_font_scale * Vex.Flow.FontLoader.getFontSize(this.glyph_name);
       
-      this.glyph = new Vex.Flow.Glyph(this.glyph_name, this.render_options.glyph_font_scale);
+      this.glyph = new Vex.Flow.Glyph(this.glyph_name, glyph_size);
       this.setWidth(Vex.Flow.Font.Metrics[this.glyph_name].width);
     },
 
@@ -213,7 +214,6 @@ Vex.Flow.NoteHead = (function() {
 
       // Begin and end positions for head.
       var stem_direction = this.stem_direction;
-      var glyph_font_scale = this.render_options.glyph_font_scale;
 
       var line = this.line;
 

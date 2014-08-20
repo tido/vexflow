@@ -17,7 +17,11 @@
  * @param {boolean} nocache If set, disables caching of font outline.
  */
 Vex.Flow.renderGlyph = function(ctx, x_pos, y_pos, point, val, nocache) {
-  var scale = point * 72.0 / (Vex.Flow.Font.resolution * 100.0);
+  if (typeof point !== 'number') {
+    nocache = val;
+    val = point;
+    point = null;
+  }
   var glyph = new Vex.Flow.Glyph(val, point);
   glyph.render(ctx, x_pos, y_pos);
 };
@@ -28,7 +32,8 @@ Vex.Flow.renderGlyph = function(ctx, x_pos, y_pos, point, val, nocache) {
 Vex.Flow.Glyph = (function() {
   function Glyph(code, point, options) {
     this.code = code;
-    this.point = point;
+
+    this.point = point || Vex.Flow.FontLoader.getFontSize(code);
     this.context = null;
     this.options = {
       cache: true,
@@ -116,7 +121,7 @@ Vex.Flow.Glyph = (function() {
 
   /* Static methods used to implement loading / unloading of glyphs */
   Glyph.loadMetrics = function(font, code, cache) {
-    var glyph = Vex.Flow.FontLoader.loadMetrics(code);
+    var glyph = Vex.Flow.FontLoader.loadGlyphData(code);
 
     if (!glyph) throw new Vex.RuntimeError("BadGlyph", "Glyph " + code +
         " does not exist in font.");

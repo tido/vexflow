@@ -151,7 +151,7 @@ Vex.Flow.StemmableNote = (function(){
 
     // Set the stem length to a specific. Will override the default length.
     setStemLength: function(height) {
-      this.stem_extension_override = (height - this.getDefaultHeight());
+      this.stem_extension_override = (height - this.getDefaultStemHeight());
       return this;
     },
 

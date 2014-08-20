@@ -74,7 +74,6 @@ Vex.Flow.PedalMarking = (function() {
         bracket_height: 10,
         text_margin_right: 6,
         bracket_line_width: 1,
-        glyph_point_size: 40,
         color: "black"
       };
     },
@@ -145,7 +144,7 @@ Vex.Flow.PedalMarking = (function() {
               x_shift = (text_width / 2) + pedal.render_options.text_margin_right;
             } else {
               // Render the Ped glyph in position
-              drawPedalGlyph('pedal_depress', ctx, x, y, pedal.render_options.glyph_point_size);
+              drawPedalGlyph('pedal_depress', ctx, x, y);
               x_shift = 20 + pedal.render_options.text_margin_right;
             }
           } else {
@@ -182,9 +181,6 @@ Vex.Flow.PedalMarking = (function() {
       var is_pedal_depressed = false;
       var pedal = this;
 
-      // The glyph point size
-      var point = pedal.render_options.glyph_point_size;
-
       // Iterate through each note, placing glyphs or custom text accordingly
       this.notes.forEach(function(note) {
         is_pedal_depressed = !is_pedal_depressed;
@@ -198,14 +194,14 @@ Vex.Flow.PedalMarking = (function() {
             text_width = ctx.measureText(pedal.custom_depress_text).width;
             ctx.fillText(pedal.custom_depress_text, x - (text_width/2), y);
           } else {
-            drawPedalGlyph("pedal_depress", ctx, x, y, point);
+            drawPedalGlyph("pedal_depress", ctx, x, y);
           }
         } else {
           if (pedal.custom_release_text) {
             text_width = ctx.measureText(pedal.custom_release_text).width;
             ctx.fillText(pedal.custom_release_text, x - (text_width/2), y);
           } else {
-            drawPedalGlyph("pedal_release", ctx, x, y, point);
+            drawPedalGlyph("pedal_release", ctx, x, y);
           }
         }
       });
@@ -241,10 +237,10 @@ Vex.Flow.PedalMarking = (function() {
   // Draws a pedal glyph with the provided `name` on a rendering `context` 
   // at the coordinates `x` and `y. Takes into account the glyph data
   // coordinate shifts.
-  function drawPedalGlyph(name, context, x, y, point) {
+  function drawPedalGlyph(name, context, x, y) {
     var smuflName = PedalMarking.GLYPHS[name];
     var glyph_data = Vex.Flow.Font.Metrics[smuflName];
-    var glyph = new Vex.Flow.Glyph(smuflName, point);
+    var glyph = new Vex.Flow.Glyph(smuflName);
     glyph.render(context, x + glyph_data.x_shift, y + glyph_data.y_shift);
   }
 

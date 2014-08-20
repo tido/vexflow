@@ -40,9 +40,7 @@ Vex.Flow.TextDynamics = (function(){
       this.line = text_struct.line || 0;
       this.glyphs = [];
 
-      Vex.Merge(this.render_options, {
-        glyph_font_size: 40
-      });
+      Vex.Merge(this.render_options, {});
 
       L("New Dynamics Text: ", this.sequence);
     },
@@ -60,8 +58,7 @@ Vex.Flow.TextDynamics = (function(){
         var glyph_data = Vex.Flow.Font.Metrics[smuflName];
         if (!glyph_data) throw new Vex.RERR("Invalid dynamics character: " + letter);
 
-        var size =  this.render_options.glyph_font_size;
-        var glyph = new Vex.Flow.Glyph(smuflName, size);
+        var glyph = new Vex.Flow.Glyph(smuflName);
 
         // Add the glyph
         this.glyphs.push(glyph);

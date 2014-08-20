@@ -68,166 +68,229 @@ Vex.Flow.Font.Bravura.Metrics = {
 
   // TIME SIGNATURES
   "timeSig0": {
-    y_shift: -10
+    y_shift: -10,
+    size: 35
   },
   "timeSig1": {
-    y_shift: -10
+    y_shift: -10,
+    size: 35
   },
   "timeSig2": {
-    y_shift: -10
+    y_shift: -10,
+    size: 35
   },
   "timeSig3": {
-    y_shift: -10
+    y_shift: -10,
+    size: 35
   },
   "timeSig4": {
-    y_shift: -10
+    y_shift: -10,
+    size: 35
   },
   "timeSig5": {
-    y_shift: -10
+    y_shift: -10,
+    size: 35
   },
   "timeSig6": {
-    y_shift: -10
+    y_shift: -10,
+    size: 35
   },
   "timeSig7": {
-    y_shift: -10
+    y_shift: -10,
+    size: 35
   },
   "timeSig8": {
-    y_shift: -10
+    y_shift: -10,
+    size: 35
   },
   "timeSig9": {
-    y_shift: -10
+    y_shift: -10,
+    size: 35
   },
-  "timeSigCommon": {},
-  "timeSigCutCommon": {},
+  "timeSigCommon": {
+    size: 35
+  },
+  "timeSigCutCommon": {
+    size: 35
+  },
 
   // Tuplets
-  "tuplet0": {},
-  "tuplet1": {},
-  "tuplet2": {},
-  "tuplet3": {},
-  "tuplet4": {},
-  "tuplet5": {},
-  "tuplet6": {},
-  "tuplet7": {},
-  "tuplet8": {},
-  "tuplet9": {},
+  "tuplet0": {
+    size: 35
+  },
+  "tuplet1": {
+    size: 35
+  },
+  "tuplet2": {
+    size: 35
+  },
+  "tuplet3": {
+    size: 35
+  },
+  "tuplet4": {
+    size: 35
+  },
+  "tuplet5": {
+    size: 35
+  },
+  "tuplet6": {
+    size: 35
+  },
+  "tuplet7": {
+    size: 35
+  },
+  "tuplet8": {
+    size: 35
+  },
+  "tuplet9": {
+    size: 35
+  },
 
   //NOTEHEADS
   //Normal
   "noteheadDoubleWhole": {
     width: 25,
-    stem_offset: 0
+    stem_offset: 0,
+    size: 35
   },
   "noteheadWhole": {
     width: 16,
-    stem_offset: 0
+    stem_offset: 0,
+    size: 35
   },
   "noteheadHalf": {
     width: 11,
-    stem_offset: 0
+    stem_offset: 0,
+    size: 35
   },
   "noteheadBlack": {
     width: 11,
-    stem_offset: 0
+    stem_offset: 0,
+    size: 35
   },
 
   // Diamond
   "noteheadDiamondDoubleWhole": {
     width: 22,
     stem_offset: 0,
+    size: 35
   },
   "noteheadDiamondWhole": {
     width: 16,
-    stem_offset: 0
+    stem_offset: 0,
+    size: 35
   },
   "noteheadDiamondHalf": {
     width: 10,
-    stem_offset: 0
+    stem_offset: 0,
+    size: 35
   },
   "noteheadDiamondBlack": {
     width: 10,
-    stem_offset: 2
+    stem_offset: 2,
+    size: 35
   },
 
   //TRIANGLE
   "noteheadTriangleUpWhole":{
-    stem_offset: 0
+    stem_offset: 0,
+    size: 35
   },
   "noteheadTriangleUpHalf":{
-    stem_offset: 0
+    stem_offset: 0,
+    size: 35
   },
   "noteheadTriangleUpBlack": {
-    stem_offset: 0
+    stem_offset: 0,
+    size: 35
   },
 
   // X
   "noteheadXDoubleWhole": {
     width: 22,
-    stem_offset: 0
+    stem_offset: 0,
+    size: 35
   },
   "noteheadXWhole": {
     stem_offset: -3,
-    width: 16,
+    size: 35,
+    width: 16
   },
   "noteheadXHalf": {
     stem_offset: -3,
+    size: 35,
     width: 10
   },
   "noteheadXBlack": {
     width: 10,
-    stem_offset: -3
+    stem_offset: -3,
+    size: 35
   },
   "noteheadXOrnate": {
     width: 10,
-    stem_offset: 0
+    stem_offset: 0,
+    size: 35
   },
   "noteheadCircleX": {},
   
   // Slash
   "noteheadSlashDoubleWhole": { // Doesn't exist in SMuFL
     width: 15,
-    stem_offset: 0
+    stem_offset: 0,
+    size: 35
   },
   "noteheadSlashWhiteWhole": {
     width: 15,
-    stem_offset: 0
+    stem_offset: 0,
+    size: 35
   },
   "noteheadSlashWhiteHalf": {
     width: 15,
-    stem_offset: 0
+    stem_offset: 0,
+    size: 35
   },
   "noteheadSlashHorizontalEnds": {
     width: 15,
-    stem_offset: 0
+    stem_offset: 0,
+    size: 35
   },
 
   // RESTS
   "restDoubleWhole": {
-    width: 24
+    width: 24,
+    size: 35
   },
   "restWhole" : {
-    width: 12
+    width: 12,
+    size: 35
   },
   "restHalf" : {
-    width: 12
+    width: 12,
+    size: 35
   },
   "restQuarter" : {
-    width: 8
+    width: 8,
+    size: 35
   },
   "rest8th": {
-    width: 8
+    width: 8,
+    size: 35
   },
   "rest16th": {
-    width: 13
+    width: 13,
+    size: 35
   },
   "rest32nd": {
-    width: 16
+    width: 16,
+    size: 35
   },
   "rest64th": {
-    width: 18
+    width: 18,
+    size: 35
   },
   "rest128th": {
-    width: 20
+    width: 20,
+    size: 35
   },
 
   // FLAGS
@@ -235,62 +298,72 @@ Vex.Flow.Font.Bravura.Metrics = {
     stem_up_extension: 0,
     gracenote_stem_up_extension: 0,
     tabnote_stem_up_extension: 0,
-    up_y_shift: -3
+    up_y_shift: -3,
+    size: 35
   },
   "flag8thDown": {
     stem_down_extension: 0,
     gracenote_stem_down_extension: 0,
     tabnote_stem_down_extension: 0,
-    down_y_shift: 3
+    down_y_shift: 3,
+    size: 35
   },
   "flag16thUp": {
     stem_up_extension: 2,
     gracenote_stem_up_extension: 0,
     tabnote_stem_up_extension: 0,
     up_y_shift: -3,
+    size: 35
   },
   "flag16thDown": {
     stem_down_extension: 0,
     gracenote_stem_down_extension: 0,
     tabnote_stem_down_extension: 0,
-    down_y_shift: 4
+    down_y_shift: 4,
+    size: 35
   },
   "flag32ndUp": {
     stem_up_extension: 3,
     gracenote_stem_up_extension: 2,
     tabnote_stem_up_extension: 9,
-    up_y_shift: 3
+    up_y_shift: 3,
+    size: 35
   },
   "flag32ndDown": {
     stem_down_extension: 5,
     gracenote_stem_down_extension: 2,
     tabnote_stem_down_extension: 5,
-    down_y_shift: -5
+    down_y_shift: -5,
+    size: 35
   },
   "flag64thUp": {
     stem_up_extension: 10,
     gracenote_stem_up_extension: 4,
     tabnote_stem_up_extension: 10,
-    up_y_shift: 10
+    up_y_shift: 10,
+    size: 35
   },
   "flag64thDown": {
     stem_down_extension: 10,
     gracenote_stem_down_extension: 4,
     tabnote_stem_down_extension: 9,
-    down_y_shift: -10
+    down_y_shift: -10,
+    size: 35
   },
   "flag128thUp": {
     stem_up_extension: 16,
     gracenote_stem_up_extension: 6,
     tabnote_stem_up_extension: 22,
-    up_y_shift: 17
+    up_y_shift: 17,
+    size: 35
   },
   "flag128thDown": {
     stem_down_extension: 15,
     gracenote_stem_down_extension: 6,
     tabnote_stem_down_extension: 18,
     down_y_shift: -16,
-    down_x_shift: 0
+    down_x_shift: 0,
+    size: 35
   },
 
   // ORNAMENTS
@@ -299,78 +372,91 @@ Vex.Flow.Font.Bravura.Metrics = {
     shift_up: 0,
     shift_down: 5,
     width: 14,
+    size: 38
   },
   "ornamentMordentInverted": {
     shift_right: -8,
     shift_up: 0,
     shift_down: 5,
     width: 14,
+    size: 38
   },
   "ornamentTurn": {
     shift_right: -8,
     shift_up: 0,
     shift_down: 5,
     width: 20,
+    size: 38
   },
   "ornamentTurnSlash": {
     shift_right: -8,
     shift_up: 0,
     shift_down: 6,
     width: 20,
+    size: 38
   },
   "ornamentTrill": {
     shift_right: -8,
     shift_up: 5,
     shift_down: 15,
     width: 10,
+    size: 38
   },
   "ornamentPrecompSlideTrillDAnglebert": {
     shift_right: -15,
     shift_up: -3,
     shift_down: 6,
     width: 20,
+    size: 38
   },
   "ornamentPrecompMordentUpperPrefix": {
     shift_right: -15,
     shift_up: -3,
     shift_down: 6,
     width: 20,
+    size: 38
   },
   "ornamentPrecompTrillSuffixDandrieu": {
     shift_right: -15,
     shift_up: -3,
     shift_down: 6,
     width: 20,
+    size: 38
   },
   "ornamentPrecompTrillLowerSuffix": {
     shift_right: -15,
     shift_up: -3,
     shift_down: 6,
     width: 20,
+    size: 38
   },
   "ornamentPrecompPortDeVoixMordent": {
     shift_right: -15,
     shift_up: -3,
     shift_down: 6,
     width: 20,
+    size: 38
   },
   "ornamentPrecompInvertedMordentUpperPrefix": {
     shift_right: -15,
     shift_up: -3,
     shift_down: 6,
-    width: 20,
+    width: 30,
+    size: 38
   },
   "ornamentPrecompAppoggTrill": {
     shift_right: -15,
     shift_up: -3,
     shift_down: 6,
     width: 20,
+    size: 38
   },
   "ornamentTremblement": {
     shift_right: -15,
     shift_up: -3,
     shift_down: 6,
     width: 20,
+    size: 38
   },
   "graceNoteSlashStemUp":{},
 
@@ -379,68 +465,80 @@ Vex.Flow.Font.Bravura.Metrics = {
     width: 10,
     gracenote_width: 4.5,
     shift_right: 0,
-    shift_down: 0
+    shift_down: 0,
+    size: 35
   },
   "accidentalDoubleSharp": {
     width: 13,
     gracenote_width: 6,
     shift_right: -1,
-    shift_down: 0
+    shift_down: 0,
+    size: 35
   },
   "accidentalFlat": {
     width: 8,
     gracenote_width: 4.5,
     shift_right: 0,
-    shift_down: 0
+    shift_down: 0,
+    size: 35
   },
   "accidentalDoubleFlat": {
     width: 14,
     gracenote_width: 8,
     shift_right: -3,
-    shift_down: 0
+    shift_down: 0,
+    size: 35
   },
   "accidentalNatural": {
     width: 8,
     gracenote_width: 4.5,
     shift_right: 0,
-    shift_down: 0
+    shift_down: 0,
+    size: 35
   },
   "accidentalParensLeft": {   // Left paren for cautionary accidentals
     width: 5,
     shift_right: 2,
-    shift_down: 0
+    shift_down: 0,
+    size: 35
   },
   "accidentalParensRight": {   // Right paren for cautionary accidentals
     width: 5,
     shift_right: 0,
-    shift_down: 0
+    shift_down: 0,
+    size: 35
   },
   "accidentalThreeQuarterTonesFlatZimmermann": {
     width: 16,
     shift_right: 0,
-    shift_down: 0
+    shift_down: 0,
+    size: 35
   },
   "accidentalQuarterToneFlatStein": {
     width: 10,
     shift_right: 0,
-    shift_down: 0
+    shift_down: 0,
+    size: 35
   },
   "accidentalThreeQuarterTonesSharpStein": {
     width: 13,
     shift_right: 0,
-    shift_down: 0
+    shift_down: 0,
+    size: 35
   },
   "accidentalQuarterToneSharpStein": {
     width: 8,
     shift_right: 0,
-    shift_down: 0
+    shift_down: 0,
+    size: 35
   },
 
   // NO EQUIVALENT IN SMUFL?
   "bbs": { //double flat slashed
     width: 13,
     shift_right: 0,
-    shift_down: 0
+    shift_down: 0,
+    size: 38
   },
 
   // ARTICULATIONS
@@ -448,43 +546,50 @@ Vex.Flow.Font.Bravura.Metrics = {
     width: 4,
     shift_right: -2,
     shift_up: -5,
-    shift_down: 3
+    shift_down: 3,
+    size: 35
   },
   "articStaccatissimoAbove": {   // Staccatissimo
     width: 4,
     shift_right: 0,
     shift_up: 11,
     shift_down: 7,
+    size: 35
   },
   "articAccentAbove": {   // Accent
     width: 10,
     shift_right: -5,
     shift_up: 0,
-    shift_down: 4
+    shift_down: 4,
+    size: 35
   },
   "articTenutoAbove": {   // Tenuto
     width: 9,
     shift_right: -5,
     shift_up: -3,
     shift_down: 0,
+    size: 35
   },
   "articMarcatoAbove": {   // Marcato
     width: 8,
     shift_right: -4,
     shift_up: 0,
     shift_down: 5,
+    size: 35
   },
   "articMarcatoBelow": {   // Marcato
     width: 8,
     shift_right: 0,
     shift_up: -4,
     shift_down: -2,
+    size: 35
   },
   "stringsHarmonic": {   // Natural harmonic or open note
     width: 7,
     shift_right: 0,
     shift_up: -4,
-    shift_down: 4
+    shift_down: 4,
+    size: 35
   },
 
   // STRING TECHNIQUES
@@ -492,13 +597,15 @@ Vex.Flow.Font.Bravura.Metrics = {
     width: 8,
     shift_right: -3,
     shift_up: 8,
-    shift_down: 10
+    shift_down: 10,
+    size: 35
   },
   "stringsDownBow": {   // Bow down - down stroke
     width: 13,
     shift_right: 0,
     shift_up: 10,
-    shift_down: 12
+    shift_down: 12,
+    size: 35
   },
 
   // PLUCKED TECHNIQUES
@@ -506,13 +613,15 @@ Vex.Flow.Font.Bravura.Metrics = {
     width: 9,
     shift_right: -4,
     shift_up: 12,
-    shift_down: 12
+    shift_down: 12,
+    size: 35
   },
   "pluckedSnapPizzicatoAbove": {   // Snap pizzicato
     width: 8,
     shift_right: 0,
     shift_up: -4,
-    shift_down: 6
+    shift_down: 6,
+    size: 35
   },
 
 
@@ -536,7 +645,8 @@ Vex.Flow.Font.Bravura.Metrics = {
     width: 10,
     shift_right: 8,
     shift_up: -4,
-    shift_down: 4
+    shift_down: 4,
+    size: 35
   },
   "breathMarkTick": {
     point:50,
@@ -548,55 +658,79 @@ Vex.Flow.Font.Bravura.Metrics = {
     width: 25,
     shift_right: -13,
     shift_up: 8,
-    shift_down: 10
+    shift_down: 10,
+    size: 35
   },
   "fermataBelow": {   // Fermata below staff
     width: 25,
     shift_right: -10,
     shift_up: 0,
-    shift_down: -4
+    shift_down: -4,
+    size: 35
   },
 
   // PIANO TECHNIQUES
   "keyboardPedalPed": {
     x_shift:-10,
-    y_shift:0
+    y_shift:0,
+    size: 35
   },
   "keyboardPedalUp": {
     x_shift:-2,
-    y_shift:3
+    y_shift:3,
+    size: 35
   },
 
   // DYNAMICS
   "dynamicForte": {
-    width: 12
+    width: 12,
+    size: 35
   },
   "dynamicPiano": {
-    width: 14
+    width: 14,
+    size: 35
   },
   "dynamicMezzo": {
-    width: 17
+    width: 17,
+    size: 35
   },
   "dynamicSforzando": {
-    width: 10
+    width: 10,
+    size: 35
   },
   "dynamicZ": {
-    width: 12
+    width: 12,
+    size: 35
   },
   "dynamicRinforzando": {
-    width: 12
+    width: 12,
+    size: 35
   },
 
   // REPEATS
-  "coda": {},
-  "segno":{},
+  "coda": {
+    size: 35
+  },
+  "segno":{
+    size: 35
+  },
 
   //MULTI-LINE SEGMENTS
-  "wiggleArpeggiatoDown":{},
-  "wiggleArpeggiatoDownArrow":{},
-  "wiggleArpeggiatoUpArrow":{},
+  "wiggleArpeggiatoDown":{
+    size: 35
+  },
+  "wiggleArpeggiatoDownArrow":{
+    size: 35
+  },
+  "wiggleArpeggiatoUpArrow":{
+    size: 35
+  },
 
   //ARROWS AND ARROWHEADS
-  "arrowheadBlackUp": {},
-  "arrowheadBlackDown": {}
+  "arrowheadBlackUp": {
+    size: 35
+  },
+  "arrowheadBlackDown": {
+    size: 35
+  }
 };
