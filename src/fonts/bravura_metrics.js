@@ -1,8 +1,5 @@
 //Using SMuFL naming
-//
-Vex.Flow.Bravura = {};
-
-Vex.Flow.Bravura.Metrics = {
+Vex.Flow.Font.Bravura.Metrics = {
   // STAFF BRACKETS AND DIVIDERS
   "bracketTop": {},
   "bracketBottom": {},
@@ -26,7 +23,9 @@ Vex.Flow.Bravura.Metrics = {
   "cClefChange": {
     point: 40
   },
-  "unpitchedPercussionClef1": {},
+  "unpitchedPercussionClef1": {
+    point: 40
+  },
   "6stringTabClef": {},
   "clef8": {
     default_point: 40,
@@ -124,7 +123,7 @@ Vex.Flow.Bravura.Metrics = {
     stem_offset: 0
   },
   "noteheadHalf": {
-    width: 12,
+    width: 11,
     stem_offset: 0
   },
   "noteheadBlack": {
@@ -236,53 +235,62 @@ Vex.Flow.Bravura.Metrics = {
     stem_up_extension: 0,
     gracenote_stem_up_extension: 0,
     tabnote_stem_up_extension: 0,
-    y_shift: 0
+    up_y_shift: -3
   },
   "flag8thDown": {
     stem_down_extension: 0,
     gracenote_stem_down_extension: 0,
-    tabnote_stem_down_extension: 0
+    tabnote_stem_down_extension: 0,
+    down_y_shift: 3
   },
   "flag16thUp": {
-    stem_up_extension: 0,
+    stem_up_extension: 2,
     gracenote_stem_up_extension: 0,
     tabnote_stem_up_extension: 0,
-    y_shift: 0,
+    up_y_shift: -3,
   },
   "flag16thDown": {
     stem_down_extension: 0,
     gracenote_stem_down_extension: 0,
-    tabnote_stem_down_extension: 0
+    tabnote_stem_down_extension: 0,
+    down_y_shift: 4
   },
   "flag32ndUp": {
-    stem_up_extension: 0,
-    gracenote_stem_up_extension: 0,
-    tabnote_stem_up_extension: 0
+    stem_up_extension: 3,
+    gracenote_stem_up_extension: 2,
+    tabnote_stem_up_extension: 9,
+    up_y_shift: 3
   },
   "flag32ndDown": {
-    stem_down_extension: 0,
-    gracenote_stem_down_extension: 0,
-    tabnote_stem_down_extension: 0
+    stem_down_extension: 5,
+    gracenote_stem_down_extension: 2,
+    tabnote_stem_down_extension: 5,
+    down_y_shift: -5
   },
   "flag64thUp": {
-    stem_up_extension: 0,
-    gracenote_stem_up_extension: 0,
-    tabnote_stem_up_extension: 0
+    stem_up_extension: 10,
+    gracenote_stem_up_extension: 4,
+    tabnote_stem_up_extension: 10,
+    up_y_shift: 10
   },
   "flag64thDown": {
-    stem_down_extension: 0,
-    gracenote_stem_down_extension: 0,
-    tabnote_stem_down_extension: 0
+    stem_down_extension: 10,
+    gracenote_stem_down_extension: 4,
+    tabnote_stem_down_extension: 9,
+    down_y_shift: -10
   },
   "flag128thUp": {
-    stem_up_extension: 0,
-    gracenote_stem_up_extension: 0,
-    tabnote_stem_up_extension: 0
+    stem_up_extension: 16,
+    gracenote_stem_up_extension: 6,
+    tabnote_stem_up_extension: 22,
+    up_y_shift: 17
   },
   "flag128thDown": {
-    stem_down_extension: 0,
-    gracenote_stem_down_extension: 0,
-    tabnote_stem_down_extension: 0
+    stem_down_extension: 15,
+    gracenote_stem_down_extension: 6,
+    tabnote_stem_down_extension: 18,
+    down_y_shift: -16,
+    down_x_shift: 0
   },
 
   // ORNAMENTS

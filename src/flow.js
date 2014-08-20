@@ -15,6 +15,10 @@ Vex.Flow = {
    */
   RESOLUTION: 16384,
 
+  draw_grid: false,
+
+  Font: {},
+
   /* Kerning (DEPRECATED) */
   IsKerned: true
 };

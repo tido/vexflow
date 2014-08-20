@@ -1,4 +1,4 @@
-Vex.Flow.Font = {
+Vex.Flow.Font.Bravura = {
     glyphs: {
         "bracketTop": {
             "font": {
@@ -38268,5 +38268,3 @@ Vex.Flow.Font = {
     "lineHeight":4093,
     "underlineThickness":50
 };
-
-Vex.Flow.Font.Metrics = Vex.Flow.Bravura.Metrics;

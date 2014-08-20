@@ -59,8 +59,12 @@
   <script src="../src/vex.js"></script>
   <script src="../src/flow.js"></script>
   <script src="../src/fraction.js"></script>
-  <script src="../src/fonts/bravura_metrics.js"></script>
+  <script src="../src/fontloader.js"></script>
   <script src="../src/fonts/bravura_font.js"></script>
+  <script src="../src/fonts/bravura_metrics.js"></script>
+  <script src="../src/fonts/gonville_font.js"></script>
+  <script src="../src/fonts/gonville_metrics.js"></script>
+  <script src="../src/fonts/gonville_map.js"></script>
   <script src="../src/glyph.js"></script>
   <script src="../src/tables.js"></script>
   <script src="../src/stave.js"></script>
@@ -186,6 +190,8 @@
 
   <script>
     $(function() {
+      Vex.Flow.FontLoader.setFont(Vex.Flow.Font.Bravura);
+      
       Vex.Flow.Test.Stave.Start();
       Vex.Flow.Test.TabStave.Start();
       Vex.Flow.Test.Voice.Start();

@@ -18,11 +18,8 @@
  */
 Vex.Flow.renderGlyph = function(ctx, x_pos, y_pos, point, val, nocache) {
   var scale = point * 72.0 / (Vex.Flow.Font.resolution * 100.0);
-  // var metrics = Vex.Flow.Glyph.loadMetrics(Vex.Flow.Font, val, !nocache);
-
   var glyph = new Vex.Flow.Glyph(val, point);
   glyph.render(ctx, x_pos, y_pos);
-  // Vex.Flow.Glyph.renderOutline(ctx, metrics.outline, scale, x_pos, y_pos);
 };
 
 /**
@@ -119,13 +116,7 @@ Vex.Flow.Glyph = (function() {
 
   /* Static methods used to implement loading / unloading of glyphs */
   Glyph.loadMetrics = function(font, code, cache) {
-    var glyph;
-    // if (code[0] === "v"){
-      glyph = font.glyphs[code];
-    // } else {
-    //   var gonvilleData = Vex.Flow.Font.Metrics[code];
-    //   glyph = font.glyphs[gonvilleData.code];
-    // }
+    var glyph = Vex.Flow.FontLoader.loadMetrics(code);
 
     if (!glyph) throw new Vex.RuntimeError("BadGlyph", "Glyph " + code +
         " does not exist in font.");
