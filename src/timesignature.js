@@ -139,7 +139,7 @@ Vex.Flow.TimeSignature = (function() {
         var i, g;
         for (i = 0; i < this.topGlyphs.length; ++i) {
           g = this.topGlyphs[i];
-          g.render(this.context, start_x, this.stave.getYForLine(that.topLine) + (Vex.Flow.Font.Metrics[g.code].y_shift || 0));
+          g.render(this.context, start_x, this.stave.getYForLine(that.topLine) + (Vex.Flow.Font.Metrics[g.glyph_name].y_shift || 0));
           start_x += g.getMetrics().width;
         }
 
@@ -147,7 +147,7 @@ Vex.Flow.TimeSignature = (function() {
         for (i = 0; i < this.botGlyphs.length; ++i) {
           g = this.botGlyphs[i];
           that.placeGlyphOnLine(g, this.stave, g.line);
-          g.render(this.context, start_x, this.stave.getYForLine(that.bottomLine) + (Vex.Flow.Font.Metrics[g.code].y_shift || 0));
+          g.render(this.context, start_x, this.stave.getYForLine(that.bottomLine) + (Vex.Flow.Font.Metrics[g.glyph_name].y_shift || 0));
           start_x += g.getMetrics().width;
         }
       };

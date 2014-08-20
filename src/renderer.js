@@ -102,6 +102,21 @@ Vex.Flow.Renderer = (function() {
     context.stroke();
   };
 
+  Renderer.drawCross = function(ctx, x, y, color){
+    ctx.save();
+    ctx.lineWidth = 1;
+    ctx.strokeStyle = color || "red";
+    ctx.beginPath();
+    ctx.moveTo(x - 5, y);
+    ctx.lineTo(x + 5, y);
+    ctx.moveTo(x, y - 5);
+    ctx.lineTo(x, y + 5);
+    ctx.stroke();
+    ctx.closePath();
+    ctx.strokeStyle = "black";
+    ctx.restore();
+  },
+
   Renderer.prototype = {
     init: function(sel, backend) {
       // Verify selector

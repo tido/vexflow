@@ -13,7 +13,7 @@
  * @param {number} x_pos X coordinate.
  * @param {number} y_pos Y coordinate.
  * @param {number} point The point size to use.
- * @param {string} val The glyph code in Vex.Flow.Font.
+ * @param {string} val The glyph name in Vex.Flow.Font.
  * @param {boolean} nocache If set, disables caching of font outline.
  */
 Vex.Flow.renderGlyph = function(ctx, x_pos, y_pos, point, val, nocache) {
@@ -30,10 +30,10 @@ Vex.Flow.renderGlyph = function(ctx, x_pos, y_pos, point, val, nocache) {
  * @constructor
  */
 Vex.Flow.Glyph = (function() {
-  function Glyph(code, point, options) {
-    this.code = code;
+  function Glyph(glyph_name, point, options) {
+    this.glyph_name = glyph_name;
 
-    this.point = point || Vex.Flow.FontLoader.getFontSize(code);
+    this.point = point || Vex.Flow.FontLoader.getFontSize(glyph_name);
     this.context = null;
     this.options = {
       cache: true,
@@ -48,6 +48,10 @@ Vex.Flow.Glyph = (function() {
     if (options) this.setOptions(options); else this.reset();
   }
 
+  Glyph.DEBUG = true;
+
+  function L() { if (Glyph.DEBUG) Vex.L("Vex.Flow.Glyph", arguments); }
+
   Glyph.prototype = {
     setOptions: function(options) {
       Vex.Merge(this.options, options);
@@ -55,14 +59,16 @@ Vex.Flow.Glyph = (function() {
     },
 
     setStave: function(stave) { this.stave = stave; return this; },
-    setXShift: function(x_shift) { this.x_shift = x_shift; return this; },
+    setXShift: function(x_shift) {
+      this.x_shift = x_shift; 
+      return this; 
+    },
     setYShift: function(y_shift) { this.y_shift = y_shift; return this; },
     setContext: function(context) { this.context = context; return this; },
     getContext: function() { return this.context; },
 
     reset: function() {
-      this.metrics = Vex.Flow.Glyph.loadMetrics(this.options.font, this.code,
-          this.options.cache);
+      this.metrics = Vex.Flow.FontLoader.loadGlyphMetrics(this.glyph_name, this.options.cache);
       this.scale = this.point * 72 / (this.options.font.resolution * 100);
 
       if (this.metrics.advanceWidth){
@@ -77,7 +83,7 @@ Vex.Flow.Glyph = (function() {
 
     getMetrics: function() {
       if (!this.metrics) throw new Vex.RuntimeError("BadGlyph", "Glyph " +
-          this.code + " is not initialized.");
+          this.glyph_name + " is not initialized.");
       return {
         x_min: this.metrics.x_min * this.scale,
         x_max: this.metrics.x_max * this.scale,
@@ -88,7 +94,7 @@ Vex.Flow.Glyph = (function() {
 
     render: function(ctx, x_pos, y_pos) {
       if (!this.metrics) throw new Vex.RuntimeError("BadGlyph", "Glyph " +
-          this.code + " is not initialized.");
+          this.glyph_name + " is not initialized.");
 
       var outline = this.metrics.outline;
       var scale = this.scale;
@@ -98,71 +104,32 @@ Vex.Flow.Glyph = (function() {
       } else if (this.metrics.outline) {
         Glyph.renderOutline(ctx, outline, scale, x_pos, y_pos);
       }
+
+      if (Glyph.DEBUG){
+        Vex.Flow.Renderer.drawCross(ctx, x_pos, y_pos);
+      }
     },
 
     renderToStave: function(x) {
       if (!this.metrics) throw new Vex.RuntimeError("BadGlyph", "Glyph " +
-          this.code + " is not initialized.");
+          this.glyph_name + " is not initialized.");
       if (!this.stave) throw new Vex.RuntimeError("GlyphError", "No valid stave");
       if (!this.context) throw new Vex.RERR("GlyphError", "No valid context");
 
       var outline = this.metrics.outline;
       var scale = this.scale;
+      var x_pos = x + this.x_shift;
+      var y_pos = this.stave.getYForGlyphs() + this.y_shift;
 
       if (this.metrics.path) {
-        Glyph.drawOTFGlyph(this.context, this.metrics, x + this.x_shift,
-            this.stave.getYForGlyphs() + this.y_shift, this.point);
+        Glyph.drawOTFGlyph(this.context, this.metrics, x_pos, y_pos, this.point);
       } else if (this.metrics.outline){
-        Glyph.renderOutline(this.context, outline, scale,
-            x + this.x_shift, this.stave.getYForGlyphs() + this.y_shift);
-      }
-    }
-  };
-
-  /* Static methods used to implement loading / unloading of glyphs */
-  Glyph.loadMetrics = function(font, code, cache) {
-    var glyph = Vex.Flow.FontLoader.loadGlyphData(code);
-
-    if (!glyph) throw new Vex.RuntimeError("BadGlyph", "Glyph " + code +
-        " does not exist in font.");
-
-    var x_min = typeof glyph.x_min === 'number' ? glyph.x_min : glyph.xMin;
-    var x_max = typeof glyph.x_max === 'number' ? glyph.x_max : glyph.xMax;
-    var ha = glyph.ha || (glyph.yMax - glyph.yMin);
-
-    var outline;
-
-    if (glyph.o) {
-      if (cache) {
-        if (glyph.cached_outline) {
-          outline = glyph.cached_outline;
-        } else {
-          outline = glyph.o.split(' ');
-          glyph.cached_outline = outline;
-        }
-      } else {
-        if (glyph.cached_outline) delete glyph.cached_outline;
-        outline = glyph.o.split(' ');
+        Glyph.renderOutline(this.context, outline, scale, x_pos, y_pos);
       }
 
-      return {
-        x_min: x_min,
-        x_max: x_max,
-        ha: ha,
-        outline: outline
-      };
-    } else if (glyph.path) {
-      return {
-        x_min: x_max,
-        x_max: x_max,
-        ha: ha,
-        path: glyph.path,
-        advanceWidth: glyph.advanceWidth,
-        font: glyph.font
-      };
-    } else {
-      throw new Vex.RuntimeError("BadGlyph", "Glyph " + this.code +
-          " has no outline defined.");
+      if (Glyph.DEBUG){
+        Vex.Flow.Renderer.drawCross(this.context, x_pos, y_pos);      
+      }
     }
   };
 
