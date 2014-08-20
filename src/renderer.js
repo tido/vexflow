@@ -66,7 +66,7 @@ Vex.Flow.Renderer = (function() {
       var method = methods[i];
       ctx[method] = Vex.Flow.CanvasContext.prototype[method];
     }
-    
+
     return ctx;
   };
 
@@ -131,6 +131,29 @@ Vex.Flow.Renderer = (function() {
       }
     },
 
+    drawGrid: function(size){
+      var ctx = this.ctx;
+      var x = 0;
+      ctx.lineWidth = 1;
+      ctx.strokeStyle = "#cccccc";
+      while (x < this.element.width) {
+        ctx.moveTo(x, 0);
+        ctx.lineTo(x, 2000);
+        ctx.stroke();
+        x += size || 20;
+      }
+
+      var y = 0;
+      while (y < this.element.height){
+        ctx.moveTo(0, y);
+        ctx.lineTo(2000, y);
+        ctx.stroke();
+        y += size || 20;
+      }
+
+      ctx.strokeStyle = "black";
+    },
+
     resize: function(width, height) {
       if (this.backend == Renderer.Backends.CANVAS) {
         if (!this.element.getContext) throw new Vex.RERR("BadElement",
@@ -141,6 +164,10 @@ Vex.Flow.Renderer = (function() {
             this.element.getContext('2d'));
       } else {
         this.ctx.resize(width, height);
+      }
+
+      if (Vex.Flow.draw_grid){
+        this.drawGrid();
       }
 
       return this;
