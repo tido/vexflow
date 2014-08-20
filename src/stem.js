@@ -75,13 +75,17 @@ Vex.Flow.Stem = (function() {
 
     // Gets the entire height for the stem
     getHeight: function() {
-      var height = this.gracenote ? Stem.HEIGHT_GRACENOTE : Stem.HEIGHT;
+      var height = this.getDefaultHeight();
       return ((this.y_bottom - this.y_top) * this.stem_direction) +
              ((height + this.stem_extension) * this.stem_direction);
     },
 
     getBoundingBox: function() {
       throw new Vex.RERR("NotImplemented", "getBoundingBox() not implemented.");
+    },
+
+    getDefaultHeight: function(){
+      return this.gracenote ? Stem.HEIGHT_GRACENOTE : Stem.HEIGHT;
     },
 
     // Get the y coordinates for the very base of the stem to the top of
@@ -91,7 +95,7 @@ Vex.Flow.Stem = (function() {
 
       var top_pixel = this.y_top;
       var base_pixel = this.y_bottom;
-      var stem_height = Stem.HEIGHT + this.stem_extension;
+      var stem_height = this.getDefaultHeight() + this.stem_extension;
 
       for (var i = 0; i < ys.length; ++i) {
         var stem_top = ys[i] + (stem_height * -this.stem_direction);

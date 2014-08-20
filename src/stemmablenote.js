@@ -37,7 +37,7 @@ Vex.Flow.StemmableNote = (function(){
 
     // Get the full length of stem
     getStemLength: function() {
-      return Stem.HEIGHT + this.getStemExtension();
+      return this.getDefaultStemHeight() + this.getStemExtension();
     },
 
     // Get the number of beams for this duration
@@ -110,6 +110,10 @@ Vex.Flow.StemmableNote = (function(){
       return this;
     },
 
+    getDefaultStemHeight: function(){
+      return this.stem.getDefaultHeight();
+    },
+
     // Get the `x` coordinate of the stem
     getStemX: function() {
       var x_begin = this.getAbsoluteX() + this.x_shift;
@@ -147,7 +151,7 @@ Vex.Flow.StemmableNote = (function(){
 
     // Set the stem length to a specific. Will override the default length.
     setStemLength: function(height) {
-      this.stem_extension_override = (height - Stem.HEIGHT);
+      this.stem_extension_override = (height - this.getDefaultHeight());
       return this;
     },
 
@@ -158,7 +162,8 @@ Vex.Flow.StemmableNote = (function(){
 
       var top_pixel = this.ys[0];
       var base_pixel = this.ys[0];
-      var stem_height = Stem.HEIGHT + this.getStemExtension();
+
+      var stem_height = this.getStemLength();
 
       for (var i = 0; i < this.ys.length; ++i) {
         var stem_top = this.ys[i] + (stem_height * -this.stem_direction);

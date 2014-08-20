@@ -230,14 +230,17 @@ Vex.Flow.Beam = (function() {
         var slope_y = this.getSlopeY(x_px, first_x_px, first_y_px,
                         this.slope) + this.y_shift;
 
+        var stemHeight = note.stem.getDefaultHeight();
+
         note.setStem(new Vex.Flow.Stem({
           x_begin: x_px - (Vex.Flow.STEM_WIDTH/2),
           x_end: x_px,
           y_top: this.stem_direction === 1 ? top_y_px : base_y_px,
           y_bottom: this.stem_direction === 1 ? base_y_px :  top_y_px ,
           y_extend: y_displacement,
-          stem_extension: Math.abs(top_y_px - slope_y) - Stem.HEIGHT - 1,
-          stem_direction: this.stem_direction
+          stem_extension: Math.abs(top_y_px - slope_y) - stemHeight - 1,
+          stem_direction: this.stem_direction,
+          gracenote: note.stem.gracenote
         }));
       }
     },
