@@ -61,10 +61,6 @@ Vex.Flow.Articulation = (function() {
       this.type = type;
       this.position = Modifier.Position.BELOW;
 
-      this.render_options = {
-        font_scale: 38
-      };
-
       this.articulation = Vex.Flow.articulationCodes(this.type);
       if (!this.articulation) throw new Vex.RERR("ArgumentError",
          "Articulation not found: '" + this.type + "'");
@@ -167,7 +163,7 @@ Vex.Flow.Articulation = (function() {
           glyph_y = Math.max(stave.getYForBottomText(this.text_line), glyph_y_between_lines);
       }
 
-      var glyph_x = start.x + this.articulation.shift_right;
+      var glyph_x = start.x + this.articulation.x_shift;
       glyph_y += shiftY + this.y_shift;
 
       L("Rendering articulation: ", this.articulation, glyph_x, glyph_y);

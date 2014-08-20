@@ -368,91 +368,91 @@ Vex.Flow.Font.Gonville.Metrics = {
 
   // ORNAMENTS
   "ornamentMordent": {
-    shift_right: 1,
+    x_shift: 1,
     shift_up: 0,
     shift_down: 5,
     width: 14,
     size: 38
   },
   "ornamentMordentInverted": {
-    shift_right: 1,
+    x_shift: 1,
     shift_up: 0,
     shift_down: 5,
     width: 14,
     size: 38
   },
   "ornamentTurn": {
-    shift_right: 1,
+    x_shift: 1,
     shift_up: 0,
     shift_down: 5,
     width: 20,
     size: 38
   },
   "ornamentTurnSlash": {
-    shift_right: 1,
+    x_shift: 1,
     shift_up: 0,
     shift_down: 6,
     width: 20,
     size: 38
   },
   "ornamentTrill": {
-    shift_right: 0,
+    x_shift: 0,
     shift_up: 5,
     shift_down: 15,
     width: 10,
     size: 38
   },
   "ornamentPrecompSlideTrillDAnglebert": {
-    shift_right: 1,
+    x_shift: 1,
     shift_up: -3,
     shift_down: 6,
     width: 20,
     size: 38
   },
   "ornamentPrecompMordentUpperPrefix": {
-    shift_right: 1,
+    x_shift: 1,
     shift_up: -3,
     shift_down: 6,
     width: 20,
     size: 38
   },
   "ornamentPrecompTrillSuffixDandrieu": {
-    shift_right: 1,
+    x_shift: 1,
     shift_up: -3,
     shift_down: 6,
     width: 20,
     size: 38
   },
   "ornamentPrecompTrillLowerSuffix": {
-    shift_right: 1,
+    x_shift: 1,
     shift_up: -3,
     shift_down: 6,
     width: 20,
     size: 38
   },
   "ornamentPrecompPortDeVoixMordent": {
-    shift_right: 1,
+    x_shift: 1,
     shift_up: -3,
     shift_down: 6,
     width: 20,
     size: 38
   },
   "ornamentPrecompInvertedMordentUpperPrefix": {
-    shift_right: 1,
+    x_shift: 1,
     shift_up: -3,
     shift_down: 6,
     width: 20,
     size: 38
   },
   "ornamentPrecompAppoggTrill": {
-    shift_right: 1,
+    x_shift: 1,
     shift_up: -3,
     shift_down: 6,
     width: 20,
     size: 38
   },
   "ornamentTremblement": {
-    shift_right: 1,
+    x_shift: 1,
     shift_up: -3,
     shift_down: 6,
     width: 20,
@@ -464,71 +464,71 @@ Vex.Flow.Font.Gonville.Metrics = {
   "accidentalSharp": {
     width: 10,
     gracenote_width: 4.5,
-    shift_right: 0,
+    x_shift: 0,
     shift_down: 0,
     size: 38
   },
   "accidentalDoubleSharp": {
     width: 13,
     gracenote_width: 6,
-    shift_right: -1,
+    x_shift: -1,
     shift_down: 0,
     size: 38
   },
   "accidentalFlat": {
     width: 8,
     gracenote_width: 4.5,
-    shift_right: 0,
+    x_shift: 0,
     shift_down: 0,
     size: 38
   },
   "accidentalDoubleFlat": {
     width: 14,
     gracenote_width: 8,
-    shift_right: -3,
+    x_shift: -3,
     shift_down: 0,
     size: 38
   },
   "accidentalNatural": {
     width: 8,
     gracenote_width: 4.5,
-    shift_right: 0,
+    x_shift: 0,
     shift_down: 0,
     size: 38
   },
   "accidentalParensLeft": {   // Left paren for cautionary accidentals
     width: 5,
-    shift_right: 2,
+    x_shift: 2,
     shift_down: 0,
     size: 38
   },
   "accidentalParensRight": {   // Right paren for cautionary accidentals
     width: 5,
-    shift_right: 0,
+    x_shift: 0,
     shift_down: 0,
     size: 38
   },
   "accidentalThreeQuarterTonesFlatZimmermann": {
     width: 16,
-    shift_right: 0,
+    x_shift: 0,
     shift_down: 0,
     size: 38
   },
   "accidentalQuarterToneFlatStein": {
     width: 10,
-    shift_right: 0,
+    x_shift: 0,
     shift_down: 0,
     size: 38
   },
   "accidentalThreeQuarterTonesSharpStein": {
     width: 13,
-    shift_right: 0,
+    x_shift: 0,
     shift_down: 0,
     size: 38
   },
   "accidentalQuarterToneSharpStein": {
     width: 8,
-    shift_right: 0,
+    x_shift: 0,
     shift_down: 0,
     size: 38
   },
@@ -536,7 +536,7 @@ Vex.Flow.Font.Gonville.Metrics = {
   // NO EQUIVALENT IN SMUFL?
   "bbs": { //double flat slashed
     width: 13,
-    shift_right: 0,
+    x_shift: 0,
     shift_down: 0,
     size: 38
   },
@@ -544,49 +544,49 @@ Vex.Flow.Font.Gonville.Metrics = {
   // ARTICULATIONS
   "articStaccatoAbove": {   // Staccato
     width: 4,
-    shift_right: -2,
+    x_shift: -2,
     shift_up: 8,
     shift_down: 0,
     size: 38
   },
   "articStaccatissimoAbove": {   // Staccatissimo
     width: 4,
-    shift_right: 0,
+    x_shift: 0,
     shift_up: 11,
     shift_down: 5,
     size: 38
   },
   "articAccentAbove": {   // Accent
     width: 10,
-    shift_right: 5,
+    x_shift: 5,
     shift_up: 8,
     shift_down: 1,
     size: 38
   },
   "articTenutoAbove": {   // Tenuto
     width: 9,
-    shift_right: -4,
+    x_shift: -4,
     shift_up: 17,
     shift_down: 10,
     size: 38
   },
   "articMarcatoAbove": {   // Marcato
     width: 8,
-    shift_right: 0,
+    x_shift: 0,
     shift_up: -4,
     shift_down: -2,
     size: 38
   },
   "articMarcatoBelow": {   // Marcato
     width: 8,
-    shift_right: 0,
+    x_shift: 0,
     shift_up: -4,
     shift_down: -2,
     size: 38
   },
   "stringsHarmonic": {   // Natural harmonic or open note
     width: 7,
-    shift_right: 0,
+    x_shift: 0,
     shift_up: -4,
     shift_down: 4,
     size: 38
@@ -595,14 +595,14 @@ Vex.Flow.Font.Gonville.Metrics = {
   // STRING TECHNIQUES
   "stringsUpBow": {   // Bow up - up stroke
     width: 8,
-    shift_right: 0,
+    x_shift: 0,
     shift_up: 8,
     shift_down: 10,
     size: 38
   },
   "stringsDownBow": {   // Bow down - down stroke
     width: 13,
-    shift_right: 0,
+    x_shift: 0,
     shift_up: 10,
     shift_down: 12,
     size: 38
@@ -611,14 +611,14 @@ Vex.Flow.Font.Gonville.Metrics = {
   // PLUCKED TECHNIQUES
   "pluckedLeftHandPizzicato": {   // Left hand pizzicato
     width: 9,
-    shift_right: -4,
+    x_shift: -4,
     shift_up: 12,
     shift_down: 12,
     size: 38
   },
   "pluckedSnapPizzicatoAbove": {   // Snap pizzicato
     width: 8,
-    shift_right: 0,
+    x_shift: 0,
     shift_up: -4,
     shift_down: 6,
     size: 38
@@ -643,7 +643,7 @@ Vex.Flow.Font.Gonville.Metrics = {
     x_shift:0,
     y_shift:0,
     width: 10,
-    shift_right: 8,
+    x_shift: 8,
     shift_up: -4,
     shift_down: 4
   },
@@ -655,14 +655,14 @@ Vex.Flow.Font.Gonville.Metrics = {
   },
   "fermataAbove": {   // Fermata above staff
     width: 25,
-    shift_right: 0,
+    x_shift: 0,
     shift_up: 8,
     shift_down: 10,
     size: 38
   },
   "fermataBelow": {   // Fermata below staff
     width: 25,
-    shift_right: 0,
+    x_shift: 0,
     shift_up: 0,
     shift_down: -4,
     size: 38

@@ -204,7 +204,7 @@ Vex.Flow.Ornament = (function() {
 
       // Get initial coordinates for the modifier position
       var start = this.note.getModifierStartXY(this.position, this.index);
-      var glyph_x = start.x + this.ornament.shift_right;
+      var glyph_x = start.x + this.ornament.x_shift;
       var glyph_y = Math.min(stave.getYForTopText(this.text_line) - 3, glyph_y_between_lines);
       glyph_y += this.ornament.shift_up + this.y_shift;
 
