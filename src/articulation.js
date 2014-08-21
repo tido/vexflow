@@ -65,8 +65,9 @@ Vex.Flow.Articulation = (function() {
       if (!this.articulation) throw new Vex.RERR("ArgumentError",
          "Articulation not found: '" + this.type + "'");
 
+      this.glyph = new Vex.Flow.Glyph(this.articulation.glyph_name);
       // Default width comes from articulation table.
-      this.setWidth(this.articulation.width);
+      this.setWidth(this.glyph.getWidth());
     },
 
     // Render articulation in position next to note.
@@ -162,8 +163,8 @@ Vex.Flow.Articulation = (function() {
         else
           glyph_y = Math.max(stave.getYForBottomText(this.text_line), glyph_y_between_lines);
       }
-
-      var glyph_x = start.x + this.articulation.x_shift;
+      debugger;
+      var glyph_x = start.x - (this.glyph.width/2);
       glyph_y += shiftY + this.y_shift;
 
       L("Rendering articulation: ", this.articulation, glyph_x, glyph_y);

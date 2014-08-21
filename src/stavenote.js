@@ -614,6 +614,10 @@ Vex.Flow.StaveNote = (function() {
       return rest_line;
     },
 
+    getNoteHeadWidth: function(){
+      return this.note_heads[0].getWidth();
+    },
+
     // Get the default `x` and `y` coordinates for the provided `position`
     // and key `index`
     getModifierStartXY: function(position, index) {
@@ -629,10 +633,10 @@ Vex.Flow.StaveNote = (function() {
         x = -1 * 2;
       } else if (position == Vex.Flow.Modifier.Position.RIGHT) {
         // extra_right_px
-        x = this.glyph.width + this.x_shift + 2;
+        x = this.getNoteHeadWidth() + this.x_shift + 2;
       } else if (position == Vex.Flow.Modifier.Position.BELOW ||
                  position == Vex.Flow.Modifier.Position.ABOVE) {
-        x = this.glyph.width / 2;
+        x = this.getNoteHeadWidth()/2;
       }
 
       return { x: this.getAbsoluteX() + x, y: this.ys[index] };

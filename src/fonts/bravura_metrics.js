@@ -517,50 +517,36 @@ Vex.Flow.Font.Bravura.Metrics = {
 
   // ARTICULATIONS
   "articStaccatoAbove": {   // Staccato
-    width: 4,
-    x_shift: -2,
     shift_up: -5,
-    shift_down: 3,
+    shift_down: 2,
     size: 35
   },
   "articStaccatissimoAbove": {   // Staccatissimo
-    width: 4,
-    x_shift: 0,
-    shift_up: 11,
-    shift_down: 7,
-    size: 35
+    shift_up: 2,
+    shift_down: 5,
+    size: 30
   },
   "articAccentAbove": {   // Accent
-    width: 10,
-    x_shift: -5,
     shift_up: 0,
     shift_down: 4,
-    size: 35
+    size: 30
   },
   "articTenutoAbove": {   // Tenuto
-    width: 9,
-    x_shift: -5,
     shift_up: -3,
-    shift_down: 0,
+    shift_down: 1,
     size: 35
   },
   "articMarcatoAbove": {   // Marcato
-    width: 8,
-    x_shift: -4,
-    shift_up: 0,
-    shift_down: 5,
+    shift_up: 6,
+    shift_down: 6,
     size: 35
   },
   "articMarcatoBelow": {   // Marcato
-    width: 8,
-    x_shift: 0,
-    shift_up: -4,
+    shift_up: 5,
     shift_down: -2,
     size: 35
   },
   "stringsHarmonic": {   // Natural harmonic or open note
-    width: 7,
-    x_shift: 0,
     shift_up: -4,
     shift_down: 4,
     size: 35
@@ -568,15 +554,11 @@ Vex.Flow.Font.Bravura.Metrics = {
 
   // STRING TECHNIQUES
   "stringsUpBow": {   // Bow up - up stroke
-    width: 8,
-    x_shift: -3,
     shift_up: 8,
-    shift_down: 10,
+    shift_down: 14,
     size: 35
   },
   "stringsDownBow": {   // Bow down - down stroke
-    width: 13,
-    x_shift: 0,
     shift_up: 10,
     shift_down: 12,
     size: 35
@@ -584,17 +566,13 @@ Vex.Flow.Font.Bravura.Metrics = {
 
   // PLUCKED TECHNIQUES
   "pluckedLeftHandPizzicato": {   // Left hand pizzicato
-    width: 9,
-    x_shift: -4,
-    shift_up: 12,
-    shift_down: 12,
+    shift_up: 5,
+    shift_down: 10,
     size: 35
   },
   "pluckedSnapPizzicatoAbove": {   // Snap pizzicato
-    width: 8,
-    x_shift: 0,
-    shift_up: -4,
-    shift_down: 6,
+    shift_up: 4,
+    shift_down: 10,
     size: 35
   },
 
@@ -629,17 +607,13 @@ Vex.Flow.Font.Bravura.Metrics = {
     width: 10
   },
   "fermataAbove": {   // Fermata above staff
-    width: 25,
-    x_shift: -13,
     shift_up: 8,
     shift_down: 10,
     size: 35
   },
   "fermataBelow": {   // Fermata below staff
-    width: 25,
-    x_shift: -10,
     shift_up: 0,
-    shift_down: -4,
+    shift_down: 0,
     size: 35
   },
 

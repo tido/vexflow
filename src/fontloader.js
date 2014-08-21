@@ -16,7 +16,7 @@ Vex.Flow.FontLoader = {
   },
   getHorizontalOriginPosition: function(glyph_name){
     if (Vex.Flow.Font.Metrics){
-      return Vex.Flow.Font.Metrics[glyph_name].orgin || "left";
+      return Vex.Flow.Font.Metrics[glyph_name].origin || "left";
     }
     return "left";
   },

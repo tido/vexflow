@@ -530,50 +530,42 @@ Vex.Flow.Font.Gonville.Metrics = {
 
   // ARTICULATIONS
   "articStaccatoAbove": {   // Staccato
-    width: 4,
-    x_shift: -2,
+    origin: "center",
     shift_up: 8,
     shift_down: 0,
     size: 38
   },
   "articStaccatissimoAbove": {   // Staccatissimo
-    width: 4,
-    x_shift: 0,
+    origin: "center",
     shift_up: 11,
     shift_down: 5,
     size: 38
   },
   "articAccentAbove": {   // Accent
-    width: 10,
-    x_shift: 5,
+    origin: "right",
     shift_up: 8,
     shift_down: 1,
     size: 38
   },
   "articTenutoAbove": {   // Tenuto
-    width: 9,
-    x_shift: -4,
+    origin: "center",
     shift_up: 17,
     shift_down: 10,
     size: 38
   },
   "articMarcatoAbove": {   // Marcato
-    width: 8,
-    x_shift: 0,
+    origin: "center",
     shift_up: -4,
     shift_down: -2,
     size: 38
   },
   "articMarcatoBelow": {   // Marcato
-    width: 8,
-    x_shift: 0,
+    origin: "center",
     shift_up: -4,
     shift_down: -2,
     size: 38
   },
   "stringsHarmonic": {   // Natural harmonic or open note
-    width: 7,
-    x_shift: 0,
     shift_up: -4,
     shift_down: 4,
     size: 38
@@ -581,15 +573,13 @@ Vex.Flow.Font.Gonville.Metrics = {
 
   // STRING TECHNIQUES
   "stringsUpBow": {   // Bow up - up stroke
-    width: 8,
-    x_shift: 0,
+    origin: "center",
     shift_up: 8,
     shift_down: 10,
     size: 38
   },
   "stringsDownBow": {   // Bow down - down stroke
-    width: 13,
-    x_shift: 0,
+    origin: "center",
     shift_up: 10,
     shift_down: 12,
     size: 38
@@ -597,15 +587,13 @@ Vex.Flow.Font.Gonville.Metrics = {
 
   // PLUCKED TECHNIQUES
   "pluckedLeftHandPizzicato": {   // Left hand pizzicato
-    width: 9,
-    x_shift: -4,
+    origin: "center",
     shift_up: 12,
     shift_down: 12,
     size: 38
   },
   "pluckedSnapPizzicatoAbove": {   // Snap pizzicato
-    width: 8,
-    x_shift: 0,
+    origin: "center",
     shift_up: -4,
     shift_down: 6,
     size: 38
@@ -641,15 +629,13 @@ Vex.Flow.Font.Gonville.Metrics = {
     width: 10
   },
   "fermataAbove": {   // Fermata above staff
-    width: 25,
-    x_shift: 0,
+    origin: "center",
     shift_up: 8,
     shift_down: 10,
     size: 38
   },
   "fermataBelow": {   // Fermata below staff
-    width: 25,
-    x_shift: 0,
+    origin: "center",
     shift_up: 0,
     shift_down: -4,
     size: 38
