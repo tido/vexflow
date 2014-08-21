@@ -38259,12 +38259,13 @@ Vex.Flow.Font.Bravura = {
     "underlinePosition":-125,
     "cssFontStyle":"normal",
     "boundingBox":{"yMin":-2065.375,
-    "xMin":-695.53125,
-    "yMax":1901.578125,
-    "xMax":1159.671875},
-    "resolution":1000,
+        "xMin":-695.53125,
+        "yMax":1901.578125,
+        "xMax":1159.671875
+    },
+    "resolution":700,
     "descender":-2066,
-    "familyName":"VexFlow-18",
+    "familyName":"Bravura",
     "lineHeight":4093,
     "underlineThickness":50
 };

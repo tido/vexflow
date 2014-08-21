@@ -48,7 +48,7 @@ Vex.Flow.Glyph = (function() {
     if (options) this.setOptions(options); else this.reset();
   }
 
-  Glyph.DEBUG = true;
+  Glyph.DEBUG = false;
 
   function L() { if (Glyph.DEBUG) Vex.L("Vex.Flow.Glyph", arguments); }
 
@@ -73,6 +73,8 @@ Vex.Flow.Glyph = (function() {
 
       if (this.metrics.advanceWidth){
         this.setWidth(this.metrics.advanceWidth * this.scale);
+      } else {
+        this.setWidth((this.metrics.x_max - this.metrics.x_min) * this.scale);
       }
     },
 
@@ -84,10 +86,11 @@ Vex.Flow.Glyph = (function() {
     getMetrics: function() {
       if (!this.metrics) throw new Vex.RuntimeError("BadGlyph", "Glyph " +
           this.glyph_name + " is not initialized.");
+        
       return {
         x_min: this.metrics.x_min * this.scale,
         x_max: this.metrics.x_max * this.scale,
-        width: this.width || (this.metrics.x_max - this.metrics.x_min) * this.scale,
+        width: this.width,
         height: this.metrics.ha * this.scale
       };
     },

@@ -194,7 +194,7 @@ Vex.Flow.NoteHead = (function() {
       if (this.preFormatted) return this;
 
       var glyph = this.getGlyph();
-      var width = Vex.Flow.Font.Metrics[this.glyph_name].width + this.extraLeftPx + this.extraRightPx;
+      var width = this.glyph.width + this.extraLeftPx + this.extraRightPx;
 
       this.setWidth(width);
       this.setPreFormatted(true);
