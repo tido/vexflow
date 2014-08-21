@@ -368,94 +368,81 @@ Vex.Flow.Font.Gonville.Metrics = {
 
   // ORNAMENTS
   "ornamentMordent": {
-    x_shift: 1,
+    origin: "center",
     shift_up: 0,
     shift_down: 5,
-    width: 14,
     size: 38
   },
   "ornamentMordentInverted": {
-    x_shift: 1,
+    origin: "center",
     shift_up: 0,
     shift_down: 5,
-    width: 14,
     size: 38
   },
   "ornamentTurn": {
-    x_shift: 1,
+    origin: "center",
     shift_up: 0,
     shift_down: 5,
-    width: 20,
     size: 38
   },
   "ornamentTurnSlash": {
-    x_shift: 1,
+    origin: "center",
     shift_up: 0,
     shift_down: 6,
-    width: 20,
     size: 38
   },
   "ornamentTrill": {
-    x_shift: 0,
+    origin: "center",
     shift_up: 5,
     shift_down: 15,
-    width: 10,
     size: 38
   },
   "ornamentPrecompSlideTrillDAnglebert": {
-    x_shift: 1,
+    origin: "center",
     shift_up: -3,
     shift_down: 6,
-    width: 20,
     size: 38
   },
   "ornamentPrecompMordentUpperPrefix": {
-    x_shift: 1,
+    origin: "center",
     shift_up: -3,
     shift_down: 6,
-    width: 20,
     size: 38
   },
   "ornamentPrecompTrillSuffixDandrieu": {
-    x_shift: 1,
+    origin: "center",
     shift_up: -3,
     shift_down: 6,
-    width: 20,
     size: 38
   },
   "ornamentPrecompTrillLowerSuffix": {
-    x_shift: 1,
+    origin: "center",
     shift_up: -3,
     shift_down: 6,
-    width: 20,
     size: 38
   },
   "ornamentPrecompPortDeVoixMordent": {
-    x_shift: 1,
+    origin: "center",
     shift_up: -3,
     shift_down: 6,
-    width: 20,
     size: 38
   },
   "ornamentPrecompInvertedMordentUpperPrefix": {
-    x_shift: 1,
+    origin: "center",
     shift_up: -3,
     shift_down: 6,
-    width: 20,
     size: 38
   },
   "ornamentPrecompAppoggTrill": {
-    x_shift: 1,
+    origin: "center",
     shift_up: -3,
     shift_down: 6,
-    width: 20,
     size: 38
   },
   "ornamentTremblement": {
-    x_shift: 1,
+    origin: "center",
     shift_up: -3,
     shift_down: 6,
-    width: 20,
     size: 38
   },
   "graceNoteSlashStemUp":{},

@@ -83,6 +83,10 @@ Vex.Flow.Glyph = (function() {
       return this;
     },
 
+    getWidth: function(){
+      return this.width;
+    },
+
     getMetrics: function() {
       if (!this.metrics) throw new Vex.RuntimeError("BadGlyph", "Glyph " +
           this.glyph_name + " is not initialized.");
@@ -95,12 +99,21 @@ Vex.Flow.Glyph = (function() {
       };
     },
 
+    hasCenterOrigin: function(){
+      return Vex.Flow.FontLoader.getHorizontalOriginPosition(this.glyph_name) === "center";
+    },
+
     render: function(ctx, x_pos, y_pos) {
       if (!this.metrics) throw new Vex.RuntimeError("BadGlyph", "Glyph " +
           this.glyph_name + " is not initialized.");
 
       var outline = this.metrics.outline;
       var scale = this.scale;
+
+      // Translate as if origin was to the left side of the glyph
+      if (this.hasCenterOrigin()){
+        x_pos += this.width/2;
+      }
 
       if (this.metrics.path) {
         Glyph.drawOTFGlyph(ctx, this.metrics, x_pos, y_pos, this.point);

@@ -368,94 +368,68 @@ Vex.Flow.Font.Bravura.Metrics = {
 
   // ORNAMENTS
   "ornamentMordent": {
-    x_shift: -8,
     shift_up: 0,
     shift_down: 5,
-    width: 14,
     size: 38
   },
   "ornamentMordentInverted": {
-    x_shift: -8,
     shift_up: 0,
     shift_down: 5,
-    width: 14,
     size: 38
   },
   "ornamentTurn": {
-    x_shift: -8,
     shift_up: 0,
     shift_down: 5,
-    width: 20,
     size: 38
   },
   "ornamentTurnSlash": {
-    x_shift: -8,
     shift_up: 0,
     shift_down: 6,
-    width: 20,
     size: 38
   },
   "ornamentTrill": {
-    x_shift: -8,
     shift_up: 5,
     shift_down: 15,
-    width: 10,
     size: 38
   },
   "ornamentPrecompSlideTrillDAnglebert": {
-    x_shift: -15,
     shift_up: -3,
     shift_down: 6,
-    width: 20,
     size: 38
   },
   "ornamentPrecompMordentUpperPrefix": {
-    x_shift: -15,
     shift_up: -3,
     shift_down: 6,
-    width: 20,
     size: 38
   },
   "ornamentPrecompTrillSuffixDandrieu": {
-    x_shift: -15,
     shift_up: -3,
     shift_down: 6,
-    width: 20,
     size: 38
   },
   "ornamentPrecompTrillLowerSuffix": {
-    x_shift: -15,
     shift_up: -3,
     shift_down: 6,
-    width: 20,
     size: 38
   },
   "ornamentPrecompPortDeVoixMordent": {
-    x_shift: -15,
     shift_up: -3,
     shift_down: 6,
-    width: 20,
     size: 38
   },
   "ornamentPrecompInvertedMordentUpperPrefix": {
-    x_shift: -15,
     shift_up: -3,
     shift_down: 6,
-    width: 30,
     size: 38
   },
   "ornamentPrecompAppoggTrill": {
-    x_shift: -15,
     shift_up: -3,
     shift_down: 6,
-    width: 20,
     size: 38
   },
   "ornamentTremblement": {
-    x_shift: -15,
     shift_up: -3,
     shift_down: 6,
-    width: 20,
     size: 38
   },
   "graceNoteSlashStemUp":{},
@@ -496,13 +470,13 @@ Vex.Flow.Font.Bravura.Metrics = {
     shift_down: 0,
     size: 35
   },
-  "accidentalParensLeft": {   // Left paren for cautionary accidentals
+  "accidentalParensLeft": {
     width: 5,
     x_shift: 2,
     shift_down: 0,
     size: 35
   },
-  "accidentalParensRight": {   // Right paren for cautionary accidentals
+  "accidentalParensRight": {
     width: 5,
     x_shift: 0,
     shift_down: 0,

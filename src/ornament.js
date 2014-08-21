@@ -133,8 +133,10 @@ Vex.Flow.Ornament = (function() {
       if (!this.ornament) throw new Vex.RERR("ArgumentError",
          "Ornament not found: '" + this.type + "'");
 
+      this.glyph = new Vex.Flow.Glyph(this.ornament.glyph_name);
+
       // Default width comes from ornament table.
-      this.setWidth(this.ornament.width);
+      this.setWidth(this.glyph.getWidth());
     },
 
     // Set whether the ornament is to be delayed
@@ -152,6 +154,10 @@ Vex.Flow.Ornament = (function() {
       return this;
     },
 
+    getGlyph: function(){
+      return this.glyph;
+    },
+
     // Render ornament in position next to note.
     draw: function() {
       if (!this.context) throw new Vex.RERR("NoContext",
@@ -162,6 +168,7 @@ Vex.Flow.Ornament = (function() {
       var ctx = this.context;
       var stem_direction = this.note.getStemDirection();
       var stave = this.note.getStave();
+      var glyph = this.getGlyph();
 
       // Get stem extents
       var stem_ext = this.note.getStem().getExtents();
@@ -204,13 +211,13 @@ Vex.Flow.Ornament = (function() {
 
       // Get initial coordinates for the modifier position
       var start = this.note.getModifierStartXY(this.position, this.index);
-      var glyph_x = start.x + this.ornament.x_shift;
+      var glyph_x = start.x - (this.width/2);
       var glyph_y = Math.min(stave.getYForTopText(this.text_line) - 3, glyph_y_between_lines);
       glyph_y += this.ornament.shift_up + this.y_shift;
 
       // Ajdust x position if ornament is delayed
       if (this.delayed) {
-        glyph_x += this.ornament.width;
+        glyph_x += this.width;
         var next_context = Vex.Flow.TickContext.getNextContext(this.note.getTickContext());
         if (next_context) {
           glyph_x += (next_context.getX() - glyph_x) * 0.5;
@@ -258,7 +265,7 @@ Vex.Flow.Ornament = (function() {
       }
 
       L("Rendering ornament: ", this.ornament, glyph_x, glyph_y);
-      Vex.Flow.renderGlyph(ctx, glyph_x, glyph_y, this.ornament.glyph_name);
+      glyph.render(ctx, glyph_x, glyph_y);
 
       // Draw upper accidental for ornament
       if (this.accidental_upper) {

@@ -14,6 +14,9 @@ Vex.Flow.FontLoader = {
   getFontSize: function(glyph_name){
     return Vex.Flow.Font.Metrics[glyph_name].size || 40;
   },
+  getHorizontalOriginPosition: function(glyph_name){
+    return Vex.Flow.Font.Metrics[glyph_name].origin || "left";
+  },
   loadGlyphMetrics: function(glyph_name, cache) {
     var glyph = Vex.Flow.FontLoader.getGlyphData(glyph_name);
 
