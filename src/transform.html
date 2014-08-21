@@ -42,9 +42,12 @@
   <script src="flow.js"></script>
   <!-- Replace font below with transform font -->
   <script src="fonts/gonville_all.js"></script>
+  <script src="fonts/gonville_map.js"></script>
+  <script src="fontloader.js"></script>
   <script src="glyph.js"></script>
   <script>
     $(function() {
+      Vex.Flow.FontLoader.setFont(Vex.Flow.Font.Gonville);
       var canvas = document.getElementById("glyphs");
       var x = 0;
       var y = 40;

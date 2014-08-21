@@ -5,7 +5,7 @@ Vex.Flow.FontLoader = {
   getGlyphData: function(glyph_name){
     // If the Font has an alternate naming format than SMuFL, then it should have a 
     // map object that maps SMuFL names to the alternate name
-    if (Vex.Flow.Font.Map){
+    if (Vex.Flow.Font.Map && Vex.Flow.Font.Map[glyph_name]){
       glyph_name = Vex.Flow.Font.Map[glyph_name];
     }
 
@@ -15,7 +15,10 @@ Vex.Flow.FontLoader = {
     return Vex.Flow.Font.Metrics[glyph_name].size || 40;
   },
   getHorizontalOriginPosition: function(glyph_name){
-    return Vex.Flow.Font.Metrics[glyph_name].origin || "left";
+    if (Vex.Flow.Font.Metrics){
+      return Vex.Flow.Font.Metrics[glyph_name].orgin || "left";
+    }
+    return "left";
   },
   loadGlyphMetrics: function(glyph_name, cache) {
     var glyph = Vex.Flow.FontLoader.getGlyphData(glyph_name);

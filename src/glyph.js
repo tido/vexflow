@@ -20,7 +20,7 @@ Vex.Flow.renderGlyph = function(ctx, x_pos, y_pos, point, val, nocache) {
   if (typeof point !== 'number') {
     nocache = val;
     val = point;
-    point = null;
+  point = null;
   }
   var glyph = new Vex.Flow.Glyph(val, point);
   glyph.render(ctx, x_pos, y_pos);
@@ -48,7 +48,7 @@ Vex.Flow.Glyph = (function() {
     if (options) this.setOptions(options); else this.reset();
   }
 
-  Glyph.DEBUG = false;
+  Glyph.DEBUG = true;
 
   function L() { if (Glyph.DEBUG) Vex.L("Vex.Flow.Glyph", arguments); }
 
@@ -122,7 +122,7 @@ Vex.Flow.Glyph = (function() {
       }
 
       if (Glyph.DEBUG){
-        Vex.Flow.Renderer.drawCross(ctx, x_pos, y_pos);
+        Vex.drawCross(ctx, x_pos, y_pos);
       }
     },
 
@@ -144,7 +144,7 @@ Vex.Flow.Glyph = (function() {
       }
 
       if (Glyph.DEBUG){
-        Vex.Flow.Renderer.drawCross(this.context, x_pos, y_pos);      
+        Vex.drawCross(this.context, x_pos, y_pos);      
       }
     }
   };
