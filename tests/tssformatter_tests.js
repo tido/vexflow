@@ -36,10 +36,7 @@ Vex.Flow.Test.TssFormatter.basic = function(options, contextBuilder){
 
     {keys: ['g/4'], duration: "4"},
     {keys: ['a/4'], duration: "4"},
-    {keys: ['b/4'], duration: "4"},
-
-    {keys: ['e/5'], duration: "2"},
-    {keys: ['e/4'], duration: "4"}
+    {keys: ['b/4'], duration: "4"}
   ].map(function(spec){
     return new Vex.Flow.StaveNote({keys: spec.keys, duration: spec.duration});
   });
@@ -48,8 +45,7 @@ Vex.Flow.Test.TssFormatter.basic = function(options, contextBuilder){
     [0, 2],
     [2, 5],
     [5, 7],
-    [7, 10],
-    [10, 12]
+    [7, 10]
   ];
 
   var voices = voiceRanges.map(function(range){
@@ -60,10 +56,12 @@ Vex.Flow.Test.TssFormatter.basic = function(options, contextBuilder){
     }).addTickables(notes.slice(range[0], range[1]));
   });
 
-  var formatter = new Vex.Flow.TssFormatter();
+  var formatter = new Vex.Flow.TssFormatter(tss);
 
   staves.forEach(function(stave, index){
-    formatter.formatToStave([voices[index]], stave, tss);
+    if (index > 0) return;
+
+    formatter.format([voices[index]], 0);
     stave.setContext(ctx).draw();
     voices[index].draw(ctx, stave);
   });

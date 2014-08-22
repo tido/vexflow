@@ -19,21 +19,7 @@
 
 Vex.Flow.Formatter = (function() {
   function Formatter() {
-    // Minimum width required to render all the notes in the voices.
-    this.minTotalWidth = 0;
-
-    // This is set to `true` after `minTotalWidth` is calculated.
-    this.hasMinTotalWidth = false;
-
-    // The suggested amount of space for each tick.
-    this.pixelsPerTick = 0;
-
-    // Total number of ticks in the voice.
-    this.totalTicks = new Vex.Flow.Fraction(0, 1);
-
-    // Arrays of tick and modifier contexts.
-    this.tContexts = null;
-    this.mContexts = null;
+    this.init();
   }
 
   // To enable logging for this class. Set `Vex.Flow.Formatter.DEBUG` to `true`.
@@ -318,6 +304,23 @@ Vex.Flow.Formatter = (function() {
 
   // ## Prototype Methods
   Formatter.prototype = {
+    init: function(){
+      // Minimum width required to render all the notes in the voices.
+      this.minTotalWidth = 0;
+
+      // This is set to `true` after `minTotalWidth` is calculated.
+      this.hasMinTotalWidth = false;
+
+      // The suggested amount of space for each tick.
+      this.pixelsPerTick = 0;
+
+      // Total number of ticks in the voice.
+      this.totalTicks = new Vex.Flow.Fraction(0, 1);
+
+      // Arrays of tick and modifier contexts.
+      this.tContexts = null;
+      this.mContexts = null;
+    },
     // Find all the rests in each of the `voices` and align them
     // to neighboring notes. If `align_all_notes` is `false`, then only
     // align non-beamed notes.

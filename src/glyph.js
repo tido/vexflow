@@ -104,7 +104,6 @@ Vex.Flow.Glyph = (function() {
     },
 
     hasRightOrigin: function(){
-      debugger;
       return Vex.Flow.FontLoader.getHorizontalOriginPosition(this.glyph_name) === "right";
     },
 
