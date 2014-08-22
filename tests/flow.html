@@ -187,55 +187,59 @@
   <script src="ornament_tests.js"></script>
   <script src="pedalmarking_tests.js"></script>
   <script src="textbracket_tests.js"></script>
+  <script src="tssformatter_tests.js"></script>
+
+  <script type="text/javascript" src="../../tido/testdata/Greensleeves-enhanced.tss"></script>
 
   <script>
     $(function() {
       Vex.Flow.FontLoader.setFont(Vex.Flow.Font.Bravura);
       
-      Vex.Flow.Test.Stave.Start();
-      Vex.Flow.Test.TabStave.Start();
-      Vex.Flow.Test.Voice.Start();
-      Vex.Flow.Test.NoteHead.Start();
-      Vex.Flow.Test.StaveNote.Start();
-      Vex.Flow.Test.TabNote.Start();
-      Vex.Flow.Test.TickContext.Start();
-      Vex.Flow.Test.ModifierContext.Start();
-      Vex.Flow.Test.Accidental.Start();
-      Vex.Flow.Test.Dot.Start();
-      Vex.Flow.Test.Bend.Start();
-      Vex.Flow.Test.Formatter.Start();
-      Vex.Flow.Test.Clef.Start();
-      Vex.Flow.Test.KeySignature.Start();
-      Vex.Flow.Test.TimeSignature.Start();
-      Vex.Flow.Test.StaveTie.Start();
-      Vex.Flow.Test.TabTie.Start();
-      Vex.Flow.Test.TabSlide.Start();
-      Vex.Flow.Test.Beam.Start();
-      Vex.Flow.Test.AutoBeamFormatting.Start();
-      Vex.Flow.Test.GraceNote.Start();
-      Vex.Flow.Test.Vibrato.Start();
-      Vex.Flow.Test.Annotation.Start();
-      Vex.Flow.Test.Tuning.Start();
-      Vex.Flow.Test.Music.Start();
-      Vex.Flow.Test.KeyManager.Start();
-      Vex.Flow.Test.Articulation.Start();
-      Vex.Flow.Test.StaveConnector.Start();
-      Vex.Flow.Test.Percussion.Start();
-      Vex.Flow.Test.ClefKeySignature.Start();
-      Vex.Flow.Test.StaveHairpin.Start();
-      Vex.Flow.Test.Rhythm.Start();
-      Vex.Flow.Test.Tuplet.Start();
-      Vex.Flow.Test.BoundingBox.Start();
-      Vex.Flow.Test.Strokes.Start();
-      Vex.Flow.Test.StringNumber.Start();
-      Vex.Flow.Test.Rests.Start();
-      Vex.Flow.Test.ThreeVoices.Start();
-      Vex.Flow.Test.Curve.Start();
-      Vex.Flow.Test.TextNote.Start();
-      Vex.Flow.Test.StaveLine.Start();
-      Vex.Flow.Test.Ornament.Start();
-      Vex.Flow.Test.PedalMarking.Start();
-      Vex.Flow.Test.TextBracket.Start();
+      // Vex.Flow.Test.Stave.Start();
+      // Vex.Flow.Test.TabStave.Start();
+      // Vex.Flow.Test.Voice.Start();
+      // Vex.Flow.Test.NoteHead.Start();
+      // Vex.Flow.Test.StaveNote.Start();
+      // Vex.Flow.Test.TabNote.Start();
+      // Vex.Flow.Test.TickContext.Start();
+      // Vex.Flow.Test.ModifierContext.Start();
+      // Vex.Flow.Test.Accidental.Start();
+      // Vex.Flow.Test.Dot.Start();
+      // Vex.Flow.Test.Bend.Start();
+      // Vex.Flow.Test.Formatter.Start();
+      // Vex.Flow.Test.Clef.Start();
+      // Vex.Flow.Test.KeySignature.Start();
+      // Vex.Flow.Test.TimeSignature.Start();
+      // Vex.Flow.Test.StaveTie.Start();
+      // Vex.Flow.Test.TabTie.Start();
+      // Vex.Flow.Test.TabSlide.Start();
+      // Vex.Flow.Test.Beam.Start();
+      // Vex.Flow.Test.AutoBeamFormatting.Start();
+      // Vex.Flow.Test.GraceNote.Start();
+      // Vex.Flow.Test.Vibrato.Start();
+      // Vex.Flow.Test.Annotation.Start();
+      // Vex.Flow.Test.Tuning.Start();
+      // Vex.Flow.Test.Music.Start();
+      // Vex.Flow.Test.KeyManager.Start();
+      // Vex.Flow.Test.Articulation.Start();
+      // Vex.Flow.Test.StaveConnector.Start();
+      // Vex.Flow.Test.Percussion.Start();
+      // Vex.Flow.Test.ClefKeySignature.Start();
+      // Vex.Flow.Test.StaveHairpin.Start();
+      // Vex.Flow.Test.Rhythm.Start();
+      // Vex.Flow.Test.Tuplet.Start();
+      // Vex.Flow.Test.BoundingBox.Start();
+      // Vex.Flow.Test.Strokes.Start();
+      // Vex.Flow.Test.StringNumber.Start();
+      // Vex.Flow.Test.Rests.Start();
+      // Vex.Flow.Test.ThreeVoices.Start();
+      // Vex.Flow.Test.Curve.Start();
+      // Vex.Flow.Test.TextNote.Start();
+      // Vex.Flow.Test.StaveLine.Start();
+      // Vex.Flow.Test.Ornament.Start();
+      // Vex.Flow.Test.PedalMarking.Start();
+      // Vex.Flow.Test.TextBracket.Start();
+      Vex.Flow.Test.TssFormatter.Start();
 /*
       Vex.Flow.Test.Table.Start(); // These tests are way too rigid
 */
