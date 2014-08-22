@@ -99,7 +99,7 @@ Vex.Flow.Note = (function() {
       this.stave = null;
       this.render_options = {
         annotation_spacing: 5,
-        stave_padding: 12
+        stave_padding: 0
       };
     },
 

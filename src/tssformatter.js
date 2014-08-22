@@ -42,6 +42,38 @@ Vex.Flow.TssFormatter = (function(){
       return currentMeasureTss;
     },
 
+    applyClefWidthToWidths: function(widths){
+      return widths.map(function(width, index){
+        return  index === 0 ? width + this.getClefWidth() : width;
+      }, this);
+    },
+
+    getClefWidth: function(width){
+      var clef = new Vex.Flow.Glyph("gClef");
+      return clef.getWidth();
+    },
+
+    getXPositions: function(widths){
+      var x = 0;
+      return widths.map(function(width){
+        var xPosition = x;
+        x += width;
+        return xPosition;
+      });
+    },
+
+    getVoiceWidth: function(measureIndex){
+      var currentMeasureTss = this.findMeasureTss(measureIndex);
+
+      var extents = currentMeasureTss.extents;
+
+      var width = extents.reduce(function(sum, extent){
+        return sum + convertStaffLinesToPixels(extent.desired);
+      }, 0);
+
+      return width;
+    },
+
     preFormat: function(voices, measureIndex){
       // Initialize context maps.
       var contexts = this.tContexts;
@@ -67,11 +99,8 @@ Vex.Flow.TssFormatter = (function(){
 
         context.setX(x);
 
-        x += currentMeasureTss.extents[i].desired/250*12;
+        x += convertStaffLinesToPixels(currentMeasureTss.extents[i].desired);
       }
-
-
-      debugger;
     },
 
     format: function(voices, measureIndex) {
@@ -82,6 +111,10 @@ Vex.Flow.TssFormatter = (function(){
       return this;
     }
   });
+
+  function convertStaffLinesToPixels(staffLines){
+    return staffLines/250*12;
+  }
 
   return TssFormatter;
 }());
