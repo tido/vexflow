@@ -19,16 +19,88 @@
 
 Vex.Flow.TssFormatter = (function(){
 
-  function TssFormatter(tss){
-    this.init(tss);
+  function TssFormatter(tss, isAuto){
+    this.init(tss, isAuto);
   }
 
   var Formatter = Vex.Flow.Formatter;
   Vex.Inherit(TssFormatter, Formatter, {
-    init: function (tss) {
+    init: function (tss, isAuto) {
       TssFormatter.superclass.init.call(this);
 
       this.tss = tss;
+      this.isAuto = isAuto;
+    },
+
+    getStaves: function(totalMeasures, staveWidth){
+      var widths = this.getWidths(totalMeasures, staveWidth);
+      return this.createStaves(widths);
+    },
+
+    getFittedStaveWidths: function(totalMeasures, totalWidth){
+      var desiredWidths = this.getDesiredStaveWidths(totalMeasures);
+      var minWidths = this.getMinStaveWidths(totalMeasures);
+
+      function sum(a, b){ return a + b; }
+
+      var totalMinWidth = minWidths.reduce(sum);
+      var totalDesiredWidth = desiredWidths.reduce(sum);
+
+      var k = this.getK(totalWidth, totalMinWidth, totalDesiredWidth);
+
+      return desiredWidths.map(function(desiredWidth, index){
+        var minWidth = minWidths[index];
+        return minWidth + k * (desiredWidth - minWidth);
+      });
+    },
+
+    getFittedStaves: function(totalMeasures, totalWidth){
+      var widths = this.getFittedStaveWidths(totalMeasures, totalWidth);
+      return this.createStaves(widths);
+    },
+
+    createStaves: function(widths){
+      var xPositions = this.getXPositions(widths);
+
+      return widths.map(function(width, index){
+        return new Vex.Flow.Stave(xPositions[index], 0, width);
+      });
+    },
+
+    getDesiredStaveWidths: function(totalMeasures){
+      var widths = [];
+      for (var measureIndex = 0; measureIndex < totalMeasures; measureIndex++){
+        widths.push(this.getDesiredVoiceWidth(measureIndex));
+      }
+
+      return widths;
+    },
+
+    getMinStaveWidths: function(totalMeasures){
+      var widths = [];
+      for (var measureIndex = 0; measureIndex < totalMeasures; measureIndex++){
+        widths.push(this.getMinVoiceWidth(measureIndex));
+      }
+
+      return widths;
+    },
+
+    getWidths: function(totalMeasures, staveWidth){
+      var widths = [];
+      for (var measureIndex = 0; measureIndex < totalMeasures; measureIndex++){
+        if (!staveWidth){
+          widths.push(this.getDesiredVoiceWidth(measureIndex));
+        } else {
+          widths.push(staveWidth);
+        }
+      }
+
+      // if stave width is being calculated, add clef width
+      if (!staveWidth){
+        widths = this.applyClefWidthToWidths(widths);
+      }
+
+      return widths;
     },
 
     findMeasureTss: function(measureIndex){
@@ -48,7 +120,7 @@ Vex.Flow.TssFormatter = (function(){
       }, this);
     },
 
-    getClefWidth: function(width){
+    getClefWidth: function(){
       var clef = new Vex.Flow.Glyph("gClef");
       return clef.getWidth();
     },
@@ -62,25 +134,69 @@ Vex.Flow.TssFormatter = (function(){
       });
     },
 
-    getVoiceWidth: function(measureIndex){
+    getStretchyVoiceWidth: function(measureIndex){
       var currentMeasureTss = this.findMeasureTss(measureIndex);
+      var extents = currentMeasureTss.extents;
+
+      return  extents.reduce(function(sum, extent){
+        return sum + convertStaffLinesToPixels(extent.stretchy);
+      }, 0);
+    },
+
+    getDesiredVoiceWidth: function(measureIndex){
+      var currentMeasureTss = this.findMeasureTss(measureIndex);
+      var extents = currentMeasureTss.extents;
+
+      return extents.reduce(function(sum, extent){
+        return sum + convertStaffLinesToPixels(extent.desired);
+      }, 0);
+    },
+
+    getMinVoiceWidth: function(measureIndex){
+      var currentMeasureTss = this.findMeasureTss(measureIndex);
+      var extents = currentMeasureTss.extents;
+
+      return  extents.reduce(function(sum, extent){
+        return sum + convertStaffLinesToPixels(extent.min);
+      }, 0);
+    },
+
+    getClefWidthInMeasure: function(measureIndex){
+      if (measureIndex === 0) {
+        return this.getClefWidth();
+      }
+
+      return 0;
+    },
+
+    setStretchyWidths: function(measureIndex, stretchyStaveWidth){
+      var currentMeasureTss = this.findMeasureTss(measureIndex);
+      var desiredWidth = this.getDesiredVoiceWidth(measureIndex);
+      var minWidth = this.getMinVoiceWidth(measureIndex);
+      var availableWidth = stretchyStaveWidth - this.getClefWidthInMeasure(measureIndex);
+
+      var k = this.getK(availableWidth, minWidth, desiredWidth);
 
       var extents = currentMeasureTss.extents;
 
-      var width = extents.reduce(function(sum, extent){
-        return sum + convertStaffLinesToPixels(extent.desired);
-      }, 0);
-
-      return width;
+      extents.forEach(function(extent){
+        extent.stretchy = extent.min + k * (extent.desired - extent.min);
+      });
     },
 
-    preFormat: function(voices, measureIndex){
+    getK: function(stretchyWidth, minWidth, desiredWidth){
+      return (stretchyWidth - minWidth) / (desiredWidth - minWidth);
+    },
+
+    preFormat: function(voices, measureIndex, stave){
       // Initialize context maps.
       var contexts = this.tContexts;
       var contextList = contexts.list;
       var contextMap = contexts.map;
 
       var i, tick, context;
+
+      this.setStretchyWidths(measureIndex, stave.width);
 
       // Pass 1: Give each note maximum width requested by context.
       for (i = 0; i < contextList.length; ++i) {
@@ -99,14 +215,14 @@ Vex.Flow.TssFormatter = (function(){
 
         context.setX(x);
 
-        x += convertStaffLinesToPixels(currentMeasureTss.extents[i].desired);
+        x += convertStaffLinesToPixels(currentMeasureTss.extents[i].stretchy);
       }
     },
 
-    format: function(voices, measureIndex) {
+    format: function(voices, measureIndex, stave) {
 
       this.createTickContexts(voices);
-      this.preFormat(voices, measureIndex);
+      this.preFormat(voices, measureIndex, stave);
 
       return this;
     }
