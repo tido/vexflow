@@ -20,31 +20,22 @@ Vex.Flow.TssFormatter = (function(){
     getStaves: function(mode, staveModifiers){
 
       var widths,
+          numStaves = staveModifiers.length,
           clefs = staveModifiers.map(function(modifier){return modifier.clef;});
 
       switch (mode) {
         case TssFormatter.mode.AUTO_MINIMUM:
-
-          widths = this.getMinimumStaveWidths(staveModifiers.length);
-          widths = this.getWidthsWithClefs(widths, clefs);
+          widths = this.getMinimumStaveWidths(numStaves, clefs);
           break;
-
         case TssFormatter.mode.AUTO_DESIRED:
-
-          widths = this.getDesiredStaveWidths(staveModifiers.length);
-          widths = this.getWidthsWithClefs(widths, clefs);
+          widths = this.getDesiredStaveWidths(numStaves, clefs);
           break;
-
         case TssFormatter.mode.STRETCHY:
           var availableWidth = arguments[2];
-
-          widths = this.getStretchedStaveWidths(staveModifiers.length,availableWidth);
+          widths = this.getStretchedStaveWidths(numStaves, availableWidth, clefs);
           break;
-
         default:
-
           throw new Error("Invalid mode:" + mode );
-          break;
       }
 
       return this.createStaves(widths);
@@ -63,9 +54,9 @@ Vex.Flow.TssFormatter = (function(){
       });
     },
 
-    getStretchedStaveWidths: function(numStaves, availableWidth){
-      var desiredWidths = this.getDesiredStaveWidths(numStaves);
-      var minimumWidths = this.getMinimumStaveWidths(numStaves);
+    getStretchedStaveWidths: function(numStaves, availableWidth, clefs){
+      var desiredWidths = this.getDesiredStaveWidths(numStaves, clefs);
+      var minimumWidths = this.getMinimumStaveWidths(numStaves, clefs);
 
       function sum(a, b){ return a + b; }
 
@@ -80,22 +71,22 @@ Vex.Flow.TssFormatter = (function(){
       });
     },
 
-    getDesiredStaveWidths: function(numStaves){
+    getDesiredStaveWidths: function(numStaves, clefs){
       var widths = [];
       for (var measureIndex = 0; measureIndex < numStaves; measureIndex++){
         widths.push(this.getDesiredVoiceWidth(measureIndex));
       }
 
-      return widths;
+      return this.getWidthsWithClefs(widths, clefs);
     },
 
-    getMinimumStaveWidths: function(numStaves){
+    getMinimumStaveWidths: function(numStaves, clefs){
       var widths = [];
       for (var measureIndex = 0; measureIndex < numStaves; measureIndex++){
         widths.push(this.getMinVoiceWidth(measureIndex));
       }
 
-      return widths;
+      return this.getWidthsWithClefs(widths, clefs);
     },
 
     findMeasureTss: function(measureIndex){

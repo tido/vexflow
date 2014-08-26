@@ -112,7 +112,7 @@ Vex.Flow.Test.TssFormatter.stretchySpacing = function(options, contextBuilder){
 Vex.Flow.Test.TssFormatter.compareTickContexts = function(){
   var formatter = new Vex.Flow.TssFormatter(tss);
 
-  var staves = formatter.getStaves(TssFormatter.mode.AUTO_MINIMUM, [{clef: false}, {clef: false}, {clef: false}, {clef: false}]);
+  var staves = formatter.getStaves(TssFormatter.mode.AUTO_MINIMUM, [{clef: true}, {clef: false}, {clef: false}, {clef: false}]);
 
   staves[0].addTrebleGlyph();
 
@@ -127,7 +127,7 @@ Vex.Flow.Test.TssFormatter.compareTickContexts = function(){
     return sum + stave.width;
   }, 0);
 
-  staves = formatter.getStaves(TssFormatter.mode.STRETCHY, [{clef: false}, {clef: false}, {clef: false}, {clef: false}], availableWidth);
+  staves = formatter.getStaves(TssFormatter.mode.STRETCHY, [{clef: true}, {clef: false}, {clef: false}, {clef: false}], availableWidth);
 
   staves[0].addTrebleGlyph();
 
