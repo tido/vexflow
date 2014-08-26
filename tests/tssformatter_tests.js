@@ -120,31 +120,32 @@ Vex.Flow.Test.TssFormatter.stretchySpacing = function(options, contextBuilder){
 
 Vex.Flow.Test.TssFormatter.compareTickContexts = function(){
   var formatter = new Vex.Flow.TssFormatter(tss);
-  var staveModifiers = [{clef: true}, {clef: false}, {clef: false}, {clef: false}];
-  var staves = formatter.getStaves(TssFormatter.mode.AUTO_DESIRED, staveModifiers);
+  var staveModifiers = [{clef: false}, {clef: false}, {clef: false}, {clef: false}];
+  var minimumStaves = formatter.getStaves(TssFormatter.mode.AUTO_MINIMUM, staveModifiers);
 
-  applyClefs(staveModifiers, staves);
+  applyClefs(staveModifiers, minimumStaves);
 
   var notes = createNotes(notesData);
   var minimumVoices = createVoices(voiceRanges, notes);
 
-  staves.forEach(function (stave, index) {
+  minimumStaves.forEach(function (stave, index) {
     formatter.format([minimumVoices[index]], index, stave);
   });
 
-  var availableWidth = staves.reduce(function(sum, stave){
+  var availableWidth = minimumStaves.reduce(function(sum, stave){
     return sum + stave.width;
   }, 0);
 
-  staves = formatter.getStaves(TssFormatter.mode.STRETCHY, staveModifiers, availableWidth);
+  stretchyStaves = formatter.getStaves(TssFormatter.mode.STRETCHY, staveModifiers, availableWidth);
 
-  applyClefs(staveModifiers, staves);
+  applyClefs(staveModifiers, stretchyStaves);
 
   notes = createNotes(notesData);
   var stretchyVoices = createVoices(voiceRanges, notes);
 
-  staves.forEach(function (stave, index) {
-    formatter.format([stretchyVoices[index]], index, stave);
+  stretchyStaves.forEach(function (stretchyStave, index) {
+    formatter.format([stretchyVoices[index]], index, stretchyStave);
+    equal(minimumStaves[index].width, stretchyStave.width, "Stave Width Equal:" + stretchyStave.width);
   });
 
   minimumVoices.forEach(function(minimumVoice, voiceIndex){
