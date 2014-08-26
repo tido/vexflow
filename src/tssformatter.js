@@ -18,12 +18,14 @@ Vex.Flow.TssFormatter = (function(){
     },
 
     getStaves: function(mode, staveModifiers){
+      this.mode = mode;
+      this.staveModifiers = staveModifiers;
 
       var widths,
           numStaves = staveModifiers.length,
           clefs = staveModifiers.map(function(modifier){return modifier.clef;});
 
-      switch (mode) {
+      switch (this.mode) {
         case TssFormatter.mode.AUTO_MINIMUM:
           widths = this.getMinimumStaveWidths(numStaves, clefs);
           break;
@@ -148,7 +150,7 @@ Vex.Flow.TssFormatter = (function(){
     },
 
     getClefWidthInMeasure: function(measureIndex){
-      if (measureIndex === 0) {
+      if (this.staveModifiers[measureIndex].clef) {
         return this.getClefWidth();
       }
 
@@ -201,7 +203,20 @@ Vex.Flow.TssFormatter = (function(){
 
         context.setX(x);
 
-        x += convertStaffLinesToPixels(currentMeasureTss.extents[i].stretchy);
+        var spacing;
+        switch(this.mode){
+          case TssFormatter.mode.AUTO_MINIMUM:
+            spacing = currentMeasureTss.extents[i].min;
+            break;
+          case TssFormatter.mode.AUTO_DESIRED:
+            spacing = currentMeasureTss.extents[i].desired;
+            break;
+          case TssFormatter.mode.STRETCHY:
+            spacing = currentMeasureTss.extents[i].stretchy;
+            break;
+        }
+
+        x += convertStaffLinesToPixels(spacing);
       }
     },
 

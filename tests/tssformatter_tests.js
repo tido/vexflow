@@ -52,6 +52,14 @@ function createVoices(voiceRanges, notes){
   });
 }
 
+function applyClefs(staveModifiers, staves){
+  staveModifiers.forEach(function(modifiers, index){
+    if (modifiers.clef){
+      staves[index].addTrebleGlyph();
+    }
+  });
+}
+
 var TssFormatter = Vex.Flow.TssFormatter;
 
 Vex.Flow.Test.TssFormatter.Start = function() {
@@ -70,9 +78,10 @@ Vex.Flow.Test.TssFormatter.autoSpacing = function(mode) {
 
     var formatter = new Vex.Flow.TssFormatter(tss);
 
-    var staves = formatter.getStaves(mode, [{clef: true}, {clef: false}, {clef: false}, {clef: false}]);
+    var staveModifiers = [{clef: true}, {clef: false}, {clef: false}, {clef: false}];
+    var staves = formatter.getStaves(mode, staveModifiers);
 
-    staves[0].addTrebleGlyph();
+    applyClefs(staveModifiers, staves);
 
     var notes = createNotes(notesData);
     var voices = createVoices(voiceRanges, notes);
@@ -92,10 +101,10 @@ Vex.Flow.Test.TssFormatter.stretchySpacing = function(options, contextBuilder){
       numStaves = 4;
 
   var formatter = new Vex.Flow.TssFormatter(tss);
+  var staveModifiers = [{clef: true}, {clef: false}, {clef: false}, {clef: false}];
+  var staves = formatter.getStaves(Vex.Flow.TssFormatter.mode.STRETCHY, staveModifiers, availableWidth);
 
-  var staves = formatter.getStaves(Vex.Flow.TssFormatter.mode.STRETCHY, [{clef: true}, {clef: false}, {clef: false}, {clef: false}], availableWidth);
-
-  staves[0].addTrebleGlyph();
+  applyClefs(staveModifiers, staves);
 
   var notes = createNotes(notesData);
   var voices = createVoices(voiceRanges, notes);
@@ -111,10 +120,10 @@ Vex.Flow.Test.TssFormatter.stretchySpacing = function(options, contextBuilder){
 
 Vex.Flow.Test.TssFormatter.compareTickContexts = function(){
   var formatter = new Vex.Flow.TssFormatter(tss);
+  var staveModifiers = [{clef: true}, {clef: false}, {clef: false}, {clef: false}];
+  var staves = formatter.getStaves(TssFormatter.mode.AUTO_DESIRED, staveModifiers);
 
-  var staves = formatter.getStaves(TssFormatter.mode.AUTO_MINIMUM, [{clef: true}, {clef: false}, {clef: false}, {clef: false}]);
-
-  staves[0].addTrebleGlyph();
+  applyClefs(staveModifiers, staves);
 
   var notes = createNotes(notesData);
   var minimumVoices = createVoices(voiceRanges, notes);
@@ -127,9 +136,9 @@ Vex.Flow.Test.TssFormatter.compareTickContexts = function(){
     return sum + stave.width;
   }, 0);
 
-  staves = formatter.getStaves(TssFormatter.mode.STRETCHY, [{clef: true}, {clef: false}, {clef: false}, {clef: false}], availableWidth);
+  staves = formatter.getStaves(TssFormatter.mode.STRETCHY, staveModifiers, availableWidth);
 
-  staves[0].addTrebleGlyph();
+  applyClefs(staveModifiers, staves);
 
   notes = createNotes(notesData);
   var stretchyVoices = createVoices(voiceRanges, notes);
@@ -140,7 +149,7 @@ Vex.Flow.Test.TssFormatter.compareTickContexts = function(){
 
   minimumVoices.forEach(function(minimumVoice, voiceIndex){
     minimumVoice.tickables.forEach(function(tickable, tickableIndex){
-      equal(tickable.tickContext.x, stretchyVoices[voiceIndex].tickables[tickableIndex].tickContext.x);
+      equal(tickable.tickContext.x, stretchyVoices[voiceIndex].tickables[tickableIndex].tickContext.x, "Position: " + tickable.tickContext.x);
     });
   });
 };
