@@ -59,7 +59,7 @@ Vex.Flow.Test.TssFormatter.Start = function() {
   Vex.Flow.Test.runTest("Auto - minimum", Vex.Flow.Test.TssFormatter.autoSpacing(TssFormatter.mode.AUTO_MINIMUM));
   Vex.Flow.Test.runTest("Auto - desired", Vex.Flow.Test.TssFormatter.autoSpacing(TssFormatter.mode.AUTO_DESIRED));
   Vex.Flow.Test.runTest("Stretchy", Vex.Flow.Test.TssFormatter.stretchySpacing);
-  test("Compare Widths", Vex.Flow.Test.TssFormatter.compareWidths);
+  test("Compare Tick Context Positions", Vex.Flow.Test.TssFormatter.compareTickContexts);
 };
 
 Vex.Flow.Test.TssFormatter.autoSpacing = function(mode) {
@@ -109,7 +109,7 @@ Vex.Flow.Test.TssFormatter.stretchySpacing = function(options, contextBuilder){
   });
 };
 
-Vex.Flow.Test.TssFormatter.compareWidths = function(){
+Vex.Flow.Test.TssFormatter.compareTickContexts = function(){
   var formatter = new Vex.Flow.TssFormatter(tss);
 
   var staves = formatter.getStaves(TssFormatter.mode.AUTO_MINIMUM, [{clef: false}, {clef: false}, {clef: false}, {clef: false}]);
