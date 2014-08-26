@@ -9,39 +9,88 @@ function assertApproximatelyEqualTo(n1,n2){
   ok(Math.abs(n1-n2) < 0.0000001);
 }
 
+var notesData = [
+  {keys: ['c/5'], duration: "2"},
+  {keys: ['d/5'], duration: "4"},
+
+  {keys: ['e/5'], duration: "4"},
+  {keys: ['f/5'], duration: "4"},
+  {keys: ['e/5'], duration: "4"},
+
+  {keys: ['d/5'], duration: "2"},
+  {keys: ['b/4'], duration: "4"},
+
+  {keys: ['g/4'], duration: "4"},
+  {keys: ['a/4'], duration: "4"},
+  {keys: ['b/4'], duration: "4"}
+];
+
+var voiceRanges = [
+  [0, 2],
+  [2, 5],
+  [5, 7],
+  [7, 10]
+];
+
+var TssFormatter = Vex.Flow.TssFormatter;
+
 Vex.Flow.Test.TssFormatter.Start = function() {
   module("Tss Formatter");
-  Vex.Flow.Test.runTest("Auto", Vex.Flow.Test.TssFormatter.basicNoteSpacing);
-  Vex.Flow.Test.runTest("Stretchy", Vex.Flow.Test.TssFormatter.stretchyNoteSpacing);
-  Vex.Flow.Test.runTest("Fit Staves to Width", Vex.Flow.Test.TssFormatter.fitStaves);
+  Vex.Flow.Test.runTest("Auto - minimum", Vex.Flow.Test.TssFormatter.autoSpacing(TssFormatter.mode.AUTO_MINIMUM));
+  Vex.Flow.Test.runTest("Auto - desired", Vex.Flow.Test.TssFormatter.autoSpacing(TssFormatter.mode.AUTO_DESIRED));
+  Vex.Flow.Test.runTest("Stretchy", Vex.Flow.Test.TssFormatter.stretchySpacing);
+  test("Compare Widths", Vex.Flow.Test.TssFormatter.compareWidths);
+}
+
+Vex.Flow.Test.TssFormatter.autoSpacing = function(mode) {
+  return function (options, contextBuilder) {
+    expect(0);
+
+    var ctx = contextBuilder(options.canvas_sel, 1100, 195);
+
+    var formatter = new Vex.Flow.TssFormatter(tss);
+
+    var staves = formatter.getStaves(mode, [{clef: true}, {clef: false}, {clef: false}, {clef: false}]);
+
+    staves[0].addTrebleGlyph();
+
+    var notes = notesData.map(function (spec) {
+      return new Vex.Flow.StaveNote({
+        keys: spec.keys,
+        duration: spec.duration,
+        auto_stem: true
+      });
+    });
+
+    var voices = voiceRanges.map(function (range) {
+      return new Vex.Flow.Voice({
+        num_beats: 3,
+        beat_value: 4,
+        resolution: Vex.Flow.RESOLUTION
+      }).addTickables(notes.slice(range[0], range[1]));
+    });
+
+    staves.forEach(function (stave, index) {
+      formatter.format([voices[index]], index, stave);
+      stave.setContext(ctx).draw();
+      voices[index].draw(ctx, stave);
+    });
+  }
 };
 
-Vex.Flow.Test.TssFormatter.basicNoteSpacing = function(options, contextBuilder){
-  expect(0);
-
+Vex.Flow.Test.TssFormatter.stretchySpacing = function(options, contextBuilder){
   var ctx = contextBuilder(options.canvas_sel, 1100, 195);
+
+  var availableWidth = 500,
+      numStaves = 4;
 
   var formatter = new Vex.Flow.TssFormatter(tss);
 
-  var staves = formatter.getStaves(4);
+  var staves = formatter.getStaves(Vex.Flow.TssFormatter.mode.STRETCHY, [{clef: true}, {clef: false}, {clef: false}, {clef: false}], availableWidth);
 
   staves[0].addTrebleGlyph();
 
-  var notes = [
-    {keys: ['c/5'], duration: "2"},
-    {keys: ['d/5'], duration: "4"},
-
-    {keys: ['e/5'], duration: "4"},
-    {keys: ['f/5'], duration: "4"},
-    {keys: ['e/5'], duration: "4"},
-
-    {keys: ['d/5'], duration: "2"},
-    {keys: ['b/4'], duration: "4"},
-
-    {keys: ['g/4'], duration: "4"},
-    {keys: ['a/4'], duration: "4"},
-    {keys: ['b/4'], duration: "4"}
-  ].map(function(spec){
+  var notes = notesData.map(function(spec){
     return new Vex.Flow.StaveNote({
       keys: spec.keys, 
       duration: spec.duration, 
@@ -49,66 +98,6 @@ Vex.Flow.Test.TssFormatter.basicNoteSpacing = function(options, contextBuilder){
     });
   });
 
-  var voiceRanges = [
-    [0, 2],
-    [2, 5],
-    [5, 7],
-    [7, 10]
-  ];
-
-  var voices = voiceRanges.map(function(range){
-    return new Vex.Flow.Voice({
-      num_beats: 3,
-      beat_value: 4,
-      resolution: Vex.Flow.RESOLUTION
-    }).addTickables(notes.slice(range[0], range[1]));
-  });
-
-  staves.forEach(function(stave, index){
-    formatter.format([voices[index]], index, stave);
-    stave.setContext(ctx).draw();
-    voices[index].draw(ctx, stave);
-  });
-};
-
-
-Vex.Flow.Test.TssFormatter.stretchyNoteSpacing = function(options, contextBuilder){
-  var ctx = contextBuilder(options.canvas_sel, 1100, 195);
-
-  var formatter = new Vex.Flow.TssFormatter(tss);
-
-  var staves = formatter.getStaves(4, 200);
-
-  staves[0].addTrebleGlyph();
-
-  var notes = [
-    {keys: ['c/5'], duration: "2"},
-    {keys: ['d/5'], duration: "4"},
-
-    {keys: ['e/5'], duration: "4"},
-    {keys: ['f/5'], duration: "4"},
-    {keys: ['e/5'], duration: "4"},
-
-    {keys: ['d/5'], duration: "2"},
-    {keys: ['b/4'], duration: "4"},
-
-    {keys: ['g/4'], duration: "4"},
-    {keys: ['a/4'], duration: "4"},
-    {keys: ['b/4'], duration: "4"}
-  ].map(function(spec){
-    return new Vex.Flow.StaveNote({
-      keys: spec.keys, 
-      duration: spec.duration, 
-      auto_stem: true
-    });
-  });
-
-  var voiceRanges = [
-    [0, 2],
-    [2, 5],
-    [5, 7],
-    [7, 10]
-  ];
 
   var voices = voiceRanges.map(function(range){
     return new Vex.Flow.Voice({
@@ -127,22 +116,64 @@ Vex.Flow.Test.TssFormatter.stretchyNoteSpacing = function(options, contextBuilde
   });
 };
 
-Vex.Flow.Test.TssFormatter.fitStaves = function(options, contextBuilder){
-  var ctx = contextBuilder(options.canvas_sel, 1100, 195);
-
+Vex.Flow.Test.TssFormatter.compareWidths = function(){
   var formatter = new Vex.Flow.TssFormatter(tss);
 
-  var availableWidth = 1000;
+  var staves = formatter.getStaves(TssFormatter.mode.AUTO_MINIMUM, [{clef: false}, {clef: false}, {clef: false}, {clef: false}]);
 
-  var staves = formatter.getFittedStaves(4, availableWidth);
+  staves[0].addTrebleGlyph();
 
-  staves.forEach(function(stave, index){
-    stave.setContext(ctx).draw();
+  var notes = notesData.map(function (spec) {
+    return new Vex.Flow.StaveNote({
+      keys: spec.keys,
+      duration: spec.duration,
+      auto_stem: true
+    });
   });
 
-  var totalWidth = staves.reduce(function(sum, stave){
-    return sum + stave.width;
+  var minimumVoices = voiceRanges.map(function (range) {
+    return new Vex.Flow.Voice({
+      num_beats: 3,
+      beat_value: 4,
+      resolution: Vex.Flow.RESOLUTION
+    }).addTickables(notes.slice(range[0], range[1]));
+  });
+
+  staves.forEach(function (stave, index) {
+    formatter.format([minimumVoices[index]], index, stave);
+  });
+
+  var availableWidth = staves.reduce(function(sum, stave){
+    return sum + stave.width
   }, 0);
 
-  assertApproximatelyEqualTo(totalWidth, availableWidth);
+  staves = formatter.getStaves(TssFormatter.mode.STRETCHY, [{clef: false}, {clef: false}, {clef: false}, {clef: false}], availableWidth);
+
+  staves[0].addTrebleGlyph();
+
+  notes = notesData.map(function (spec) {
+    return new Vex.Flow.StaveNote({
+      keys: spec.keys,
+      duration: spec.duration,
+      auto_stem: true
+    });
+  });
+
+  var stretchyVoices = voiceRanges.map(function (range) {
+    return new Vex.Flow.Voice({
+      num_beats: 3,
+      beat_value: 4,
+      resolution: Vex.Flow.RESOLUTION
+    }).addTickables(notes.slice(range[0], range[1]));
+  });
+
+  staves.forEach(function (stave, index) {
+    formatter.format([stretchyVoices[index]], index, stave);
+  });
+
+  minimumVoices.forEach(function(minimumVoice, voiceIndex){
+    minimumVoice.tickables.forEach(function(tickable, tickableIndex){
+      equal(tickable.tickContext.x, stretchyVoices[voiceIndex].tickables[tickableIndex].tickContext.x);
+    });
+  })
 };

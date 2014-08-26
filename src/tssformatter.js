@@ -1,103 +1,98 @@
-// [VexFlow](http://vexflow.com) - Copyright (c) Mohit Muthanna 2010.
-//
-// ## Description
-//
-// This file implements the formatting and layout algorithms that are used
-// to position notes in a voice. The algorithm can align multiple voices both
-// within a stave, and across multiple staves.
-//
-// To do this, the formatter breaks up voices into a grid of rational-valued
-// `ticks`, to which each note is assigned. Then, minimum widths are assigned
-// to each tick based on the widths of the notes and modifiers in that tick. This
-// establishes the smallest amount of space required for each tick.
-//
-// Finally, the formatter distributes the left over space proportionally to
-// all the ticks, setting the `x` values of the notes in each tick.
-//
-// See `tests/formatter_tests.js` for usage examples. The helper functions included
-// here (`FormatAndDraw`, `FormatAndDrawTab`) also serve as useful usage examples.
-
 Vex.Flow.TssFormatter = (function(){
 
-  function TssFormatter(tss, isAuto){
-    this.init(tss, isAuto);
+  function TssFormatter(tss){
+    this.tss = tss;
+    this.init();
   }
+
+  TssFormatter.mode = {
+    AUTO_MINIMUM: 0,
+    AUTO_DESIRED: 1,
+    STRETCHY: 2
+  };
 
   var Formatter = Vex.Flow.Formatter;
   Vex.Inherit(TssFormatter, Formatter, {
-    init: function (tss, isAuto) {
+    init: function () {
       TssFormatter.superclass.init.call(this);
-
-      this.tss = tss;
-      this.isAuto = isAuto;
     },
 
-    getStaves: function(totalMeasures, staveWidth){
-      var widths = this.getWidths(totalMeasures, staveWidth);
+    getStaves: function(mode, staveModifiers){
+
+      var widths,
+          clefs = staveModifiers.map(function(modifier){return modifier.clef;});
+
+      switch (mode) {
+        case TssFormatter.mode.AUTO_MINIMUM:
+
+          widths = this.getMinimumStaveWidths(staveModifiers.length);
+          widths = this.getWidthsWithClefs(widths, clefs);
+          break;
+
+        case TssFormatter.mode.AUTO_DESIRED:
+
+          widths = this.getDesiredStaveWidths(staveModifiers.length);
+          widths = this.getWidthsWithClefs(widths, clefs);
+          break;
+
+        case TssFormatter.mode.STRETCHY:
+          var availableWidth = arguments[2];
+
+          widths = this.getStretchedStaveWidths(staveModifiers.length,availableWidth);
+          break;
+
+        default:
+
+          throw new Error("Invalid mode:" + mode );
+          break;
+      }
+
       return this.createStaves(widths);
     },
 
-    getFittedStaveWidths: function(totalMeasures, totalWidth){
-      var desiredWidths = this.getDesiredStaveWidths(totalMeasures);
-      var minWidths = this.getMinStaveWidths(totalMeasures);
-
-      function sum(a, b){ return a + b; }
-
-      var totalMinWidth = minWidths.reduce(sum);
-      var totalDesiredWidth = desiredWidths.reduce(sum);
-
-      var k = this.getK(totalWidth, totalMinWidth, totalDesiredWidth);
-
-      return desiredWidths.map(function(desiredWidth, index){
-        var minWidth = minWidths[index];
-        return minWidth + k * (desiredWidth - minWidth);
-      });
-    },
-
-    getFittedStaves: function(totalMeasures, totalWidth){
-      var widths = this.getFittedStaveWidths(totalMeasures, totalWidth);
+    getStretchedStaves: function(numStaves, availableWidth){
+      var widths = this.getStretchedStaveWidths(numStaves, availableWidth);
       return this.createStaves(widths);
     },
 
     createStaves: function(widths){
-      var xPositions = this.getXPositions(widths);
+      var xPositions = this.getStaveXPositions(widths);
 
       return widths.map(function(width, index){
         return new Vex.Flow.Stave(xPositions[index], 0, width);
       });
     },
 
-    getDesiredStaveWidths: function(totalMeasures){
+    getStretchedStaveWidths: function(numStaves, availableWidth){
+      var desiredWidths = this.getDesiredStaveWidths(numStaves);
+      var minimumWidths = this.getMinimumStaveWidths(numStaves);
+
+      function sum(a, b){ return a + b; }
+
+      var minimumWidth = minimumWidths.reduce(sum);
+      var desiredWidth = desiredWidths.reduce(sum);
+
+      var k = this.getK(availableWidth, minimumWidth, desiredWidth);
+
+      return desiredWidths.map(function(desiredWidth, index){
+        var minimumWidth = minimumWidths[index];
+        return minimumWidth + k * (desiredWidth - minimumWidth);
+      });
+    },
+
+    getDesiredStaveWidths: function(numStaves){
       var widths = [];
-      for (var measureIndex = 0; measureIndex < totalMeasures; measureIndex++){
+      for (var measureIndex = 0; measureIndex < numStaves; measureIndex++){
         widths.push(this.getDesiredVoiceWidth(measureIndex));
       }
 
       return widths;
     },
 
-    getMinStaveWidths: function(totalMeasures){
+    getMinimumStaveWidths: function(numStaves){
       var widths = [];
-      for (var measureIndex = 0; measureIndex < totalMeasures; measureIndex++){
+      for (var measureIndex = 0; measureIndex < numStaves; measureIndex++){
         widths.push(this.getMinVoiceWidth(measureIndex));
-      }
-
-      return widths;
-    },
-
-    getWidths: function(totalMeasures, staveWidth){
-      var widths = [];
-      for (var measureIndex = 0; measureIndex < totalMeasures; measureIndex++){
-        if (!staveWidth){
-          widths.push(this.getDesiredVoiceWidth(measureIndex));
-        } else {
-          widths.push(staveWidth);
-        }
-      }
-
-      // if stave width is being calculated, add clef width
-      if (!staveWidth){
-        widths = this.applyClefWidthToWidths(widths);
       }
 
       return widths;
@@ -114,9 +109,9 @@ Vex.Flow.TssFormatter = (function(){
       return currentMeasureTss;
     },
 
-    applyClefWidthToWidths: function(widths){
+    getWidthsWithClefs: function(widths, clefs){
       return widths.map(function(width, index){
-        return  index === 0 ? width + this.getClefWidth() : width;
+        return  clefs[index] ? width + this.getClefWidth() : width;
       }, this);
     },
 
@@ -125,7 +120,7 @@ Vex.Flow.TssFormatter = (function(){
       return clef.getWidth();
     },
 
-    getXPositions: function(widths){
+    getStaveXPositions: function(widths){
       var x = 0;
       return widths.map(function(width){
         var xPosition = x;
@@ -172,10 +167,10 @@ Vex.Flow.TssFormatter = (function(){
     setStretchyWidths: function(measureIndex, stretchyStaveWidth){
       var currentMeasureTss = this.findMeasureTss(measureIndex);
       var desiredWidth = this.getDesiredVoiceWidth(measureIndex);
-      var minWidth = this.getMinVoiceWidth(measureIndex);
+      var minimumWidth = this.getMinVoiceWidth(measureIndex);
       var availableWidth = stretchyStaveWidth - this.getClefWidthInMeasure(measureIndex);
 
-      var k = this.getK(availableWidth, minWidth, desiredWidth);
+      var k = this.getK(availableWidth, minimumWidth, desiredWidth);
 
       var extents = currentMeasureTss.extents;
 
@@ -184,8 +179,8 @@ Vex.Flow.TssFormatter = (function(){
       });
     },
 
-    getK: function(stretchyWidth, minWidth, desiredWidth){
-      return (stretchyWidth - minWidth) / (desiredWidth - minWidth);
+    getK: function(stretchyWidth, minimumWidth, desiredWidth){
+      return (stretchyWidth - minimumWidth) / (desiredWidth - minimumWidth);
     },
 
     preFormat: function(voices, measureIndex, stave){
