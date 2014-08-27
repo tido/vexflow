@@ -46,6 +46,8 @@ Vex.Flow.Note = (function() {
             "Invalid note initialization object: " + JSON.stringify(note_struct));
       }
 
+      this.id = note_struct.id || false;
+
       // Set note properties from parameters.
       this.duration = initData.duration;
       this.dots = initData.dots;

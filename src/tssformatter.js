@@ -178,7 +178,7 @@ Vex.Flow.TssFormatter = (function(){
 
     preFormat: function(voices, measureIndex, stave){
       // Initialize context maps.
-      var contexts = this.tContexts;
+      var contexts = this.tContexts.array;
       var contextList = contexts.list;
       var contextMap = contexts.map;
 
@@ -186,43 +186,72 @@ Vex.Flow.TssFormatter = (function(){
 
       this.setStretchyWidths(measureIndex, stave.width);
 
-      // Pass 1: Give each note maximum width requested by context.
-      for (i = 0; i < contextList.length; ++i) {
-        tick = contextList[i];
-        context = contextMap[tick];
-
+      contexts.forEach(function(context){
         context.preFormat();
-      }
+      });
 
       var currentMeasureTss = this.findMeasureTss(measureIndex),
           x = 0;
 
-      for (i = 0; i < contextList.length; ++i) {
-        tick = contextList[i];
-        context = contextMap[tick];
-
+      contexts.forEach(function(context, index){
         context.setX(x);
-
         var spacing;
         switch(this.mode){
           case TssFormatter.mode.AUTO_MINIMUM:
-            spacing = currentMeasureTss.extents[i].min;
+            spacing = currentMeasureTss.extents[index].min;
             break;
           case TssFormatter.mode.AUTO_DESIRED:
-            spacing = currentMeasureTss.extents[i].desired;
+            spacing = currentMeasureTss.extents[index].desired;
             break;
           case TssFormatter.mode.STRETCHY:
-            spacing = currentMeasureTss.extents[i].stretchy;
+            spacing = currentMeasureTss.extents[index].stretchy;
             break;
         }
-
         x += convertStaffLinesToPixels(spacing);
+      }, this);
+    },
+
+    // Create `TickContext`s for each tick in `voices`. Also calculate the
+    // total number of ticks in voices.
+    createTickContexts: function(voices, measureIndex) {
+      function findNoteById(voices, id){
+        for (var i = 0; i < voices.length; i++){
+          var voice = voices[i];
+          var tickables = voice.tickables;
+          for(var j = 0; j < tickables.length; j++){
+            var tickable = tickables[j];
+
+            if (tickable.id === id){
+              return tickable;
+            }
+          }
+        }
+        return false;
       }
+
+      var contexts = {};
+      var currentMeasureTss = this.findMeasureTss(measureIndex);
+
+      contexts.array = currentMeasureTss.extents.map(function(extent){
+        var newContext = new Vex.Flow.TickContext();
+        extent.elements.forEach(function(id){
+          newContext.addTickable(findNoteById(voices, id));
+        });
+        return newContext;
+      });
+
+      contexts.array.forEach(function(context) {
+        context.tContexts = contexts.array;
+      });
+
+      this.tContexts = contexts;
+
+      return contexts;
     },
 
     format: function(voices, measureIndex, stave) {
 
-      this.createTickContexts(voices);
+      this.createTickContexts(voices, measureIndex);
       this.preFormat(voices, measureIndex, stave);
 
       return this;

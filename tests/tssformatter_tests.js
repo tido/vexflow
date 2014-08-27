@@ -10,19 +10,19 @@ function assertApproximatelyEqualTo(n1,n2){
 }
 
 var notesData = [
-  {keys: ['c/5'], duration: "2"},
-  {keys: ['d/5'], duration: "4"},
+  {id: "d0e92", keys: ['c/5'], duration: "2"},
+  {id: "d0e94", keys: ['d/5'], duration: "4"},
 
-  {keys: ['e/5'], duration: "4"},
-  {keys: ['f/5'], duration: "4"},
-  {keys: ['e/5'], duration: "4"},
+  {id: "d0e105", keys: ['e/5'], duration: "4"},
+  {id: "d0e107", keys: ['f/5'], duration: "4"},
+  {id: "d0e109", keys: ['e/5'], duration: "4"},
 
-  {keys: ['d/5'], duration: "2"},
-  {keys: ['b/4'], duration: "4"},
+  {id: "d0e123", keys: ['d/5'], duration: "2"},
+  {id: "d0e125", keys: ['b/4'], duration: "4"},
 
-  {keys: ['g/4'], duration: "4"},
-  {keys: ['a/4'], duration: "4"},
-  {keys: ['b/4'], duration: "4"}
+  {id: "d0e136", keys: ['g/4'], duration: "4"},
+  {id: "d0e138", keys: ['a/4'], duration: "4"},
+  {id: "d0e140", keys: ['b/4'], duration: "4"}
 ];
 
 var voiceRanges = [
@@ -35,6 +35,7 @@ var voiceRanges = [
 function createNotes(notesData){
   return notesData.map(function (spec) {
     return new Vex.Flow.StaveNote({
+      id: spec.id,
       keys: spec.keys,
       duration: spec.duration,
       auto_stem: true
@@ -97,7 +98,7 @@ Vex.Flow.Test.TssFormatter.autoSpacing = function(mode) {
 Vex.Flow.Test.TssFormatter.stretchySpacing = function(options, contextBuilder){
   var ctx = contextBuilder(options.canvas_sel, 1100, 195);
 
-  var availableWidth = 500,
+  var availableWidth = 1000,
       numStaves = 4;
 
   var formatter = new Vex.Flow.TssFormatter(tss);
